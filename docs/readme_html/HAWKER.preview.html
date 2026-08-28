@@ -58,7 +58,7 @@
 <blockquote>
 <p><strong>Halted Assets, Withdrawn Kinetics, Expired Rights: mining the graveyard of failed clinical assets for reclaimable drugs, reusable pockets and under-exploited targets.</strong></p>
 </blockquote>
-<p><img alt="swift" src="https://img.shields.io/badge/swift-6.0-F05138?logo=swift&amp;logoColor=white"> <img alt="platforms" src="https://img.shields.io/badge/platforms-iOS%20%C2%B7%20iPadOS%20%C2%B7%20macOS%20%C2%B7%20visionOS%20%C2%B7%20watchOS-000000?logo=apple&amp;logoColor=white"> <img alt="swiftui" src="https://img.shields.io/badge/SwiftUI-Observable-0071e3?logo=swift&amp;logoColor=white"> <img alt="realitykit" src="https://img.shields.io/badge/RealityKit-3D%20molecular-1C244B"> <img alt="charts" src="https://img.shields.io/badge/Swift%20Charts-analytics-467FF7"> <img alt="ane" src="https://img.shields.io/badge/Neural%20Engine-on--device-B57BFF"> <img alt="dependencies" src="https://img.shields.io/badge/dependencies-zero-00d084"> <img alt="tests" src="https://img.shields.io/badge/tests-25%20passing-00d084"> <img alt="data" src="https://img.shields.io/badge/data-ChEMBL%20%C2%B7%20ClinicalTrials.gov%20%C2%B7%20Open%20Targets%20%C2%B7%20UniChem%20%C2%B7%20RCSB%20%C2%B7%20PubChem%20%C2%B7%20openFDA-467FF7"> <img alt="phase" src="https://img.shields.io/badge/phase-4%20of%204%20built-FFAE43"> <img alt="licence" src="https://img.shields.io/badge/licence-MIT-9b51e0"> <img alt="author" src="https://img.shields.io/badge/author-Marc%20C.%20Deller%2C%20D.Phil.-1C244B"></p>
+<p><img alt="swift" src="https://img.shields.io/badge/swift-6.0-F05138?logo=swift&amp;logoColor=white"> <img alt="platforms" src="https://img.shields.io/badge/platforms-iOS%20%C2%B7%20iPadOS%20%C2%B7%20macOS%20%C2%B7%20visionOS%20%C2%B7%20watchOS-000000?logo=apple&amp;logoColor=white"> <img alt="swiftui" src="https://img.shields.io/badge/SwiftUI-Observable-0071e3?logo=swift&amp;logoColor=white"> <img alt="realitykit" src="https://img.shields.io/badge/RealityKit-3D%20molecular-1C244B"> <img alt="charts" src="https://img.shields.io/badge/Swift%20Charts-analytics-467FF7"> <img alt="ane" src="https://img.shields.io/badge/Neural%20Engine-on--device-B57BFF"> <img alt="dependencies" src="https://img.shields.io/badge/dependencies-zero-00d084"> <img alt="tests" src="https://img.shields.io/badge/tests-41%20passing-00d084"> <img alt="data" src="https://img.shields.io/badge/data-ChEMBL%20%C2%B7%20ClinicalTrials.gov%20%C2%B7%20Open%20Targets%20%C2%B7%20UniChem%20%C2%B7%20RCSB%20%C2%B7%20PubChem%20%C2%B7%20openFDA-467FF7"> <img alt="phase" src="https://img.shields.io/badge/phase-4%20of%204%20built-FFAE43"> <img alt="licence" src="https://img.shields.io/badge/licence-MIT-9b51e0"> <img alt="author" src="https://img.shields.io/badge/author-Marc%20C.%20Deller%2C%20D.Phil.-1C244B"></p>
 <table class="emd-info-table">
 <tr>
 <td>🌐 <b>Website</b></td><td><a href="https://marcdeller.com" target="_blank" rel="noopener noreferrer">marcdeller.com</a></td>
@@ -69,7 +69,7 @@
 
 <hr>
 <p>Thousands of clinical assets are dead. A large fraction died for reasons that had nothing to do with the biology: funding ran out, a trial could not recruit, two companies merged, a portfolio was reshuffled. The compound was fine. The pocket was fine. HAWKER separates <strong>death by biology</strong> from <strong>death by business</strong>, anchors every dead asset onto its 3D structure and pocket, and ranks what deserves a second look.</p>
-<p><strong>Why it matters:</strong> the single most expensive thing in drug discovery is a validated chemical series that nobody is working on, and the reason a programme stopped is usually recorded in public, in the sponsor's own words, in a free-text field almost nobody reads. Of the halted trials HAWKER can classify, <strong>88.1% stopped for reasons that say nothing about the molecule or the target</strong>. It is useful for: finding shelved compounds whose composition-of-matter protection has lapsed, spotting targets with strong genetic evidence in an indication they were never tried in, and finding pockets that have been crystallised, dosed into humans and then abandoned with all the SAR precedent still sitting in the PDB.</p>
+<p><strong>Why it matters:</strong> the single most expensive thing in drug discovery is a validated chemical series that nobody is working on, and the reason a programme stopped is usually recorded in public, in the sponsor's own words, in a free-text field almost nobody reads. Of the halted trials HAWKER can classify, <strong>88.1% stopped for reasons that say nothing about the molecule or the target</strong> (measured across 4,000 halted studies; on a 176-asset working set the figure is 85.7%). It is useful for: finding shelved compounds whose composition-of-matter protection has lapsed, spotting targets with strong genetic evidence in an indication they were never tried in, and finding pockets that have been crystallised, dosed into humans and then abandoned with all the SAR precedent still sitting in the PDB.</p>
 <p>Everything is pulled live from public APIs. Nothing is hand curated.</p>
 <h2>✨ What it does</h2>
 <p>Three discovery outputs, each with its own view:</p>
@@ -170,6 +170,31 @@
 <h2>🩺 How a cause of death is decided</h2>
 <p>A deterministic lexicon runs first: <strong>285 stems across 7 classes</strong>, matched case-insensitively in precedence order, first match wins. Every classification carries the exact substring that produced it, so the app can show its own working and the Method sheet prints the whole lexicon.</p>
 <p>Calibrated against <strong>4,000 real halted studies</strong> pulled from ClinicalTrials.gov, the lexicon brought unknown from 44.5% down to <strong>33.1%</strong> of all halted studies (24.7% of those that state a reason).</p>
+<h3>Two numbers that are easy to conflate</h3>
+<p>On a real 176-asset working set, 64.2% of assets come back <code>unknown</code>. That figure is <strong>not</strong> the classifier's score, and reading it as one would be wrong. An asset kept because its trials went quiet has no stated reason <em>by construction</em>: no trial was formally terminated, it simply stopped being worked on. The app reports both quantities separately, in the Method sheet and in the headless harness:</p>
+<div class="emd-table-wrap"><table class="emd-data-table">
+<thead>
+<tr>
+<th>Measured on a 176-asset run</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="Measured on a 176-asset run">Assets where no reason was filed at all</td>
+<td data-label="Value">56.2% of kept</td>
+</tr>
+<tr>
+<td data-label="Measured on a 176-asset run"><strong>Unknown among assets that do state one</strong></td>
+<td data-label="Value"><strong>18.2%</strong></td>
+</tr>
+<tr>
+<td data-label="Measured on a 176-asset run">Died of business rather than biology</td>
+<td data-label="Value">85.7% of classified</td>
+</tr>
+</tbody>
+</table></div>
+<p>The second row is the one the classifier is answerable for, and it is comfortably inside the 40% ceiling the build plan set.</p>
 <p>Text the lexicon does not match falls through to a nearest-neighbour vote on the Neural Engine, offline. Its exemplars are real sponsor statements labelled <em>by the lexicon</em>, so nothing is hand curated, and it declines to answer below its confidence gate rather than guessing.</p>
 <div class="emd-table-wrap"><table class="emd-data-table">
 <thead>
@@ -309,7 +334,7 @@ keep if: withdrawn, or any trial halted, or clinical with no activity in 5 years
 </code></pre>
 <p><strong>Rules:</strong> Swift 6 language mode, strict concurrency, zero warnings, zero third-party dependencies. <code>@Observable</code> throughout, no <code>ObservableObject</code> and no Combine. Swift Charts for 2D, RealityKit for 3D.</p>
 <h2>🧪 Tests</h2>
-<p>25 tests, all against <strong>real captured API responses and a real PDB entry</strong>, never hand-written samples.</p>
+<p>41 tests, all against <strong>real captured API responses and a real PDB entry</strong>, never hand-written samples.</p>
 <pre><code class="language-bash">swift test --package-path HawkerKit
 </code></pre>
 <p>The fixtures earn their keep. Writing decoders against live responses caught, among others:</p>
@@ -334,7 +359,8 @@ open HAWKER.xcodeproj
 </code></pre>
 <p>There is also a headless run of the ingest, which reports real counts, join hit rates and wall clock without the app:</p>
 <pre><code class="language-bash">swift build --package-path HawkerKit -c release
-./HawkerKit/.build/release/hawker-ingest 400
+./HawkerKit/.build/release/hawker-ingest 400                 # report only
+./HawkerKit/.build/release/hawker-ingest 400 assets.json     # also export the assets
 </code></pre>
 <h2>✅ To Do</h2>
 <p>Roadmap for HAWKER, in dependency order. Suggestions welcome.</p>
@@ -351,10 +377,13 @@ open HAWKER.xcodeproj
 <li><span class="emd-check">&#9989;</span> <strong>Method sheet.</strong> Reachable from every tab, printing the full lexicon, both thresholds, live class counts, data sources, and the two approaches that were rejected on measurement</li>
 <li><span class="emd-check">&#9989;</span> <strong>App Store Connect groundwork.</strong> Bundle identifiers registered, listing copy, categories, keywords, review notes and privacy statement prepared and within Apple's length limits</li>
 <li><span class="emd-check">&#11036;</span> <strong>Choose the App Store name and create the app record.</strong> <code>POST /v1/apps</code> returns 403 by design: the name is globally unique and the choice is not the tooling's to make. Both BOFFIN and JUMPjet needed a suffix, so "HAWKER" is likely taken</li>
+<li><span class="emd-check">&#9989;</span> <strong>Report the right denominator for the unknown rate.</strong> Measuring the classifier against all kept assets conflates "could not tell" with "nobody said". Both figures are now reported separately and the difference is explained where they appear</li>
+<li><span class="emd-check">&#9989;</span> <strong>Move PDB entry metadata off the ingest.</strong> Resolving three entries per asset was roughly 500 requests per run, spent on titles for a list most users never open. The RCSB search sorts by resolution server-side, so best-structure-first survives the change at no cost</li>
 <li><span class="emd-check">&#11036;</span> <strong>App icon.</strong> Drawn from the app's own data rather than a glyph: the Overlook point cloud is the obvious candidate. visionOS needs a layered <code>.solidimagestack</code>, not a flat PNG</li>
 <li><span class="emd-check">&#11036;</span> <strong>Screenshots for every platform in the record</strong>, including the Apple Watch set that App Store Connect only mentions once you press Add for Review</li>
-<li><span class="emd-check">&#11036;</span> <strong>WatchConnectivity sync.</strong> The watch currently runs its own bounded fetch; it should take the phone's cache when the phone has one</li>
+<li><span class="emd-check">&#9989;</span> <strong>WatchConnectivity sync.</strong> The phone pushes a top-25 digest whenever its working set changes and the watch adopts it, so the watch's own fetch is the fallback rather than the norm. Scoped to iOS and watchOS: WatchConnectivity imports on visionOS too, but the delegate's required members differ there and a <code>canImport</code> guard built a type that failed to conform</li>
 <li><span class="emd-check">&#11036;</span> <strong>Watch complication</strong> showing the day's top reclaimable asset</li>
+<li><span class="emd-check">&#9989;</span> <strong>The Overlook's idle orbit.</strong> One revolution every 75 seconds, stopping on touch and never starting under Reduce Motion. No shimmer on the data tabs: anything pulsing there reads as noise rather than signal</li>
 <li><span class="emd-check">&#11036;</span> <strong>visionOS ImmersiveSpace polish.</strong> The scene and the "Step inside" entry point exist; hand-driven selection and panel placement at 1.5 m need time on the device</li>
 <li><span class="emd-check">&#11036;</span> <strong>Background refresh</strong> to widen the working set beyond the seeded slice, with a notification when a new high Ghost Rank asset appears</li>
 <li><span class="emd-check">&#11036;</span> <strong>Chemotype clustering</strong> of dead ligands per pocket (Morgan fingerprints, Tanimoto, hierarchical clustering) to spot abandoned series next to successful ones</li>
@@ -364,7 +393,7 @@ open HAWKER.xcodeproj
 <h2>⚠️ Stated limits</h2>
 <ol>
 <li><strong>The patent estimate</strong> is approval or trial start plus 20 years. Real expiry needs Orange Book listings and term extensions. Labelled as an estimate throughout; never presented as legal guidance.</li>
-<li><strong><code>whyStopped</code> is not always filed.</strong> About 11% of halted studies leave it blank. Those score <code>unknown</code>, which is weighted at 0.5: deliberately neutral rather than optimistic, and excluded from the business-versus-biology percentage rather than assumed either way.</li>
+<li><strong>Most kept assets never had a reason filed.</strong> About 11% of <em>halted studies</em> leave <code>whyStopped</code> blank, but 56% of <em>kept assets</em> have no halted trial with a statement at all, because "its trials went quiet" is itself one of the ways in. Those score <code>unknown</code>, weighted at 0.5: deliberately neutral rather than optimistic, and excluded from the business-versus-biology percentage rather than assumed either way.</li>
 <li><strong>A pocket here is a 5.0 Å ligand-proximity shell</strong>, not a computed cavity. Fine for comparing reuse across entries; not a druggability calculation.</li>
 <li><strong>No cartoon ribbons.</strong> Tube and licorice only.</li>
 <li><strong>Compounds ChEMBL has not cross-referenced are simply absent.</strong> The join is on curated identifiers, which is more accurate than name matching but not more complete.</li>
