@@ -46,10 +46,29 @@ public struct WatchRootView: View {
             #endif
         }
         .tint(Palette.neon)
-        .task { store.load(limit: 400) }
+        .task { await adopt() }
+        .onReceive(NotificationCenter.default.publisher(for: .hawkerDigestReceived)) { _ in
+            Task { await adopt() }
+        }
     }
 
-    private var top: [Asset] { Array(store.assets.prefix(25)) }
+    @State private var digest: [Asset] = []
+
+    private var top: [Asset] {
+        // The phone's digest wins where there is one: running the whole join on a
+        // watch battery for data the phone already has is not a good trade.
+        digest.isEmpty ? Array(store.assets.prefix(25)) : digest
+    }
+
+    /// Take the phone's digest if it has sent one; otherwise fetch a bounded set here.
+    private func adopt() async {
+        await WatchSync.shared.activate()
+        if let received = await WatchSync.shared.received(), !received.assets.isEmpty {
+            digest = received.assets
+            return
+        }
+        store.load(limit: 300)
+    }
 
     @ViewBuilder
     private var list: some View {

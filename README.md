@@ -203,8 +203,9 @@ Roadmap for HAWKER, in dependency order. Suggestions welcome.
 - [ ] **Choose the App Store name and create the app record.** `POST /v1/apps` returns 403 by design: the name is globally unique and the choice is not the tooling's to make. Both BOFFIN and JUMPjet needed a suffix, so "HAWKER" is likely taken
 - [ ] **App icon.** Drawn from the app's own data rather than a glyph: the Overlook point cloud is the obvious candidate. visionOS needs a layered `.solidimagestack`, not a flat PNG
 - [ ] **Screenshots for every platform in the record**, including the Apple Watch set that App Store Connect only mentions once you press Add for Review
-- [ ] **WatchConnectivity sync.** The watch currently runs its own bounded fetch; it should take the phone's cache when the phone has one
+- [x] **WatchConnectivity sync.** The phone pushes a top-25 digest whenever its working set changes and the watch adopts it, so the watch's own fetch is the fallback rather than the norm. Scoped to iOS and watchOS: WatchConnectivity imports on visionOS too, but the delegate's required members differ there and a `canImport` guard built a type that failed to conform
 - [ ] **Watch complication** showing the day's top reclaimable asset
+- [x] **The Overlook's idle orbit.** One revolution every 75 seconds, stopping on touch and never starting under Reduce Motion. No shimmer on the data tabs: anything pulsing there reads as noise rather than signal
 - [ ] **visionOS ImmersiveSpace polish.** The scene and the "Step inside" entry point exist; hand-driven selection and panel placement at 1.5 m need time on the device
 - [ ] **Background refresh** to widen the working set beyond the seeded slice, with a notification when a new high Ghost Rank asset appears
 - [ ] **Chemotype clustering** of dead ligands per pocket (Morgan fingerprints, Tanimoto, hierarchical clustering) to spot abandoned series next to successful ones

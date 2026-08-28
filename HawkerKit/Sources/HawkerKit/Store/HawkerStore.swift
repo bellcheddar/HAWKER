@@ -58,6 +58,7 @@ public final class HawkerStore {
             if !force, let cached = await cache.load(), !cached.assets.isEmpty {
                 self.assets = cached.assets
                 self.state = .loaded(cached.savedAt)
+                await WatchSync.shared.send(assets: cached.assets)
                 // Still refresh in the background when the cache is stale.
                 if cached.isStale { self.refreshInBackground(limit: limit) }
                 return
@@ -83,6 +84,8 @@ public final class HawkerStore {
             self.summary = summary
             self.state = .loaded(Date())
             await cache.save(assets: assets)
+            // The watch takes this rather than repeating the join on its own battery.
+            await WatchSync.shared.send(assets: assets)
         } catch {
             // Keep whatever is already on screen rather than blanking it.
             if assets.isEmpty {
