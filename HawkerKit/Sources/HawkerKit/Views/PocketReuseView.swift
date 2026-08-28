@@ -436,6 +436,15 @@ public struct SuperposedSceneView: View {
                 ))
             }
             content.add(root)
+
+            #if !os(visionOS)
+            let all = superposition.entries.flatMap(\.ligandPositions)
+            let radius = MoleculeGeometry.boundingRadius(of: all, about: superposition.centre)
+            let camera = Entity()
+            camera.components.set(PerspectiveCameraComponent(near: 0.01, far: 100, fieldOfViewInDegrees: 60))
+            camera.position = SIMD3(0, 0, MoleculeGeometry.framingDistance(radius: radius))
+            content.add(camera)
+            #endif
         } update: { content in
             content.entities.first { $0.name == "superposed" }?.orientation =
                 simd_quatf(angle: yaw, axis: SIMD3(0, 1, 0)) * simd_quatf(angle: pitch, axis: SIMD3(1, 0, 0))

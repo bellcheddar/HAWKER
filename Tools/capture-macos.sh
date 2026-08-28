@@ -8,13 +8,42 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 
 OUT="${1:-assets/screenshots/macos}"
-APP=$(find "${DD:-$HOME/Library/Developer/Xcode/DerivedData}"/HAWKER*/Build/Products/Debug \
-      -maxdepth 1 -name "HAWKER.app" | head -1)
+# APP may be given directly; otherwise look in DD (a derived-data path) and then
+# in Xcode's default location, which nests one level deeper under HAWKER-*.
+if [ -z "${APP:-}" ] && [ -n "${DD:-}" ]; then
+    APP=$(find "$DD/Build/Products/Debug" -maxdepth 1 -name "HAWKER.app" 2>/dev/null | head -1)
+fi
+if [ -z "${APP:-}" ]; then
+    APP=$(find "$HOME/Library/Developer/Xcode/DerivedData"/HAWKER*/Build/Products/Debug \
+          -maxdepth 1 -name "HAWKER.app" 2>/dev/null | head -1)
+fi
+[ -n "${APP:-}" ] || { echo "no HAWKER.app found; set APP or DD" >&2; exit 1; }
 mkdir -p "$OUT"
 
-SRC="MGSNKSKPKDASQRRRSLEPAENVHGAGGGAFPASQTPSKPASADGHRGPSAAFAPAAAEPKLFGGFNSSDTVTSPQRAGPLAGGVTTFVALYDYESRTETDLSFKKGERLQIVNNTEGDWWLAHSLSTGQTGYIPSNYVAPSDSIQAEEWYFGKITRRESERLLLNAENPRGTFLVRESETTKGAYCLSVSDFDNAKGLNVKHYKIRKLDSGGFYITSRTQFNSLQQLVAYYSKHADGLCHRLTTVCPTSKPQTQGLAKDAWEIPRESLRLEVKLGQGCFGEVWMGTWNGTTRVAIKTLKPGTMSPEAFLQEAQVMKKLRHEKLVQLYAVVSEEPIYIVTEYMSKGSLLDFLKGETGKYLRLPQLVDMAAQIASGMAYVERMNYVHRDLRAANILVGENLVCKVADFGLARLIEDNEYTARQGAKFPIKWTAPEAALYGRFTIKSDVWSFGILLTELTTKGRVPYPGMVNREVLDQVERGYRMPCPPECPESLHDLMCQCWRKEPEERPTFEYLQAFLEDYFTSTEPQYQPGENL"
 
 settle() { local n=0; until [ $n -ge "${1:-30}" ]; do n=$((n+1)); sleep 1; done; }
+
+# The id of HAWKER's largest on-screen window.
+#
+# Area is computed NUMERICALLY. Sorting the window list as text puts "980" above
+# "1440" and picks a sheet or a panel instead of the main window.
+largest_window() {
+    python3 - <<'PYEOF'
+import Quartz
+best, area = None, 0
+for w in Quartz.CGWindowListCopyWindowInfo(
+        Quartz.kCGWindowListOptionOnScreenOnly | Quartz.kCGWindowListExcludeDesktopElements,
+        Quartz.kCGNullWindowID):
+    if w.get("kCGWindowOwnerName") != "HAWKER":
+        continue
+    b = w.get("kCGWindowBounds") or {}
+    a = float(b.get("Width", 0)) * float(b.get("Height", 0))
+    if a > area:
+        best, area = w.get("kCGWindowNumber"), a
+if best:
+    print(best)
+PYEOF
+}
 
 shot() {
     local name="$1"; shift
@@ -25,16 +54,16 @@ shot() {
     # the saved frame makes every launch start at the declared default.
     defaults delete com.mdeller.hawker 2>/dev/null || true
     open -a "$APP" --args "$@"
-    settle 32
+    settle "${MACSETTLE:-20}"
     # Take the largest HAWKER window: the app can have a sheet or an inspector
     # open, and the main window is always the biggest.
     local id
-    id=$(/tmp/winid | cut -d' ' -f1) || true
+    id=$(largest_window) || true
     if [ -z "$id" ]; then
-        # One retry: a cold launch that has to map 148 MB of assets can miss
-        # the window by a couple of seconds.
+        # One retry: a cold launch that has to read and decode the working set
+        # can miss the window by a couple of seconds.
         settle 20
-        id=$(/tmp/winid | cut -d' ' -f1) || true
+        id=$(largest_window) || true
     fi
     [ -z "$id" ] && { echo "  no window for $name"; return; }
     # -o drops the drop shadow, which would otherwise arrive as transparency.

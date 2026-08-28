@@ -16,9 +16,33 @@ import SwiftUI
 @MainActor
 public final class MoleculeGeometry {
 
-    /// World scale. Structures are in Angstrom; RealityKit wants metres, and 0.02 puts
-    /// a typical drug-sized ligand at a comfortable size on a desk or in a window.
+    /// World scale. Structures are in Angstrom and RealityKit works in metres.
+    ///
+    /// This value only sets the units the scene is built in: what actually decides how
+    /// big the molecule looks is the camera, which `framingDistance` computes from the
+    /// content's own extent. Relying on RealityView's default camera instead drew a
+    /// correct 47-atom ligand about sixty pixels wide in a 340-point panel.
     public static let scale: Float = 0.02
+
+    /// How far back a camera must sit to frame content of the given radius.
+    ///
+    /// Derived rather than tuned: for a vertical field of view `fov`, content of
+    /// radius `r` fits when the camera is at `r / tan(fov / 2)`. The margin leaves a
+    /// little air around the molecule so it is not clipped while rotating.
+    public static func framingDistance(radius: Float, fieldOfViewDegrees: Float = 60, margin: Float = 1.35) -> Float {
+        let halfFOV = (fieldOfViewDegrees / 2) * .pi / 180
+        return max(0.05, (radius / tan(halfFOV)) * margin)
+    }
+
+    /// Radius of the smallest sphere about `centre` containing every point, in world
+    /// units (so after `scale` has been applied).
+    public static func boundingRadius(of points: [SIMD3<Float>], about centre: SIMD3<Float>) -> Float {
+        var maximum: Float = 0
+        for p in points {
+            maximum = max(maximum, simd_distance(p, centre))
+        }
+        return max(0.01, maximum * scale)
+    }
 
     private var sphere: MeshResource
     private var cylinder: MeshResource
@@ -42,8 +66,10 @@ public final class MoleculeGeometry {
 
         for atom in atoms {
             let node = ModelEntity(mesh: sphere, materials: [material(for: atom.element, tint: tint)])
-            // Ball and stick: a quarter of the covalent radius, so bonds read clearly.
-            let r = ChemistryTables.covalentRadius(atom.element) * 0.25 * Self.scale
+            // Ball and stick. At a quarter of the covalent radius the spheres were
+            // barely wider than the bonds and the whole ligand read as wireframe;
+            // 0.40 against a 0.10 bond radius gives the classic proportion.
+            let r = ChemistryTables.covalentRadius(atom.element) * 0.40 * Self.scale
             node.scale = SIMD3(repeating: r)
             node.position = (atom.position - origin) * Self.scale
             root.addChild(node)
@@ -74,13 +100,15 @@ public final class MoleculeGeometry {
         ghosted: Bool = false
     ) -> Entity {
         let root = Entity()
-        let opacity: Float = ghosted ? 0.28 : 1.0
+        // The pocket is context, the ligand is the subject. At 0.28 with full emissive
+        // the backbone tube still read as the brightest thing in the scene.
+        let opacity: Float = ghosted ? 0.20 : 1.0
 
         // Side-chain atoms as licorice: small spheres plus inferred bonds.
         let sideChain = atoms.filter { !["N", "C", "O"].contains($0.atomName) || $0.atomName == "CA" }
         for atom in sideChain {
             let node = ModelEntity(mesh: sphere, materials: [material(for: atom.element, opacity: opacity)])
-            node.scale = SIMD3(repeating: 0.18 * Self.scale)
+            node.scale = SIMD3(repeating: 0.13 * Self.scale)
             node.position = (atom.position - centre) * Self.scale
             root.addChild(node)
         }
@@ -99,7 +127,7 @@ public final class MoleculeGeometry {
                 root.addChild(bondEntity(
                     (atom.position - centre) * Self.scale,
                     (other.position - centre) * Self.scale,
-                    element: atom.element, radius: 0.09, opacity: opacity
+                    element: atom.element, radius: 0.07, opacity: opacity
                 ))
             }
         }
@@ -114,7 +142,7 @@ public final class MoleculeGeometry {
                 root.addChild(bondEntity(
                     (spline[i] - centre) * Self.scale,
                     (spline[i + 1] - centre) * Self.scale,
-                    element: "TUBE", radius: 0.22, opacity: opacity
+                    element: "TUBE", radius: 0.14, opacity: opacity
                 ))
             }
         }
@@ -149,7 +177,9 @@ public final class MoleculeGeometry {
         material.metallic = 0.1
         // The neon rim the design language asks for, without a custom shader.
         material.emissiveColor = .init(color: PlatformColor(base))
-        material.emissiveIntensity = element == "TUBE" ? 0.15 : 0.35
+        // A transparent surface that still glows reads as solid, which is how the
+        // ghosted pocket ended up brighter than the ligand it was meant to sit behind.
+        material.emissiveIntensity = opacity < 1 ? 0.05 : (element == "TUBE" ? 0.15 : 0.45)
         if opacity < 1 {
             material.blending = .transparent(opacity: .init(floatLiteral: opacity))
         }

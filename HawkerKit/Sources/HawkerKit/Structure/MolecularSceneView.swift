@@ -87,6 +87,16 @@ public struct MolecularSceneView: View {
             root.name = "root"
             content.add(root)
             rebuild(root)
+
+            // An explicit camera, placed from the content's own extent. Without one
+            // the default camera sits wherever it likes and the molecule is a speck.
+            #if !os(visionOS)
+            let camera = Entity()
+            camera.components.set(PerspectiveCameraComponent(near: 0.01, far: 100, fieldOfViewInDegrees: 60))
+            camera.position = SIMD3(0, 0, framingDistance)
+            camera.name = "camera"
+            content.add(camera)
+            #endif
         } update: { content in
             guard let root = content.entities.first(where: { $0.name == "root" }) else { return }
             root.orientation = simd_quatf(angle: yaw, axis: SIMD3(0, 1, 0))
@@ -109,6 +119,15 @@ public struct MolecularSceneView: View {
         )
         #endif
         .accessibilityLabel(accessibilityDescription)
+    }
+
+    /// Distance that frames the ligand and its pocket together.
+    private var framingDistance: Float {
+        var points = loaded.ligand?.atoms.map(\.position) ?? []
+        if showPocket { points += loaded.pocketAtoms.map(\.position) }
+        guard !points.isEmpty else { return 0.6 }
+        let radius = MoleculeGeometry.boundingRadius(of: points, about: loaded.centre)
+        return MoleculeGeometry.framingDistance(radius: radius)
     }
 
     private func rebuild(_ root: Entity) {
