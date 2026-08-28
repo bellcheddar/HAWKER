@@ -20,32 +20,57 @@ that keeps re-applying Finder metadata, and `codesign` then fails with "resource
 Finder information, or similar detritus not allowed". `xattr -cr` fixes it for exactly
 one build.
 
-## The one thing that needs you
+## Submission state
 
-**Create the App Store Connect app record.** `POST /v1/apps` returns 403 by design: the
-App Store name is globally unique and choosing it is not the tooling's job.
+App record **6806223048**, `com.mdeller.hawker`, "HAWKER: Drug Repurposing".
 
-A search of the GB App Store finds no app called **HAWKER**, so it is worth trying
-first. Note that search cannot see *reserved but unpublished* names, which is the most
-likely reason BOFFIN and JUMPjet both ended up with an "ANE" suffix.
+All three platforms sit at `PREPARE_FOR_SUBMISSION` with everything filled in:
 
-Everything downstream is scripted and ready to fire the moment the record exists:
+| | iOS | macOS | visionOS |
+|---|---|---|---|
+| Build 1 attached, processing `VALID` | yes | yes | yes |
+| Description, keywords, support and marketing URLs | yes | yes | yes |
+| Copyright, App Review contact, review notes | yes | yes | yes |
+| Screenshots | 6 + 6 + 6 + 1 watch | 5 | 3 |
+
+Plus: Medical / Reference categories, subtitle, promotional text, privacy policy URL,
+free in all territories, age rating, content rights, and the MIT licence agreement in
+175 territories. `whatsNew` is deliberately absent: it cannot be set on a 1.0 and
+setting it fails the whole request.
+
+## The one thing that still needs you
+
+**App Privacy.** It is a single form in App Store Connect and no API can reach it:
+`/apps/{id}/appDataUsages` and `/apps/{id}/appPrivacyDetails` both return 404 for a key
+that can read `/users`, so it is not a permissions problem. HAWKER collects nothing, so
+the answer is "Data Not Collected" and nothing else.
+
+Then press **Add for Review**.
+
+To re-check the state at any time:
 
 ```bash
 set -a; source ~/.claude/skills/marcs-vibe-coding/credentials.env; set +a
-python3 Tools/asc_api.py status            # confirms the record
-python3 Tools/store_metadata.py all        # categories, copy, pricing, rating, EULA
+python3 Tools/asc_api.py status
+python3 Tools/store_metadata.py attach-builds    # re-runnable, no-op once attached
 ```
 
-Already done: three bundle identifiers registered under team `SYNV8TWB5Z`
-(`com.mdeller.hawker`, `.watchkitapp`, `.watchkitapp.widget`); listing copy, categories
-(Medical / Reference), keywords, promotional text, review notes and privacy policy all
-written and inside Apple's length limits; privacy policy live at
-<https://bellcheddar.github.io/HAWKER/privacy.html>.
+To ship a new build:
 
-Two further steps are manual by Apple's design and are described in the skill reference:
-**App Privacy** (one form; HAWKER collects nothing) and, for the watch complication, an
-**App Group** (created and assigned in the portal, which no API can do).
+```bash
+./Tools/archive.sh ios          # or macos, visionos
+./Tools/verify-bundle.sh build/archives/HAWKER-ios.xcarchive/Products/Applications/HAWKER.app
+./Tools/upload.sh build/archives/HAWKER-ios.xcarchive
+```
+
+To re-take screenshots, run the ingest once for real data, then capture:
+
+```bash
+./HawkerKit/.build/release/hawker-ingest 400 build/assets.json
+ASSETS=build/assets.json ./Tools/capture-screenshots.sh <udid> assets/screenshots/iphone69
+python3 Tools/normalise-screenshots.py     # simulators do not hand back sizes Apple takes
+python3 Tools/store_metadata.py screenshots
+```
 
 ## What the build plan got wrong, and what replaced it
 
