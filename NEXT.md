@@ -89,6 +89,32 @@ The top of the list is recognisable and the joins are right: Semaxanib/KIT/`2X2M
 Rimonabant/CNR1/`6AJI`, Alvocidib/CDK2/`1C8K`, Seliciclib/CDK2/`1UNL`,
 Marimastat/MMP9/`1R55`.
 
+## Verified by running it, with real data
+
+The simulator's cache was seeded with a completed 176-asset run, so every view was
+looked at with data in it rather than in a loading state:
+
+- **The Stall** lists 176 assets with correct science: Semaxanib / KIT / `2X2M` at Ghost
+  Rank 95, Reserpine / SLC18A2 / `8UCM` flagged Withdrawn, Oxycodone / OPRM1 / `7U63`.
+- **Post Mortem** highlights the classifier's matched phrase inside the sponsor's own
+  sentence: "**Administrative**ly complete." picked out in the operational colour, with
+  its NCT number and status beside it.
+- **The FTO caveat** sits directly beneath its number, in amber, as the plan requires.
+- **The Graveyard** headline reads "86% of 63 assets with a stated, classifiable reason",
+  with "113 more filed no usable reason and are excluded from this percentage rather than
+  assumed either way" immediately below it.
+
+Two bugs only visible this way: the tab labels collided on an iPhone, and the
+causes-by-year chart was scaling its axis from zero because Swift Charts treats a bare
+Int year as an ordinary continuous value.
+
+Use the DEBUG launch arguments to get back to any of these:
+
+```bash
+xcrun simctl launch <udid> com.mdeller.hawker -AppTab graveyard
+xcrun simctl launch <udid> com.mdeller.hawker -AppAsset CHEMBL276711
+```
+
 ## Known soft spot
 
 **Ingest throughput.** A 400-molecule seed takes 14 to 22 minutes wall clock. The limit
