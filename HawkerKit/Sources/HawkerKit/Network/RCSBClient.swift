@@ -29,7 +29,7 @@ public struct RCSBClient: Sendable {
                 )
             ),
             returnType: "entry",
-            requestOptions: .init(paginate: .init(start: 0, rows: limit))
+            requestOptions: .bestResolutionFirst(rows: limit)
         )
         return try await runSearch(query)
     }
@@ -48,7 +48,7 @@ public struct RCSBClient: Sendable {
                 )
             ),
             returnType: "entry",
-            requestOptions: .init(paginate: .init(start: 0, rows: limit))
+            requestOptions: .bestResolutionFirst(rows: limit)
         )
         return try await runSearch(query)
     }
@@ -120,6 +120,28 @@ public struct RCSBClient: Sendable {
 
         struct RequestOptions: Encodable, Sendable {
             let paginate: Paginate
+            let sort: [Sort]?
+
+            /// Ask the search service to order by resolution rather than sorting
+            /// locally. Sorting locally would need the entry metadata, and fetching
+            /// that for every hit is exactly the per-asset cost that was removed from
+            /// the ingest. This costs nothing and puts the best structure first.
+            static func bestResolutionFirst(rows: Int) -> RequestOptions {
+                RequestOptions(
+                    paginate: Paginate(start: 0, rows: rows),
+                    sort: [Sort(sortBy: "rcsb_entry_info.resolution_combined", direction: "asc")]
+                )
+            }
+        }
+
+        struct Sort: Encodable, Sendable {
+            let sortBy: String
+            let direction: String
+
+            enum CodingKeys: String, CodingKey {
+                case sortBy = "sort_by"
+                case direction
+            }
         }
 
         struct Paginate: Encodable, Sendable {
