@@ -14,6 +14,11 @@ public actor AssetCache {
         public let savedAt: Date
         public let assets: [Asset]
         public var isStale: Bool { Date().timeIntervalSince(savedAt) > AssetCache.ttl }
+
+        public init(savedAt: Date, assets: [Asset]) {
+            self.savedAt = savedAt
+            self.assets = assets
+        }
     }
 
     private let url: URL

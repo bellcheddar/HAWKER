@@ -4,7 +4,11 @@ import HawkerKit
 // A headless run of the ingest, so the pipeline can be validated and timed without
 // the app. Reports real numbers: counts per class, join hit rates and wall clock.
 
-let limit = CommandLine.arguments.dropFirst().first.flatMap(Int.init) ?? 200
+let args = Array(CommandLine.arguments.dropFirst())
+let limit = args.first.flatMap(Int.init) ?? 200
+/// Optional second argument: a path to write the assets to, so downstream tools
+/// (the icon generator) work from real output rather than invented data.
+let savePath = args.dropFirst().first
 
 print("HAWKER ingest: seeding with up to \(limit) ChEMBL molecules\n")
 let pipeline = IngestPipeline()
@@ -85,4 +89,11 @@ for kind in ResurrectionScore.Kind.allCases {
 
 func pct(_ n: Int, _ d: Int) -> String {
     d > 0 ? String(format: "%.1f%%", 100 * Double(n) / Double(d)) : "-"
+}
+
+if let savePath {
+    let snapshot = AssetCache.Snapshot(savedAt: Date(), assets: assets)
+    let data = try HawkerJSON.encoder.encode(snapshot)
+    try data.write(to: URL(fileURLWithPath: savePath))
+    print("\nwrote \(assets.count) assets to \(savePath) (\(data.count) bytes)")
 }
