@@ -13,12 +13,20 @@ public actor APIClient {
         "HAWKER/1.0 (macOS; +https://github.com/bellcheddar/HAWKER; marc@marcdeller.com)"
 
     private let session: URLSession
-    private let maxConcurrent = 5
+    /// Concurrency is **per host**, not global.
+    ///
+    /// It was global at first, and that was the ingest's real bottleneck rather than
+    /// the spacing: Open Targets' GraphQL endpoint answers in one to two seconds, and
+    /// a handful of those in flight occupied every slot while ChEMBL and RCSB, which
+    /// answer in tens of milliseconds, queued behind them. Five concurrent requests to
+    /// any one service is the politeness limit that matters; five across all of them
+    /// just makes the slowest service throttle the fastest.
+    private let maxConcurrentPerHost = 5
     /// Minimum spacing between two requests to the same host.
     private let hostSpacing: Duration = .milliseconds(200)
 
-    private var inFlight = 0
-    private var waiters: [CheckedContinuation<Void, Never>] = []
+    private var inFlight: [String: Int] = [:]
+    private var waiters: [String: [CheckedContinuation<Void, Never>]] = [:]
     private var lastRequestByHost: [String: ContinuousClock.Instant] = [:]
     private let clock = ContinuousClock()
 
@@ -79,10 +87,10 @@ public actor APIClient {
     // MARK: Throttle and retry
 
     private func perform(_ request: URLRequest) async throws -> Data {
-        await acquireSlot()
-        defer { releaseSlot() }
-
         let host = request.url?.host() ?? "-"
+        await acquireSlot(host: host)
+        defer { releaseSlot(host: host) }
+
         try await spaceRequests(to: host)
 
         var lastError: Error?
@@ -125,19 +133,21 @@ public actor APIClient {
         return .milliseconds(Int(500 * pow(2, Double(attempt))))
     }
 
-    private func acquireSlot() async {
-        if inFlight < maxConcurrent {
-            inFlight += 1
+    private func acquireSlot(host: String) async {
+        if inFlight[host, default: 0] < maxConcurrentPerHost {
+            inFlight[host, default: 0] += 1
             return
         }
-        await withCheckedContinuation { waiters.append($0) }
-        inFlight += 1
+        await withCheckedContinuation { waiters[host, default: []].append($0) }
+        inFlight[host, default: 0] += 1
     }
 
-    private func releaseSlot() {
-        inFlight -= 1
-        if !waiters.isEmpty {
-            waiters.removeFirst().resume()
+    private func releaseSlot(host: String) {
+        inFlight[host, default: 1] -= 1
+        if var queue = waiters[host], !queue.isEmpty {
+            let next = queue.removeFirst()
+            waiters[host] = queue
+            next.resume()
         }
     }
 

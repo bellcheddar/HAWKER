@@ -275,9 +275,21 @@ public actor IngestPipeline {
         let xrefs = (try? await unichem.crossReferences(chemblId: id)) ?? .empty(id)
         let target = await targetRecord(chemblTargetId: mechanism?.targetChemblId)
 
+        // ChEMBL's indication_refs and UniChem's cross-references list overlapping but
+        // different sets of trials, and the difference matters: on a 176-asset run,
+        // classifying only on ChEMBL's list left 66.5% unknown, largely because assets
+        // kept for being withdrawn often have no halted trial in that list at all.
+        // UniChem is already fetched above, so the extra trials cost one request.
+        var allTrials = trialRecords
+        let known = Set(trialRecords.map(\.nctId))
+        let extra = xrefs.nctIds.filter { !known.contains($0) }
+        if !extra.isEmpty, let more = try? await trials.studies(nctIds: extra) {
+            allTrials.append(contentsOf: more)
+        }
+
         // Classify on the halted trial that actually says something, preferring the
         // latest: a sponsor's most recent statement supersedes an older one.
-        let statement = trialRecords
+        let statement = allTrials
             .filter { $0.isHalted && ($0.whyStopped?.isEmpty == false) }
             .max(by: { ($0.deathDate ?? .distantPast) < ($1.deathDate ?? .distantPast) })?
             .whyStopped
@@ -305,7 +317,7 @@ public actor IngestPipeline {
             failedIndications: indications
         )
         let horizon = scorer.estimatedHorizonYear(
-            firstApproval: molecule.firstApproval, trials: trialRecords
+            firstApproval: molecule.firstApproval, trials: allTrials
         )
         let score = scorer.score(
             cause: verdict.cause,
@@ -330,7 +342,7 @@ public actor IngestPipeline {
             actionType: mechanism?.actionType,
             target: target,
             failedIndications: indications,
-            trials: trialRecords,
+            trials: allTrials.sorted { ($0.startDate ?? .distantPast) < ($1.startDate ?? .distantPast) },
             ccdCode: xrefs.ccdCode,
             pubchemCID: xrefs.pubchemCID,
             structures: structures,
