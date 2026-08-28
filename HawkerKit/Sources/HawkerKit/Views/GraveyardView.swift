@@ -123,7 +123,30 @@ public struct GraveyardView: View {
             .foregroundStyle(by: .value("Cause", row.cause.label))
         }
         .chartForegroundStyleScale(causeScale)
+        // Without an explicit domain Swift Charts treats the Int year as an ordinary
+        // continuous value and scales from zero, so two millennia of empty axis squash
+        // every data point into a spike at the right-hand edge.
+        .chartXScale(domain: yearDomain)
+        .chartXAxis {
+            AxisMarks(values: .automatic(desiredCount: 5)) { value in
+                AxisValueLabel {
+                    if let year = value.as(Int.self) {
+                        Text(String(year)).font(.caption2).monospacedDigit()
+                    }
+                }
+                AxisGridLine().foregroundStyle(Palette.navy)
+            }
+        }
         .frame(height: 230)
+    }
+
+    /// The real span of the data, padded by a year so the edges are not clipped.
+    private var yearDomain: ClosedRange<Int> {
+        let years = yearRows.map(\.year)
+        guard let lo = years.min(), let hi = years.max(), lo < hi else {
+            return 2000...2026
+        }
+        return (lo - 1)...(hi + 1)
     }
 
     private var causeByTargetClass: some View {

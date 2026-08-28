@@ -11,7 +11,41 @@ public final class Router {
     public var tab: HawkerTab = .stall
     public var presentingMethod = false
 
-    public init() {}
+    public init() {
+        #if DEBUG
+        applyLaunchArguments()
+        #endif
+    }
+
+    #if DEBUG
+    /// Drive the app from outside, for screenshots and UI verification.
+    ///
+    /// Without these there is no way to reach a particular screen from a script: a
+    /// `hawker://` deep link makes the simulator raise an "Open in HAWKER?" dialog that
+    /// needs a tap, and `simctl` cannot tap. UserDefaults reads the arguments for free.
+    ///
+    ///     xcrun simctl launch <udid> com.mdeller.hawker -AppTab graveyard
+    ///     xcrun simctl launch <udid> com.mdeller.hawker -AppAsset CHEMBL276711
+    ///     open -a HAWKER.app --args -AppTab pockets
+    private func applyLaunchArguments() {
+        let defaults = UserDefaults.standard
+        if let raw = defaults.string(forKey: "AppTab"),
+           let match = HawkerTab.allCases.first(where: { $0.rawValue.caseInsensitiveCompare(raw) == .orderedSame }) {
+            tab = match
+        }
+        if let id = defaults.string(forKey: "AppAsset"), !id.isEmpty {
+            path.append(HawkerRoute.asset(id.uppercased()))
+        }
+        if let pdb = defaults.string(forKey: "AppPocket"), !pdb.isEmpty {
+            let parts = pdb.split(separator: ":").map(String.init)
+            path.append(HawkerRoute.pocket(pdbId: parts[0].uppercased(),
+                                           ccd: parts.count > 1 ? parts[1].uppercased() : nil))
+        }
+        if defaults.bool(forKey: "AppMethod") {
+            presentingMethod = true
+        }
+    }
+    #endif
 
     public func go(_ route: HawkerRoute) {
         if case .method = route {
