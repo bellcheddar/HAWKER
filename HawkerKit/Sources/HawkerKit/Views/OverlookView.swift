@@ -246,6 +246,14 @@ public struct GraveyardCloudView: View {
 
     @State private var yaw: Float = 0
     @State private var dragStart: Float = 0
+    @State private var idleYaw: Float = 0
+    @State private var isDragging = false
+
+    /// A slow orbit, and nothing else. The design language is explicit that nothing
+    /// pulses on the data tabs because that reads as noise rather than signal, and the
+    /// Overlook only gets motion because it is the showcase. It stops the moment a
+    /// finger touches it, and never starts at all under Reduce Motion.
+    private let idleTick = Timer.publish(every: 1.0 / 30.0, on: .main, in: .common).autoconnect()
 
     public init(assets: [Asset], selected: Binding<Asset?>, idleMotion: Bool) {
         self.assets = assets
@@ -291,13 +299,25 @@ public struct GraveyardCloudView: View {
             content.add(root)
         } update: { content in
             content.entities.first { $0.name == "cloud" }?.orientation =
-                simd_quatf(angle: yaw, axis: SIMD3(0, 1, 0))
+                simd_quatf(angle: yaw + idleYaw, axis: SIMD3(0, 1, 0))
+        }
+        .onReceive(idleTick) { _ in
+            guard idleMotion, !isDragging else { return }
+            // About one revolution every 75 seconds: present, but not distracting
+            // enough to compete with the data it is showing.
+            idleYaw += 0.0028
         }
         #if !os(visionOS)
         .gesture(
             DragGesture()
-                .onChanged { yaw = dragStart + Float($0.translation.width) * 0.008 }
-                .onEnded { _ in dragStart = yaw }
+                .onChanged {
+                    isDragging = true
+                    yaw = dragStart + Float($0.translation.width) * 0.008
+                }
+                .onEnded { _ in
+                    dragStart = yaw
+                    isDragging = false
+                }
         )
         #endif
         .accessibilityLabel("Point cloud of \(assets.count) dead assets, positioned by year of death, structural tractability and Ghost Rank.")
