@@ -52,3 +52,12 @@ no explanations of what a pocket, a phase 2 trial or a co-crystal is.
   `clinicaltrials` NCT id in one call. This removes the plan's name-matching join entirely.
 - ClinicalTrials.gov v2: `filter.ids=` takes a comma-separated NCT list; `countTotal=true`
   is required for `totalCount`. `whyStopped` lives in `protocolSection.statusModule`.
+
+## Build notes for this machine (measured, not guessed)
+- **Keep DerivedData outside `~/Documents`.** The repo lives in an iCloud-backed folder,
+  which continually re-applies Finder metadata, and `codesign` then fails with
+  "resource fork, Finder information, or similar detritus not allowed". `xattr -cr`
+  fixes it for one build and the daemon undoes it. Build with
+  `-derivedDataPath` pointing somewhere outside Documents instead.
+- `xcodegen generate` needs `APPLE_TEAM_ID` in the environment: it is expanded into
+  `project.yml` and never committed, because this repo is public.
