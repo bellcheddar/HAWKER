@@ -1,0 +1,319 @@
+<h1>🪦 HAWKER</h1>
+<blockquote>
+<p><strong>Halted Assets, Withdrawn Kinetics, Expired Rights: mining the graveyard of failed clinical assets for reclaimable drugs, reusable pockets and under-exploited targets.</strong></p>
+</blockquote>
+<p><img alt="swift" src="https://img.shields.io/badge/swift-6.0-F05138?logo=swift&amp;logoColor=white"> <img alt="platforms" src="https://img.shields.io/badge/platforms-iOS%20%C2%B7%20iPadOS%20%C2%B7%20macOS%20%C2%B7%20visionOS%20%C2%B7%20watchOS-000000?logo=apple&amp;logoColor=white"> <img alt="swiftui" src="https://img.shields.io/badge/SwiftUI-Observable-0071e3?logo=swift&amp;logoColor=white"> <img alt="realitykit" src="https://img.shields.io/badge/RealityKit-3D%20molecular-1C244B"> <img alt="charts" src="https://img.shields.io/badge/Swift%20Charts-analytics-467FF7"> <img alt="ane" src="https://img.shields.io/badge/Neural%20Engine-on--device-B57BFF"> <img alt="dependencies" src="https://img.shields.io/badge/dependencies-zero-00d084"> <img alt="tests" src="https://img.shields.io/badge/tests-25%20passing-00d084"> <img alt="data" src="https://img.shields.io/badge/data-ChEMBL%20%C2%B7%20ClinicalTrials.gov%20%C2%B7%20Open%20Targets%20%C2%B7%20UniChem%20%C2%B7%20RCSB%20%C2%B7%20PubChem%20%C2%B7%20openFDA-467FF7"> <img alt="phase" src="https://img.shields.io/badge/phase-4%20of%204%20built-FFAE43"> <img alt="licence" src="https://img.shields.io/badge/licence-MIT-9b51e0"> <img alt="author" src="https://img.shields.io/badge/author-Marc%20C.%20Deller%2C%20D.Phil.-1C244B"></p>
+<table class="emd-info-table">
+<tr>
+<td>🌐 <b>Website</b></td><td><a href="https://marcdeller.com" target="_blank" rel="noopener noreferrer">marcdeller.com</a></td>
+<td>✉️ <b>Contact</b></td><td><a href="mailto:marc@marcdeller.com">marc@marcdeller.com</a></td>
+<td>🐙 <b>GitHub</b></td><td><a href="https://github.com/bellcheddar/HAWKER" target="_blank" rel="noopener noreferrer">bellcheddar/HAWKER</a></td>
+</tr>
+</table>
+
+<hr>
+<p>Thousands of clinical assets are dead. A large fraction died for reasons that had nothing to do with the biology: funding ran out, a trial could not recruit, two companies merged, a portfolio was reshuffled. The compound was fine. The pocket was fine. HAWKER separates <strong>death by biology</strong> from <strong>death by business</strong>, anchors every dead asset onto its 3D structure and pocket, and ranks what deserves a second look.</p>
+<p><strong>Why it matters:</strong> the single most expensive thing in drug discovery is a validated chemical series that nobody is working on, and the reason a programme stopped is usually recorded in public, in the sponsor's own words, in a free-text field almost nobody reads. Of the halted trials HAWKER can classify, <strong>88.1% stopped for reasons that say nothing about the molecule or the target</strong>. It is useful for: finding shelved compounds whose composition-of-matter protection has lapsed, spotting targets with strong genetic evidence in an indication they were never tried in, and finding pockets that have been crystallised, dosed into humans and then abandoned with all the SAR precedent still sitting in the PDB.</p>
+<p>Everything is pulled live from public APIs. Nothing is hand curated.</p>
+<h2>✨ What it does</h2>
+<p>Three discovery outputs, each with its own view:</p>
+<div class="emd-table-wrap"><table class="emd-data-table">
+<thead>
+<tr>
+<th>Output</th>
+<th>Question it answers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="Output"><strong>New drugs</strong></td>
+<td data-label="Question it answers">Which shelved compounds failed non-mechanistically <em>and</em> have lapsed protection?</td>
+</tr>
+<tr>
+<td data-label="Output"><strong>New targets</strong></td>
+<td data-label="Question it answers">Which proteins have strong genetic evidence in an indication the dead asset was never tested in?</td>
+</tr>
+<tr>
+<td data-label="Output"><strong>New pockets</strong></td>
+<td data-label="Question it answers">Which binding sites were crystallised, drugged into humans, then abandoned?</td>
+</tr>
+</tbody>
+</table></div>
+<h2>🧭 The six views</h2>
+<div class="emd-table-wrap"><table class="emd-data-table">
+<thead>
+<tr>
+<th>View</th>
+<th>What it is</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="View"><strong>The Stall</strong></td>
+<td data-label="What it is">Every dead asset as a filterable, sortable grid. Filter by cause, phase, target class, structure availability and estimated patent status</td>
+</tr>
+<tr>
+<td data-label="View"><strong>Post Mortem</strong></td>
+<td data-label="What it is">One asset in full: the four score bars, the trial timeline, the sponsor's verbatim words with the classifier's matched phrase highlighted, the target card, and a live 3D view of the ligand in its pocket</td>
+</tr>
+<tr>
+<td data-label="View"><strong>The Graveyard</strong></td>
+<td data-label="What it is">The analytics. Causes of death by year, by target class, by phase reached, and Ghost Rank against phase. Every mark drills through to a filtered Stall</td>
+</tr>
+<tr>
+<td data-label="View"><strong>Second-hand Shelf</strong></td>
+<td data-label="What it is">Assets whose estimated composition-of-matter horizon has passed, with the estimate caveat in the header rather than a footnote</td>
+</tr>
+<tr>
+<td data-label="View"><strong>Pocket Reuse</strong></td>
+<td data-label="What it is">Target-centric. Every clinical ligand that ever bound a target, superposed into one frame by Kabsch alignment on shared pocket residues, coloured by how each one died, plus a ligand-by-residue contact map</td>
+</tr>
+<tr>
+<td data-label="View"><strong>The Overlook</strong></td>
+<td data-label="What it is">The whole graveyard as a spatial console: a point cloud (x = year of death, y = structural tractability, z = Ghost Rank, colour = cause, size = phase) with six computed headline findings</td>
+</tr>
+</tbody>
+</table></div>
+<h2>🎯 The Resurrection Score</h2>
+<p>Four components, each 0 to 1, each displayed separately. The total is their weighted sum and nothing else: there is no model here and nothing is fitted.</p>
+<div class="emd-table-wrap"><table class="emd-data-table">
+<thead>
+<tr>
+<th>Component</th>
+<th>Weight</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="Component"><strong>Benign death</strong></td>
+<td data-label="Weight">0.35</td>
+<td data-label="Definition">How far the cause of death was a fact about the sponsor rather than about the molecule. Business, funding, operational and enrolment score 1.0; unknown scores 0.5; PK/ADMET 0.15; efficacy 0.05; mechanistic safety 0.0</td>
+</tr>
+<tr>
+<td data-label="Component"><strong>Structural tractability</strong></td>
+<td data-label="Weight">0.25</td>
+<td data-label="Definition">0.6 for a co-crystal of the exact ligand, +0.2 for any structure of the target, +0.2 scaled by Open Targets small-molecule tractability</td>
+</tr>
+<tr>
+<td data-label="Component"><strong>Biological whitespace</strong></td>
+<td data-label="Weight">0.25</td>
+<td data-label="Definition">The best genetically supported disease association that is not the indication it failed in</td>
+</tr>
+<tr>
+<td data-label="Component"><strong>Freedom to operate</strong></td>
+<td data-label="Weight">0.15</td>
+<td data-label="Definition"><strong>An estimate only.</strong> Earliest public approval or trial start date plus 20 years</td>
+</tr>
+</tbody>
+</table></div>
+<p><code>overall = Σ weight × component</code>, rendered 0 to 100 as the <strong>Ghost Rank</strong>.</p>
+<blockquote>
+<p>⚠️ <strong>The freedom-to-operate component is a crude estimate from public dates.</strong> Real composition-of-matter expiry needs Orange Book patent listings, term extensions and paediatric exclusivity, none of which are used here. It is not a freedom-to-operate opinion and the app labels it as an estimate everywhere it appears.</p>
+</blockquote>
+<h2>🩺 How a cause of death is decided</h2>
+<p>A deterministic lexicon runs first: <strong>285 stems across 7 classes</strong>, matched case-insensitively in precedence order, first match wins. Every classification carries the exact substring that produced it, so the app can show its own working and the Method sheet prints the whole lexicon.</p>
+<p>Calibrated against <strong>4,000 real halted studies</strong> pulled from ClinicalTrials.gov, the lexicon brought unknown from 44.5% down to <strong>33.1%</strong> of all halted studies (24.7% of those that state a reason).</p>
+<p>Text the lexicon does not match falls through to a nearest-neighbour vote on the Neural Engine, offline. Its exemplars are real sponsor statements labelled <em>by the lexicon</em>, so nothing is hand curated, and it declines to answer below its confidence gate rather than guessing.</p>
+<div class="emd-table-wrap"><table class="emd-data-table">
+<thead>
+<tr>
+<th>Vote-share gate</th>
+<th>Coverage</th>
+<th>Precision</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="Vote-share gate">0.50</td>
+<td data-label="Coverage">68.6%</td>
+<td data-label="Precision">89.6%</td>
+</tr>
+<tr>
+<td data-label="Vote-share gate">0.70</td>
+<td data-label="Coverage">49.2%</td>
+<td data-label="Precision">95.8%</td>
+</tr>
+<tr>
+<td data-label="Vote-share gate"><strong>0.80 (shipped)</strong></td>
+<td data-label="Coverage"><strong>42.6%</strong></td>
+<td data-label="Precision"><strong>97.8%</strong></td>
+</tr>
+<tr>
+<td data-label="Vote-share gate">0.90</td>
+<td data-label="Coverage">32.3%</td>
+<td data-label="Precision">98.8%</td>
+</tr>
+</tbody>
+</table></div>
+<h3>Two approaches that were measured and rejected</h3>
+<p>The build plan specified eight hand-written prototype sentences with a 0.55 cosine gate. Measured against held-out text, the prototypes classified <strong>one sentence in five</strong> correctly, the "PK" prototype acted as an attractor for enrolment, funding and efficacy text alike, and the string <code>"Study closed."</code> scored higher than four of five clearly-classifiable sentences. On the rescaled 0–1 similarity, a 0.55 gate accepted <strong>99.7% of everything</strong>, which is the tell that the threshold meant nothing.</p>
+<p>Separately, sentence similarity <strong>cannot</strong> decide whether two disease names mean the same disease. Measured pairs:</p>
+<div class="emd-table-wrap"><table class="emd-data-table">
+<thead>
+<tr>
+<th>Pair</th>
+<th>Cosine</th>
+<th>Should be</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="Pair">myocardial infarction / asthma</td>
+<td data-label="Cosine">0.671</td>
+<td data-label="Should be">different</td>
+</tr>
+<tr>
+<td data-label="Pair">atherosclerosis / atherosclerotic disease</td>
+<td data-label="Cosine">0.657</td>
+<td data-label="Should be">same</td>
+</tr>
+<tr>
+<td data-label="Pair">COPD / chronic obstructive pulmonary disease</td>
+<td data-label="Cosine">0.287</td>
+<td data-label="Should be">same</td>
+</tr>
+</tbody>
+</table></div>
+<p>The distributions overlap completely and in the wrong order, so no threshold separates them. Whitespace exclusion therefore uses exact identifiers plus a conservative shared-stem rule instead.</p>
+<h2>🗄️ Data sources</h2>
+<p>All free, all keyless, all live, cached on device with a 7-day TTL.</p>
+<div class="emd-table-wrap"><table class="emd-data-table">
+<thead>
+<tr>
+<th>Source</th>
+<th>Gives us</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="Source"><strong>ChEMBL</strong> (EMBL-EBI)</td>
+<td data-label="Gives us">Molecules, max phase, withdrawn flag, mechanism of action, target, and the indications each asset was tested in</td>
+</tr>
+<tr>
+<td data-label="Source"><strong>ClinicalTrials.gov v2</strong></td>
+<td data-label="Gives us">Trial status, phase, enrolment, dates, and <code>whyStopped</code>, the sponsor's own stated reason</td>
+</tr>
+<tr>
+<td data-label="Source"><strong>Open Targets</strong></td>
+<td data-label="Gives us">Target class, small-molecule tractability, safety liabilities, disease associations with per-datatype evidence scores</td>
+</tr>
+<tr>
+<td data-label="Source"><strong>UniChem</strong> (EMBL-EBI)</td>
+<td data-label="Gives us">ChEMBL id → PDB chemical component (CCD), PubChem CID, and registered NCT ids</td>
+</tr>
+<tr>
+<td data-label="Source"><strong>RCSB PDB</strong></td>
+<td data-label="Gives us">Entries containing a ligand or target, entry metadata, mmCIF coordinates</td>
+</tr>
+<tr>
+<td data-label="Source"><strong>PubChem PUG-REST</strong></td>
+<td data-label="Gives us">Ready-made 3D conformers, so no conformer generator is needed</td>
+</tr>
+<tr>
+<td data-label="Source"><strong>openFDA</strong></td>
+<td data-label="Gives us">Approval dates and application numbers</td>
+</tr>
+</tbody>
+</table></div>
+<h3>The join</h3>
+<pre><code class="language-text">ChEMBL molecules at max_phase 2 or 3          (reached the clinic)
+  → ChEMBL mechanism + drug_indication, BATCHED via __in filters
+  → NCT ids come from indication_refs, so no drug-name matching is needed
+  → ClinicalTrials.gov by id, 50 at a time    (statuses, phases, whyStopped)
+  → APPLY THE KEEP RULE HERE
+  then, for survivors only:
+  → UniChem      → CCD code and PubChem CID
+  → ChEMBL target → UniProt → Open Targets    (tractability, safety, associations)
+  → RCSB         → co-crystals of this exact ligand
+keep if: withdrawn, or any trial halted, or clinical with no activity in 5 years
+</code></pre>
+<p>The ordering is the whole performance story. A first version called UniChem and both ChEMBL detail endpoints once per molecule, which at this client's 200 ms per-host spacing meant roughly <strong>70 minutes for 2,000 molecules</strong>. Batching the ChEMBL endpoints and deferring everything else until after the keep rule cuts EBI traffic by about 85%, because most molecules are discarded before anything expensive is spent on them.</p>
+<p>The build plan expected to reach ClinicalTrials.gov by matching drug names, and listed the miss rate on code names and licensee renames as a known limitation. ChEMBL's <code>drug_indication.indication_refs</code> turned out to carry the NCT ids directly, so <strong>the trial join is on curated identifiers and that limitation does not apply</strong>.</p>
+<h2>🧱 Architecture</h2>
+<p>One local Swift package holds the entire app. The four app targets contain an <code>App.swift</code> and nothing else.</p>
+<pre><code class="language-text">HAWKER/
+├── HawkerKit/                    local SPM package: the whole app
+│   └── Sources/HawkerKit/
+│       ├── Models/               Asset, TargetRecord, TrialRecord, StructureRef,
+│       │                         CauseOfDeath, ResurrectionScore
+│       ├── Network/              APIClient actor + 7 API clients
+│       ├── Ingest/               IngestPipeline, CauseClassifier
+│       ├── Neural/               SentenceSpace, ExemplarBank, WhitespaceMatcher,
+│       │                         SemanticSearch
+│       ├── Score/                Scorer
+│       ├── Structure/            MMCIFParser, SDFParser, PocketFinder, Kabsch,
+│       │                         MoleculeGeometry, TubeBuilder, MolecularSceneView
+│       ├── Design/               Palette, Typography, Components
+│       ├── Router/               HawkerRoute, Router
+│       ├── Store/                HawkerStore, AssetCache
+│       └── Views/                the six tabs, Method sheet, watch views
+├── Apps/HAWKER-{iOS,macOS,visionOS,watchOS}/     App.swift only
+└── Tools/                        App Store Connect tooling
+</code></pre>
+<p><strong>Rules:</strong> Swift 6 language mode, strict concurrency, zero warnings, zero third-party dependencies. <code>@Observable</code> throughout, no <code>ObservableObject</code> and no Combine. Swift Charts for 2D, RealityKit for 3D.</p>
+<h2>🧪 Tests</h2>
+<p>25 tests, all against <strong>real captured API responses and a real PDB entry</strong>, never hand-written samples.</p>
+<pre><code class="language-bash">swift test --package-path HawkerKit
+</code></pre>
+<p>The fixtures earn their keep. Writing decoders against live responses caught, among others:</p>
+<ul>
+<li>ChEMBL's <code>max_phase</code> is a <strong>String</strong> (<code>"3.0"</code>) on the molecule resource but an <strong>Int</strong> on the mechanism resource</li>
+<li>UniChem's <code>totalCompounds</code> is a <strong>String</strong>, and some source ids are Ints where most are Strings</li>
+<li>Open Targets <code>tractability</code> is a list of <code>{label, modality, value: Bool}</code> <strong>booleans</strong>, not the numbered buckets that were assumed</li>
+<li>RCSB's search service answers <strong>HTTP 204 with an empty body</strong> when nothing matches, not a 200 with an empty result set</li>
+</ul>
+<p>Structure tests run against <strong>5I9I</strong> (Lp-PLA2 with darapladib bound, 2.7 Å), which is the exact co-crystal the ingest finds for <code>CHEMBL204021</code>, so one real case exercises the whole join. Two of them are deliberately adversarial: the grid-based <code>PocketFinder</code> is asserted to return <em>exactly</em> what a brute-force O(n²) scan returns, and <code>Kabsch</code> is fed a mirror image and asserted <strong>not</strong> to fit it, because without the determinant correction a reflection superposes beautifully and means nothing.</p>
+<h2>🚀 Building</h2>
+<p>Requires Xcode 26 or later and <a href="https://github.com/yonaskolb/XcodeGen">XcodeGen</a>.</p>
+<pre><code class="language-bash">brew install xcodegen
+git clone https://github.com/bellcheddar/HAWKER.git
+cd HAWKER
+
+# The team id is never committed. Export it, or source your own credentials file.
+export APPLE_TEAM_ID=XXXXXXXXXX
+xcodegen generate
+
+open HAWKER.xcodeproj
+</code></pre>
+<p>There is also a headless run of the ingest, which reports real counts, join hit rates and wall clock without the app:</p>
+<pre><code class="language-bash">swift build --package-path HawkerKit -c release
+./HawkerKit/.build/release/hawker-ingest 400
+</code></pre>
+<h2>✅ To Do</h2>
+<p>Roadmap for HAWKER, in dependency order. Suggestions welcome.</p>
+<ul class="emd-tasklist">
+<li><span class="emd-check">&#9989;</span> <strong>Probe every API before writing a client.</strong> Fetched one live response from each of the seven services and coded the decoders against what actually came back, saving each as a test fixture. Four field-shape assumptions in the build plan turned out to be wrong, and one (<code>max_phase</code> as a String) would have silently dropped every asset</li>
+<li><span class="emd-check">&#9989;</span> <strong>Deterministic cause-of-death lexicon.</strong> 285 stems across 7 classes with precedence ordering, calibrated on 4,000 real halted studies. Unknown fell from 44.5% to 33.1%. Two first-draft stems were substring collisions and both landed in the most consequential class: <code>"harm"</code> matches <code>"pharmaceutical"</code>. There is now a collision guard in the test suite</li>
+<li><span class="emd-check">&#9989;</span> <strong>Resurrection Score.</strong> Four components, always displayed separately, never collapsed into an unexplained number</li>
+<li><span class="emd-check">&#9989;</span> <strong>On-device nearest-neighbour fallback.</strong> Replaced the build plan's hand-written prototype sentences after measuring them at 1-in-5 accuracy. Exemplars are real sponsor statements labelled by the lexicon, so still no hand curation. 42.6% coverage at 97.8% precision, and it declines below its gate</li>
+<li><span class="emd-check">&#9989;</span> <strong>Ingest restructured for throughput.</strong> Batched ChEMBL <code>__in</code> filters and deferred the expensive per-asset calls until after the keep rule, cutting EBI traffic by about 85%</li>
+<li><span class="emd-check">&#9989;</span> <strong>Neon Autopsy design system.</strong> Palette, typography and components, with the cause-of-death colour as a semantic constant that survives into the 3D scene</li>
+<li><span class="emd-check">&#9989;</span> <strong>Router and deep links.</strong> Every navigable element routes through one <code>HawkerRoute</code> enum; <code>hawker://asset/CHEMBL204021</code> opens the right Post Mortem, and a filtered Stall is itself a shareable link</li>
+<li><span class="emd-check">&#9989;</span> <strong>Structure stack.</strong> mmCIF <code>atom_site</code> parser, V2000 SDF parser, grid-based <code>PocketFinder</code>, and a from-scratch Kabsch superposition, all tested against a real entry</li>
+<li><span class="emd-check">&#9989;</span> <strong>All six views, on all five platforms.</strong> iOS, iPadOS, macOS, visionOS and watchOS build with zero warnings under Swift 6 strict concurrency</li>
+<li><span class="emd-check">&#9989;</span> <strong>Method sheet.</strong> Reachable from every tab, printing the full lexicon, both thresholds, live class counts, data sources, and the two approaches that were rejected on measurement</li>
+<li><span class="emd-check">&#9989;</span> <strong>App Store Connect groundwork.</strong> Bundle identifiers registered, listing copy, categories, keywords, review notes and privacy statement prepared and within Apple's length limits</li>
+<li><span class="emd-check">&#11036;</span> <strong>Choose the App Store name and create the app record.</strong> <code>POST /v1/apps</code> returns 403 by design: the name is globally unique and the choice is not the tooling's to make. Both BOFFIN and JUMPjet needed a suffix, so "HAWKER" is likely taken</li>
+<li><span class="emd-check">&#11036;</span> <strong>App icon.</strong> Drawn from the app's own data rather than a glyph: the Overlook point cloud is the obvious candidate. visionOS needs a layered <code>.solidimagestack</code>, not a flat PNG</li>
+<li><span class="emd-check">&#11036;</span> <strong>Screenshots for every platform in the record</strong>, including the Apple Watch set that App Store Connect only mentions once you press Add for Review</li>
+<li><span class="emd-check">&#11036;</span> <strong>WatchConnectivity sync.</strong> The watch currently runs its own bounded fetch; it should take the phone's cache when the phone has one</li>
+<li><span class="emd-check">&#11036;</span> <strong>Watch complication</strong> showing the day's top reclaimable asset</li>
+<li><span class="emd-check">&#11036;</span> <strong>visionOS ImmersiveSpace polish.</strong> The scene and the "Step inside" entry point exist; hand-driven selection and panel placement at 1.5 m need time on the device</li>
+<li><span class="emd-check">&#11036;</span> <strong>Background refresh</strong> to widen the working set beyond the seeded slice, with a notification when a new high Ghost Rank asset appears</li>
+<li><span class="emd-check">&#11036;</span> <strong>Chemotype clustering</strong> of dead ligands per pocket (Morgan fingerprints, Tanimoto, hierarchical clustering) to spot abandoned series next to successful ones</li>
+<li><span class="emd-check">&#11036;</span> <strong>Pocket similarity search:</strong> find targets whose pockets resemble one where a dead asset already binds, which is a structural repurposing suggestion</li>
+<li><span class="emd-check">&#11036;</span> <strong>Export a Post Mortem as a shareable PDF dossier</strong></li>
+</ul>
+<h2>⚠️ Stated limits</h2>
+<ol>
+<li><strong>The patent estimate</strong> is approval or trial start plus 20 years. Real expiry needs Orange Book listings and term extensions. Labelled as an estimate throughout; never presented as legal guidance.</li>
+<li><strong><code>whyStopped</code> is not always filed.</strong> About 11% of halted studies leave it blank. Those score <code>unknown</code>, which is weighted at 0.5: deliberately neutral rather than optimistic, and excluded from the business-versus-biology percentage rather than assumed either way.</li>
+<li><strong>A pocket here is a 5.0 Å ligand-proximity shell</strong>, not a computed cavity. Fine for comparing reuse across entries; not a druggability calculation.</li>
+<li><strong>No cartoon ribbons.</strong> Tube and licorice only.</li>
+<li><strong>Compounds ChEMBL has not cross-referenced are simply absent.</strong> The join is on curated identifiers, which is more accurate than name matching but not more complete.</li>
+</ol>
+<h2>📄 Licence</h2>
+<p>MIT. See <a href="LICENCE">LICENCE</a>.</p>
+<h2>👤 Author</h2>
+<p><strong>Marc C. Deller, D.Phil.</strong> <a href="https://marcdeller.com">marcdeller.com</a> · <a href="mailto:marc@marcdeller.com">marc@marcdeller.com</a> · <a href="https://github.com/bellcheddar">github.com/bellcheddar</a></p>
