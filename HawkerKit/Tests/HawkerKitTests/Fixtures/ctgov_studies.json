@@ -1,0 +1,1753 @@
+{
+ "totalCount": 3,
+ "studies": [
+  {
+   "protocolSection": {
+    "identificationModule": {
+     "nctId": "NCT00269048",
+     "orgStudyIdInfo": {
+      "id": "LPL104884"
+     },
+     "organization": {
+      "fullName": "GlaxoSmithKline",
+      "class": "INDUSTRY"
+     },
+     "briefTitle": "SB-480848 In Subjects With Coronary Heart Disease",
+     "officialTitle": "A Multicenter, Randomized, Double-blind, Placebo-controlled, Parallel-group, Dose-ranging Study of SB-480848, an Oral Lipoprotein-associated Phospholipase A2 (Lp-PLA2) Inhibitor, in Subjects With Stable Coronary Heart Disease (CHD) or CHD-risk Equivalent to Examine Chronic Inhibition of Lp-PLA2 Effects on Circulating Biomarkers Associated With Cardiovascular Risk, Safety and Tolerability Over 12 Weeks"
+    },
+    "statusModule": {
+     "statusVerifiedDate": "2016-08",
+     "overallStatus": "COMPLETED",
+     "expandedAccessInfo": {
+      "hasExpandedAccess": false
+     },
+     "startDateStruct": {
+      "date": "2005-11"
+     },
+     "primaryCompletionDateStruct": {
+      "date": "2006-09",
+      "type": "ACTUAL"
+     },
+     "completionDateStruct": {
+      "date": "2006-09",
+      "type": "ACTUAL"
+     },
+     "studyFirstSubmitDate": "2005-12-21",
+     "studyFirstSubmitQcDate": "2005-12-22",
+     "studyFirstPostDateStruct": {
+      "date": "2005-12-23",
+      "type": "ESTIMATED"
+     },
+     "lastUpdateSubmitDate": "2016-08-05",
+     "lastUpdatePostDateStruct": {
+      "date": "2016-08-08",
+      "type": "ESTIMATED"
+     }
+    },
+    "sponsorCollaboratorsModule": {
+     "responsibleParty": {
+      "type": "SPONSOR"
+     },
+     "leadSponsor": {
+      "name": "GlaxoSmithKline",
+      "class": "INDUSTRY"
+     }
+    },
+    "oversightModule": {
+     "oversightHasDmc": false
+    },
+    "descriptionModule": {
+     "briefSummary": "This trial of SB-480848 in approximately 920 subjects with Coronary Heart Disease (CHD) or CHD-risk equivalent will examine whether SB-480848 produces sustained inhibition of plasma Lp-PLA2 activity, explore the effects of SB-480848 on other circulating biomarkers associated with cardiovascular risk, and evaluate the pharmacokinetics, safety and tolerability of SB-480848 over 12 weeks of once-daily oral dosing. Subjects will first be randomized 1:1 to double-blind atorvastatin 20 mg or 80 mg once daily for a minimum of 3 weeks. Subjects will then be randomized 1:1:1:1 to oral doses of SB-480848 40 mg, 80 mg, 160 mg or placebo once daily for 12 weeks. Blood samples will be collected at various timepoints. Vital signs, electrocardiograms, clinical laboratory safety tests and adverse event assessments will be performed to evaluate the safety and tolerability of SB-480848.",
+     "detailedDescription": "A multicenter, randomized, double-blind, placebo-controlled, parallel-group, dose-ranging study of SB-480848, an oral lipoprotein-associated phospholipase A2 (Lp-PLA2) inhibitor, in subjects with stable coronary heart disease (CHD) or CHD-risk equivalent to examine chronic inhibition of Lp-PLA2, effects on circulating biomarkers associated with cardiovascular risk, safety and tolerability over 12 weeks"
+    },
+    "conditionsModule": {
+     "conditions": [
+      "Atherosclerosis"
+     ],
+     "keywords": [
+      "CHD",
+      "Lp-PLA2",
+      "SB-480848"
+     ]
+    },
+    "designModule": {
+     "studyType": "INTERVENTIONAL",
+     "phases": [
+      "PHASE2"
+     ],
+     "designInfo": {
+      "allocation": "RANDOMIZED",
+      "interventionModel": "PARALLEL",
+      "primaryPurpose": "TREATMENT",
+      "maskingInfo": {
+       "masking": "DOUBLE",
+       "whoMasked": [
+        "PARTICIPANT",
+        "CARE_PROVIDER"
+       ]
+      }
+     },
+     "enrollmentInfo": {
+      "count": 969,
+      "type": "ACTUAL"
+     }
+    },
+    "armsInterventionsModule": {
+     "armGroups": [
+      {
+       "label": "Arm 1",
+       "type": "EXPERIMENTAL",
+       "description": "SB-480848",
+       "interventionNames": [
+        "Drug: SB-480848"
+       ]
+      },
+      {
+       "label": "Arm 2",
+       "type": "PLACEBO_COMPARATOR",
+       "description": "placebo",
+       "interventionNames": [
+        "Drug: placebo"
+       ]
+      }
+     ],
+     "interventions": [
+      {
+       "type": "DRUG",
+       "name": "SB-480848",
+       "description": "SB-480848",
+       "armGroupLabels": [
+        "Arm 1"
+       ]
+      },
+      {
+       "type": "DRUG",
+       "name": "placebo",
+       "description": "placebo",
+       "armGroupLabels": [
+        "Arm 2"
+       ]
+      }
+     ]
+    },
+    "outcomesModule": {
+     "primaryOutcomes": [
+      {
+       "measure": "On treatment sustained inhibition of plasma Lp-PLA2 activity.",
+       "timeFrame": "12 Weeks"
+      }
+     ],
+     "secondaryOutcomes": [
+      {
+       "measure": "Difference in dose-dependent effects of SB-480848 on plasma Lp-PLA2 activity, other biomarkers, and safety.",
+       "timeFrame": "12 Weeks"
+      }
+     ]
+    },
+    "eligibilityModule": {
+     "eligibilityCriteria": "Inclusion criteria:\n\n* Female subjects must be of non-childbearing potential.\n* Stable CHD or CHD-risk equivalent.\n* Must have been on a stable dose of a statin for =4 weeks with LDL \\<130 mg/dL (3.4 mmol/L) or off statin therapy for =4 weeks with LDL \\<160 mg/dL (4.1 mmol/L).\n* On a stable dose of at least one oral antiplatelet agent (e.g., aspirin, clopidogrel, or ticlopidine).\n\nExclusion criteria:\n\n* Recent cardiovascular event and / or vascular procedure.\n* History of difficult to manage dyslipidemia.\n* Planned cardiac surgery or PCI (percutaneous coronary intervention) or planned major non-cardiac surgery.\n* Inadequately controlled hypertension.\n* Poorly controlled diabetes mellitus.\n* Serum triglycerides \\>400 mg/dL (4.52 mmol/L).\n* Recent or ongoing acute infection.\n* History of chronic inflammatory disease.\n* Receiving topical, oral, inhaled or injectable corticosteroids.\n* History of chronic viral hepatitis, or other chronic hepatic disorders.\n* History of kidney transplant.\n* History of myopathy or inflammatory muscle disease, or elevated total serum CK (3 x ULN).\n* Severe heart failure (NYHA class III or IV), or severe left ventricular dysfunction (ejection fraction \\<30%).\n* Asthma manifested by bronchospasm in the past 6 months, or currently taking inhaled bronchodilator on regular basis.\n* History of anaphylaxis, anaphylactoid reactions or severe allergic responses within the past 6 months.\n* Malignancy within the past 2 years, other than non-melanoma skin cancer.\n* Current life-threatening condition other than vascular disease that may prevent a subject from completing the study.\n* QTc interval \\>440 msec (males) or \\>450 msec (females).\n* Alcohol or drug abuse within the past 6 months.\n* Previous exposure to SB-480848.\n* Use of an investigational drug within 30 days or 5 half-lives (whichever is the longer) preceding the first dose of study medication (blinded atorvastatin).",
+     "healthyVolunteers": false,
+     "sex": "ALL",
+     "minimumAge": "18 Years",
+     "maximumAge": "80 Years",
+     "stdAges": [
+      "ADULT",
+      "OLDER_ADULT"
+     ]
+    },
+    "contactsLocationsModule": {
+     "overallOfficials": [
+      {
+       "name": "GSK Clinical Trials",
+       "affiliation": "GlaxoSmithKline",
+       "role": "STUDY_DIRECTOR"
+      }
+     ],
+     "locations": [
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Birmingham",
+       "state": "Alabama",
+       "zip": "35294",
+       "country": "United States",
+       "geoPoint": {
+        "lat": 33.52066,
+        "lon": -86.80249
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Northport",
+       "state": "Alabama",
+       "zip": "35476",
+       "country": "United States",
+       "geoPoint": {
+        "lat": 33.22901,
+        "lon": -87.57723
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Phoenix",
+       "state": "Arizona",
+       "zip": "85014",
+       "country": "United States",
+       "geoPoint": {
+        "lat": 33.44838,
+        "lon": -112.07404
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Tucson",
+       "state": "Arizona",
+       "zip": "85715",
+       "country": "United States",
+       "geoPoint": {
+        "lat": 32.22174,
+        "lon": -110.92648
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Spring Valley",
+       "state": "California",
+       "zip": "91978",
+       "country": "United States",
+       "geoPoint": {
+        "lat": 32.74477,
+        "lon": -116.99892
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Torrance",
+       "state": "California",
+       "zip": "90509",
+       "country": "United States",
+       "geoPoint": {
+        "lat": 33.83585,
+        "lon": -118.34063
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Walnut Creek",
+       "state": "California",
+       "zip": "94598",
+       "country": "United States",
+       "geoPoint": {
+        "lat": 37.90631,
+        "lon": -122.06496
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Fort Lauderdale",
+       "state": "Florida",
+       "zip": "33308",
+       "country": "United States",
+       "geoPoint": {
+        "lat": 26.12231,
+        "lon": -80.14338
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Jacksonville",
+       "state": "Florida",
+       "zip": "32205",
+       "country": "United States",
+       "geoPoint": {
+        "lat": 30.33218,
+        "lon": -81.65565
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Pembroke Pines",
+       "state": "Florida",
+       "zip": "33024",
+       "country": "United States",
+       "geoPoint": {
+        "lat": 26.00315,
+        "lon": -80.22394
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Chicago",
+       "state": "Illinois",
+       "zip": "60607",
+       "country": "United States",
+       "geoPoint": {
+        "lat": 41.85003,
+        "lon": -87.65005
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Chicago",
+       "state": "Illinois",
+       "zip": "60610",
+       "country": "United States",
+       "geoPoint": {
+        "lat": 41.85003,
+        "lon": -87.65005
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Indianapolis",
+       "state": "Indiana",
+       "zip": "46260",
+       "country": "United States",
+       "geoPoint": {
+        "lat": 39.76838,
+        "lon": -86.15804
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Lacombe",
+       "state": "Louisiana",
+       "zip": "70445",
+       "country": "United States",
+       "geoPoint": {
+        "lat": 30.31353,
+        "lon": -89.94313
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Slidell",
+       "state": "Louisiana",
+       "zip": "70458",
+       "country": "United States",
+       "geoPoint": {
+        "lat": 30.27519,
+        "lon": -89.78117
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Auburn",
+       "state": "Maine",
+       "zip": "04210",
+       "country": "United States",
+       "geoPoint": {
+        "lat": 44.09785,
+        "lon": -70.23117
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "New York",
+       "state": "New York",
+       "zip": "10016",
+       "country": "United States",
+       "geoPoint": {
+        "lat": 40.71427,
+        "lon": -74.00597
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Statesville",
+       "state": "North Carolina",
+       "zip": "28677",
+       "country": "United States",
+       "geoPoint": {
+        "lat": 35.78264,
+        "lon": -80.8873
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Cincinnati",
+       "state": "Ohio",
+       "zip": "45219",
+       "country": "United States",
+       "geoPoint": {
+        "lat": 39.12711,
+        "lon": -84.51439
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Oklahoma City",
+       "state": "Oklahoma",
+       "zip": "73132",
+       "country": "United States",
+       "geoPoint": {
+        "lat": 35.46756,
+        "lon": -97.51643
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Camp Hill",
+       "state": "Pennsylvania",
+       "zip": "17011",
+       "country": "United States",
+       "geoPoint": {
+        "lat": 40.23981,
+        "lon": -76.91997
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Philadelphia",
+       "state": "Pennsylvania",
+       "zip": "19104",
+       "country": "United States",
+       "geoPoint": {
+        "lat": 39.95238,
+        "lon": -75.16362
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Bryan",
+       "state": "Texas",
+       "zip": "77802",
+       "country": "United States",
+       "geoPoint": {
+        "lat": 30.67436,
+        "lon": -96.36996
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Houston",
+       "state": "Texas",
+       "zip": "77030",
+       "country": "United States",
+       "geoPoint": {
+        "lat": 29.76328,
+        "lon": -95.36327
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "San Antonio",
+       "state": "Texas",
+       "zip": "78229",
+       "country": "United States",
+       "geoPoint": {
+        "lat": 29.42412,
+        "lon": -98.49363
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Salt Lake City",
+       "state": "Utah",
+       "zip": "84143",
+       "country": "United States",
+       "geoPoint": {
+        "lat": 40.76078,
+        "lon": -111.89105
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Norfolk",
+       "state": "Virginia",
+       "zip": "23502",
+       "country": "United States",
+       "geoPoint": {
+        "lat": 36.84681,
+        "lon": -76.28522
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Richmond",
+       "state": "Virginia",
+       "zip": "23294",
+       "country": "United States",
+       "geoPoint": {
+        "lat": 37.55376,
+        "lon": -77.46026
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Buenos Aires",
+       "state": "Buenos Aires",
+       "zip": "1425",
+       "country": "Argentina"
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Buenos Aires",
+       "state": "Buenos Aires",
+       "zip": "1704",
+       "country": "Argentina"
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Buenos Aires",
+       "zip": "C1408INH",
+       "country": "Argentina",
+       "geoPoint": {
+        "lat": -34.61315,
+        "lon": -58.37723
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Kippa-Ring",
+       "state": "Queensland",
+       "zip": "4021",
+       "country": "Australia",
+       "geoPoint": {
+        "lat": -27.22586,
+        "lon": 153.0835
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Caulfield",
+       "state": "Victoria",
+       "zip": "3162",
+       "country": "Australia",
+       "geoPoint": {
+        "lat": -37.88251,
+        "lon": 145.02288
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Geelong",
+       "state": "Victoria",
+       "zip": "3220",
+       "country": "Australia",
+       "geoPoint": {
+        "lat": -38.14711,
+        "lon": 144.36069
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Pleven",
+       "zip": "5800",
+       "country": "Bulgaria",
+       "geoPoint": {
+        "lat": 43.41791,
+        "lon": 24.61666
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Sofia",
+       "zip": "1000",
+       "country": "Bulgaria",
+       "geoPoint": {
+        "lat": 42.69751,
+        "lon": 23.32415
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Sofia",
+       "zip": "1309",
+       "country": "Bulgaria",
+       "geoPoint": {
+        "lat": 42.69751,
+        "lon": 23.32415
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Sofia",
+       "zip": "1572",
+       "country": "Bulgaria",
+       "geoPoint": {
+        "lat": 42.69751,
+        "lon": 23.32415
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Oakville",
+       "state": "Ontario",
+       "zip": "L6H 3P1",
+       "country": "Canada",
+       "geoPoint": {
+        "lat": 43.45011,
+        "lon": -79.68292
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Ottawa",
+       "state": "Ontario",
+       "zip": "K1Y 4W7",
+       "country": "Canada",
+       "geoPoint": {
+        "lat": 45.41117,
+        "lon": -75.69812
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Sainte-Foy",
+       "state": "Quebec",
+       "zip": "G1V 4G2",
+       "country": "Canada",
+       "geoPoint": {
+        "lat": 46.78139,
+        "lon": -71.29217
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Sainte-Foy",
+       "state": "Quebec",
+       "zip": "G1V 4G5",
+       "country": "Canada",
+       "geoPoint": {
+        "lat": 46.78139,
+        "lon": -71.29217
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Koebenhavn N",
+       "zip": "2100",
+       "country": "Denmark"
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Tallinn",
+       "zip": "1162",
+       "country": "Estonia",
+       "geoPoint": {
+        "lat": 59.43696,
+        "lon": 24.75353
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Tallinn",
+       "zip": "13419",
+       "country": "Estonia",
+       "geoPoint": {
+        "lat": 59.43696,
+        "lon": 24.75353
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Tartu",
+       "zip": "51014",
+       "country": "Estonia",
+       "geoPoint": {
+        "lat": 58.38062,
+        "lon": 26.72509
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Anzin",
+       "zip": "59410",
+       "country": "France",
+       "geoPoint": {
+        "lat": 50.37201,
+        "lon": 3.50387
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Bron",
+       "zip": "69677",
+       "country": "France",
+       "geoPoint": {
+        "lat": 45.73865,
+        "lon": 4.91303
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Cr\u00e9teil",
+       "zip": "94000",
+       "country": "France",
+       "geoPoint": {
+        "lat": 48.79266,
+        "lon": 2.46569
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Dommartin-l\u00e8s-Toul",
+       "zip": "54201",
+       "country": "France",
+       "geoPoint": {
+        "lat": 48.66949,
+        "lon": 5.91005
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Gi\u00e8res",
+       "zip": "38610",
+       "country": "France",
+       "geoPoint": {
+        "lat": 45.17997,
+        "lon": 5.78935
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Montbrison",
+       "zip": "42600",
+       "country": "France",
+       "geoPoint": {
+        "lat": 45.60752,
+        "lon": 4.06525
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Montpellier",
+       "zip": "34295",
+       "country": "France",
+       "geoPoint": {
+        "lat": 43.61093,
+        "lon": 3.87635
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Pessac",
+       "zip": "33604",
+       "country": "France",
+       "geoPoint": {
+        "lat": 44.80565,
+        "lon": -0.6324
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Toulouse",
+       "zip": "31300",
+       "country": "France",
+       "geoPoint": {
+        "lat": 43.60426,
+        "lon": 1.44367
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Kippenheim",
+       "state": "Baden-Wurttemberg",
+       "zip": "77971",
+       "country": "Germany",
+       "geoPoint": {
+        "lat": 48.29564,
+        "lon": 7.8251
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Haag",
+       "state": "Bavaria",
+       "zip": "83527",
+       "country": "Germany",
+       "geoPoint": {
+        "lat": 50.30379,
+        "lon": 12.07614
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "K\u00fcnzing",
+       "state": "Bavaria",
+       "zip": "94550",
+       "country": "Germany",
+       "geoPoint": {
+        "lat": 48.66667,
+        "lon": 13.08333
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Munich",
+       "state": "Bavaria",
+       "zip": "81241",
+       "country": "Germany",
+       "geoPoint": {
+        "lat": 48.13743,
+        "lon": 11.57549
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Nuremberg",
+       "state": "Bavaria",
+       "zip": "90402",
+       "country": "Germany",
+       "geoPoint": {
+        "lat": 49.45421,
+        "lon": 11.07752
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Rednitzhembach",
+       "state": "Bavaria",
+       "zip": "91126",
+       "country": "Germany",
+       "geoPoint": {
+        "lat": 49.30095,
+        "lon": 11.07997
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Hamburg",
+       "state": "Free and Hanseatic City of Hamburg",
+       "zip": "20249",
+       "country": "Germany",
+       "geoPoint": {
+        "lat": 53.55073,
+        "lon": 9.99302
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Hamburg",
+       "state": "Free and Hanseatic City of Hamburg",
+       "zip": "22041",
+       "country": "Germany",
+       "geoPoint": {
+        "lat": 53.55073,
+        "lon": 9.99302
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Hamburg",
+       "state": "Free and Hanseatic City of Hamburg",
+       "zip": "22143",
+       "country": "Germany",
+       "geoPoint": {
+        "lat": 53.55073,
+        "lon": 9.99302
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Hamburg",
+       "state": "Free and Hanseatic City of Hamburg",
+       "zip": "22335",
+       "country": "Germany",
+       "geoPoint": {
+        "lat": 53.55073,
+        "lon": 9.99302
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Schwerin",
+       "state": "Mecklenburg-Vorpommern",
+       "zip": "19055",
+       "country": "Germany",
+       "geoPoint": {
+        "lat": 53.62937,
+        "lon": 11.41316
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Bochum",
+       "state": "North Rhine-Westphalia",
+       "zip": "44787",
+       "country": "Germany",
+       "geoPoint": {
+        "lat": 51.48165,
+        "lon": 7.21648
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Cologne",
+       "state": "North Rhine-Westphalia",
+       "zip": "51069",
+       "country": "Germany",
+       "geoPoint": {
+        "lat": 50.93333,
+        "lon": 6.95
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Essen",
+       "state": "North Rhine-Westphalia",
+       "zip": "45359",
+       "country": "Germany",
+       "geoPoint": {
+        "lat": 51.45657,
+        "lon": 7.01228
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Goch",
+       "state": "North Rhine-Westphalia",
+       "zip": "47574",
+       "country": "Germany",
+       "geoPoint": {
+        "lat": 51.67873,
+        "lon": 6.15895
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Witten",
+       "state": "North Rhine-Westphalia",
+       "zip": "58455",
+       "country": "Germany",
+       "geoPoint": {
+        "lat": 51.44362,
+        "lon": 7.35258
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Rhaunen",
+       "state": "Rhineland-Palatinate",
+       "zip": "55624",
+       "country": "Germany",
+       "geoPoint": {
+        "lat": 49.8638,
+        "lon": 7.34198
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Dresden",
+       "state": "Saxony",
+       "zip": "01307",
+       "country": "Germany",
+       "geoPoint": {
+        "lat": 51.05089,
+        "lon": 13.73832
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Leipzig",
+       "state": "Saxony",
+       "zip": "04229",
+       "country": "Germany",
+       "geoPoint": {
+        "lat": 51.33962,
+        "lon": 12.37129
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Leipzig",
+       "state": "Saxony",
+       "zip": "04315",
+       "country": "Germany",
+       "geoPoint": {
+        "lat": 51.33962,
+        "lon": 12.37129
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Berlin",
+       "state": "State of Berlin",
+       "zip": "10249",
+       "country": "Germany",
+       "geoPoint": {
+        "lat": 52.52437,
+        "lon": 13.41053
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Berlin",
+       "state": "State of Berlin",
+       "zip": "10367",
+       "country": "Germany",
+       "geoPoint": {
+        "lat": 52.52437,
+        "lon": 13.41053
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Berlin",
+       "state": "State of Berlin",
+       "zip": "12163",
+       "country": "Germany",
+       "geoPoint": {
+        "lat": 52.52437,
+        "lon": 13.41053
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Berlin",
+       "state": "State of Berlin",
+       "zip": "13125",
+       "country": "Germany",
+       "geoPoint": {
+        "lat": 52.52437,
+        "lon": 13.41053
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Budapest",
+       "zip": "1032",
+       "country": "Hungary",
+       "geoPoint": {
+        "lat": 47.49835,
+        "lon": 19.04045
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Budapest",
+       "zip": "1135",
+       "country": "Hungary",
+       "geoPoint": {
+        "lat": 47.49835,
+        "lon": 19.04045
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Debrecen",
+       "zip": "4004",
+       "country": "Hungary",
+       "geoPoint": {
+        "lat": 47.53167,
+        "lon": 21.62444
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Szeged",
+       "zip": "6720",
+       "country": "Hungary",
+       "geoPoint": {
+        "lat": 46.253,
+        "lon": 20.14824
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Szolnok",
+       "zip": "5000",
+       "country": "Hungary",
+       "geoPoint": {
+        "lat": 47.18066,
+        "lon": 20.19835
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Banglore",
+       "country": "India"
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Hyderabad",
+       "zip": "500034",
+       "country": "India",
+       "geoPoint": {
+        "lat": 17.38405,
+        "lon": 78.45636
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "New Delhi",
+       "zip": "110044",
+       "country": "India",
+       "geoPoint": {
+        "lat": 28.62137,
+        "lon": 77.2148
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Den Helder",
+       "zip": "1782 GZ",
+       "country": "Netherlands",
+       "geoPoint": {
+        "lat": 52.95988,
+        "lon": 4.75933
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Ede",
+       "zip": "6716 RP",
+       "country": "Netherlands",
+       "geoPoint": {
+        "lat": 52.03333,
+        "lon": 5.65833
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Enschede",
+       "zip": "7511JX",
+       "country": "Netherlands",
+       "geoPoint": {
+        "lat": 52.21833,
+        "lon": 6.89583
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Haarlem",
+       "zip": "2035 RC",
+       "country": "Netherlands",
+       "geoPoint": {
+        "lat": 52.38084,
+        "lon": 4.63683
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Hoofddorp",
+       "zip": "2130 AT",
+       "country": "Netherlands",
+       "geoPoint": {
+        "lat": 52.3025,
+        "lon": 4.68889
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Rotterdam",
+       "zip": "3011 TD",
+       "country": "Netherlands",
+       "geoPoint": {
+        "lat": 51.9225,
+        "lon": 4.47917
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Sneek",
+       "zip": "8601 ZK",
+       "country": "Netherlands",
+       "geoPoint": {
+        "lat": 53.03297,
+        "lon": 5.6589
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Zeist",
+       "zip": "3707 HL",
+       "country": "Netherlands",
+       "geoPoint": {
+        "lat": 52.09,
+        "lon": 5.23333
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Hamilton",
+       "zip": "2001",
+       "country": "New Zealand",
+       "geoPoint": {
+        "lat": -37.78333,
+        "lon": 175.28333
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Takapuna",
+       "country": "New Zealand",
+       "geoPoint": {
+        "lat": -36.79167,
+        "lon": 174.77583
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Karachi",
+       "zip": "74800",
+       "country": "Pakistan",
+       "geoPoint": {
+        "lat": 24.8608,
+        "lon": 67.0104
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Karachi",
+       "zip": "75510",
+       "country": "Pakistan",
+       "geoPoint": {
+        "lat": 24.8608,
+        "lon": 67.0104
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Bucharest",
+       "country": "Romania",
+       "geoPoint": {
+        "lat": 44.43225,
+        "lon": 26.10626
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "T\u00e2rgu Mure\u015f",
+       "country": "Romania",
+       "geoPoint": {
+        "lat": 46.54245,
+        "lon": 24.55747
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Alicante",
+       "zip": "03114",
+       "country": "Spain",
+       "geoPoint": {
+        "lat": 38.34517,
+        "lon": -0.48149
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Barcelona",
+       "zip": "080018",
+       "country": "Spain",
+       "geoPoint": {
+        "lat": 41.38879,
+        "lon": 2.15899
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Barcelona",
+       "zip": "08022",
+       "country": "Spain",
+       "geoPoint": {
+        "lat": 41.38879,
+        "lon": 2.15899
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "C\u00e1ceres",
+       "zip": "10004",
+       "country": "Spain",
+       "geoPoint": {
+        "lat": 39.47649,
+        "lon": -6.37224
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Madrid",
+       "zip": "28034",
+       "country": "Spain",
+       "geoPoint": {
+        "lat": 40.4165,
+        "lon": -3.70256
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Madrid",
+       "zip": "28035",
+       "country": "Spain",
+       "geoPoint": {
+        "lat": 40.4165,
+        "lon": -3.70256
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Madrid",
+       "zip": "28037",
+       "country": "Spain",
+       "geoPoint": {
+        "lat": 40.4165,
+        "lon": -3.70256
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Madrid",
+       "zip": "28041",
+       "country": "Spain",
+       "geoPoint": {
+        "lat": 40.4165,
+        "lon": -3.70256
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Madrid",
+       "zip": "28046",
+       "country": "Spain",
+       "geoPoint": {
+        "lat": 40.4165,
+        "lon": -3.70256
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "M\u00f3stoles/Madrid",
+       "zip": "28935",
+       "country": "Spain"
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Oviedo",
+       "zip": "33006",
+       "country": "Spain",
+       "geoPoint": {
+        "lat": 43.36029,
+        "lon": -5.84476
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Palma de Mallorca",
+       "zip": "07014",
+       "country": "Spain",
+       "geoPoint": {
+        "lat": 39.56939,
+        "lon": 2.65024
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Quart de Poblet, Valencia",
+       "zip": "46930",
+       "country": "Spain"
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Sant Joan d'Alacant",
+       "zip": "3550",
+       "country": "Spain",
+       "geoPoint": {
+        "lat": 38.40148,
+        "lon": -0.43623
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Santa Coloma de Gramanet/Barcelona",
+       "zip": "08923",
+       "country": "Spain"
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Santiago de Compostela",
+       "zip": "15706",
+       "country": "Spain",
+       "geoPoint": {
+        "lat": 42.88052,
+        "lon": -8.54569
+       }
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Santiago de Compostela/La Coru\u00f1a",
+       "zip": "15706",
+       "country": "Spain"
+      },
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Tarrasa, Barcelona",
+       "zip": "08221",
+       "country": "Spain",
+       "geoPoint": {
+        "lat": 41.38879,
+        "lon": 2.15899
+       }
+      }
+     ]
+    },
+    "referencesModule": {
+     "references": [
+      {
+       "pmid": "18436114",
+       "type": "DERIVED",
+       "citation": "Mohler ER 3rd, Ballantyne CM, Davidson MH, Hanefeld M, Ruilope LM, Johnson JL, Zalewski A; Darapladib Investigators. The effect of darapladib on plasma lipoprotein-associated phospholipase A2 activity and cardiovascular biomarkers in patients with stable coronary heart disease or coronary heart disease risk equivalent: the results of a multicenter, randomized, double-blind, placebo-controlled study. J Am Coll Cardiol. 2008 Apr 29;51(17):1632-41. doi: 10.1016/j.jacc.2007.11.079."
+      }
+     ],
+     "seeAlsoLinks": [
+      {
+       "label": "Researchers can use this site to request access to anonymised patient level data and/or supporting documents from clinical studies to conduct further research.",
+       "url": "https://www.clinicalstudydatarequest.com"
+      }
+     ],
+     "availIpds": [
+      {
+       "id": "LPL104884",
+       "type": "Clinical Study Report",
+       "url": "https://www.clinicalstudydatarequest.com",
+       "comment": "For additional information about this study please refer to the GSK Clinical Study Register"
+      },
+      {
+       "id": "LPL104884",
+       "type": "Informed Consent Form",
+       "url": "https://www.clinicalstudydatarequest.com",
+       "comment": "For additional information about this study please refer to the GSK Clinical Study Register"
+      },
+      {
+       "id": "LPL104884",
+       "type": "Statistical Analysis Plan",
+       "url": "https://www.clinicalstudydatarequest.com",
+       "comment": "For additional information about this study please refer to the GSK Clinical Study Register"
+      },
+      {
+       "id": "LPL104884",
+       "type": "Individual Participant Data Set",
+       "url": "https://www.clinicalstudydatarequest.com",
+       "comment": "For additional information about this study please refer to the GSK Clinical Study Register"
+      },
+      {
+       "id": "LPL104884",
+       "type": "Annotated Case Report Form",
+       "url": "https://www.clinicalstudydatarequest.com",
+       "comment": "For additional information about this study please refer to the GSK Clinical Study Register"
+      },
+      {
+       "id": "LPL104884",
+       "type": "Study Protocol",
+       "url": "https://www.clinicalstudydatarequest.com",
+       "comment": "For additional information about this study please refer to the GSK Clinical Study Register"
+      },
+      {
+       "id": "LPL104884",
+       "type": "Dataset Specification",
+       "url": "https://www.clinicalstudydatarequest.com",
+       "comment": "For additional information about this study please refer to the GSK Clinical Study Register"
+      }
+     ]
+    }
+   },
+   "derivedSection": {
+    "miscInfoModule": {
+     "versionHolder": "2026-08-27",
+     "removedCountries": [
+      "United Kingdom"
+     ]
+    },
+    "conditionBrowseModule": {
+     "meshes": [
+      {
+       "id": "D050197",
+       "term": "Atherosclerosis"
+      }
+     ],
+     "ancestors": [
+      {
+       "id": "D001161",
+       "term": "Arteriosclerosis"
+      },
+      {
+       "id": "D001157",
+       "term": "Arterial Occlusive Diseases"
+      },
+      {
+       "id": "D014652",
+       "term": "Vascular Diseases"
+      },
+      {
+       "id": "D002318",
+       "term": "Cardiovascular Diseases"
+      }
+     ]
+    },
+    "interventionBrowseModule": {
+     "meshes": [
+      {
+       "id": "C529040",
+       "term": "darapladib"
+      }
+     ]
+    }
+   },
+   "hasResults": false
+  },
+  {
+   "protocolSection": {
+    "identificationModule": {
+     "nctId": "NCT02058641",
+     "orgStudyIdInfo": {
+      "id": "200934"
+     },
+     "organization": {
+      "fullName": "GlaxoSmithKline",
+      "class": "INDUSTRY"
+     },
+     "briefTitle": "Effect of Darapladib on Cantharidin-Induced Inflammatory Blisters in Subjects With Type 2 Diabetes Mellitus (T2DM)",
+     "officialTitle": "An Open Label Study on the Effects of a Short Course of SB480848 (Darapladib) on Contents of Cantharidin-Induced Inflammatory Blisters in Subjects With Type 2 Diabetes Mellitus"
+    },
+    "statusModule": {
+     "statusVerifiedDate": "2017-05",
+     "overallStatus": "COMPLETED",
+     "expandedAccessInfo": {
+      "hasExpandedAccess": false
+     },
+     "startDateStruct": {
+      "date": "2014-02-26",
+      "type": "ACTUAL"
+     },
+     "primaryCompletionDateStruct": {
+      "date": "2014-08-18",
+      "type": "ACTUAL"
+     },
+     "completionDateStruct": {
+      "date": "2014-08-18",
+      "type": "ACTUAL"
+     },
+     "studyFirstSubmitDate": "2014-02-06",
+     "studyFirstSubmitQcDate": "2014-02-06",
+     "studyFirstPostDateStruct": {
+      "date": "2014-02-10",
+      "type": "ESTIMATED"
+     },
+     "lastUpdateSubmitDate": "2017-05-12",
+     "lastUpdatePostDateStruct": {
+      "date": "2017-05-15",
+      "type": "ACTUAL"
+     }
+    },
+    "sponsorCollaboratorsModule": {
+     "responsibleParty": {
+      "type": "SPONSOR"
+     },
+     "leadSponsor": {
+      "name": "GlaxoSmithKline",
+      "class": "INDUSTRY"
+     }
+    },
+    "oversightModule": {
+     "oversightHasDmc": false
+    },
+    "descriptionModule": {
+     "briefSummary": "This will be an exploratory, open-label, single sequence, two part study (Part A and an optional Part B). The aim of this study will be to assess whether systemic inhibition of Lipoprotein associated phospholipase A2 (Lp-PLA2) in humans, effected by 11 days of once daily dosing to steady state with 160 milligrams (mg) of enteric coated (EC) darapladib, will specifically reduce the number of macrophages and/or result in a higher proportion of M2 macrophages in skin blisters induced by cantharidin (a chemical agent that causes blisters). In Part A of the study, a cohort of 8 subjects with type 2 diabetes mellitus will be recruited. In Part B of the study, a cohort of 8 additional healthy subjects with matching age (+/- 24 months) and gender to Part A may be recruited."
+    },
+    "conditionsModule": {
+     "conditions": [
+      "Atherosclerosis"
+     ],
+     "keywords": [
+      "cellular accumulation",
+      "macrophage phenotype",
+      "cantharidin blister",
+      "M1/M2",
+      "inflammatory mediators",
+      "Type 2 diabetes mellitus",
+      "darapladib",
+      "cytokines"
+     ]
+    },
+    "designModule": {
+     "studyType": "INTERVENTIONAL",
+     "phases": [
+      "PHASE1"
+     ],
+     "designInfo": {
+      "allocation": "NON_RANDOMIZED",
+      "interventionModel": "SINGLE_GROUP",
+      "primaryPurpose": "BASIC_SCIENCE",
+      "maskingInfo": {
+       "masking": "NONE"
+      }
+     },
+     "enrollmentInfo": {
+      "count": 9,
+      "type": "ACTUAL"
+     }
+    },
+    "armsInterventionsModule": {
+     "armGroups": [
+      {
+       "label": "Part A",
+       "type": "EXPERIMENTAL",
+       "description": "Part A will consist of 2 sessions. In Session 1, 3 blisters will be induced by a challenging agent (cantharidin solution 0.2 %, with 5 microliter administered topically) in T2DM subjects on Day 1. Blisters will be harvested 48 (+/-2) hour (hr) post induction. In Session 2, the same subjects will be administered darapladib EC tablet 160 mg orally, once daily for 11 days. On Day 10, 3 blisters will be induced by cantharidin. Blisters will be harvested 48 (+/-2) hr post induction.",
+       "interventionNames": [
+        "Drug: Darapladib"
+       ]
+      },
+      {
+       "label": "Part B",
+       "type": "EXPERIMENTAL",
+       "description": "In Part B, healthy subjects will be enrolled and will follow the same dosing procedure as in Part A. The decision to initiate Part B will be made by the GSK study team based on an evaluation of data from Part A.",
+       "interventionNames": [
+        "Drug: Darapladib"
+       ]
+      }
+     ],
+     "interventions": [
+      {
+       "type": "DRUG",
+       "name": "Darapladib",
+       "description": "EC tablet with a unit dose strength of 160 mg administered once daily orally for 11 days.",
+       "armGroupLabels": [
+        "Part A",
+        "Part B"
+       ]
+      }
+     ]
+    },
+    "outcomesModule": {
+     "primaryOutcomes": [
+      {
+       "measure": "Macrophage cell count and surface expression of markers of M1 and M2 polarization in blister fluid",
+       "description": "To assess the effect of an 11 day course of once daily darapladib EC 160 mg on the number and phenotype (M1/M2 polarization) of macrophages isolated from blisters on subjects with type 2 diabetes mellitus (blisters induced by exposure to cantharidin for 48 hours). Biomarkers may include, but not be limited to: Cluster of differentiation (CD)11b, CD14, CD16, CD33, CD40, CD64, CD68, CD86, CD163, CD206, C-C chemokine receptor type 2 (CCR2), CX3 chemokine receptor 1 (CX3CR1)",
+       "timeFrame": "Up to 6 weeks"
+      }
+     ],
+     "secondaryOutcomes": [
+      {
+       "measure": "Number of monocytes and surface expression of markers of M1 or M2 polarization in peripheral blood",
+       "description": "To assess the effect of an 11 day course of once daily darapladib EC 160 mg on the number and phenotype of monocytes (M1/M2 ratio) isolated from peripheral blood of subjects with type 2 diabetes mellitus. Biomarkers may include, but not be limited to: CD11b, CD14, CD16, CD40, CD64, CD68, CD163, CD206",
+       "timeFrame": "Up to 6 weeks"
+      },
+      {
+       "measure": "Enzymatic activity of Lp-PLA2 in blister fluid",
+       "description": "Blood samples will be taken for assessments of enzymatic activity of Lp-PLA2 (measured by hydrolysis of radio-labeled platelet-activating factor \\[PAF\\])",
+       "timeFrame": "Up to 6 weeks"
+      },
+      {
+       "measure": "Total cell count, lymphocyte count, neutrophil count and macrophage count in blister fluid",
+       "description": "Blister fluids will be collected to assess the differences in blister phenotype (volume, appearance, cellularity) between subjects",
+       "timeFrame": "Up to 6 weeks"
+      },
+      {
+       "measure": "Concentrations of soluble mediators of macrophage polarization",
+       "description": "Soluble mediators will be measured in blister fluid assessed by a multiplex platform (Meso scale delivery or Luminex) and may include but not be restricted to matrix metalloproteinase 9 (MMP9), interleukin (IL)-12, IL-23, IL-10, interferon-gamma, tumor necrosis factor-alpha, IL-1 beta, IL-6, IL-8, IL-4, IL-13, transforming growth factor-beta, monocyte chemotactic protein-1 and C-reactive protein",
+       "timeFrame": "Up to 6 weeks"
+      },
+      {
+       "measure": "Time to healing of cantharidin-induced blisters",
+       "description": "Blisters will be considered to be healed when the blister cover has fallen off and the blister area becomes dry",
+       "timeFrame": "Up to 8 weeks"
+      }
+     ]
+    },
+    "eligibilityModule": {
+     "eligibilityCriteria": "Inclusion Criteria:\n\n* Male or female between 18 and 60 years of age inclusive, at the time of signing the informed consent.\n* A female subject is eligible to participate if she is of: non-childbearing potential defined as pre-menopausal females with a documented tubal ligation or hysterectomy; or postmenopausal defined as 12 months of spontaneous amenorrhea \\[in questionable cases a blood sample with simultaneous follicle stimulating hormone (FSH) \\> 40 milli-international units (MIU)/milliliter (mL) and estradiol \\< 40 picograms (pg)/mL (\\<147 picomoles per liter \\[pmol/L\\]) is confirmatory\\]. \\[Females on hormone replacement therapy (HRT) and whose menopausal status is in doubt will be required to use one of the contraception methods listed in the protocol if they wish to continue their HRT during the study. Otherwise, they must discontinue HRT to allow confirmation of post-menopausal status prior to study enrollment. For most forms of HRT, at least 2-4 weeks should elapse between the cessation of therapy and the blood draw; this interval depends on the type and dosage of HRT. Following confirmation of their post-menopausal status, they can resume use of HRT during the study without use of a contraceptive method\\]; Child-bearing potential and is abstinent (abstinence from penile-vaginal intercourse must be consistent with the preferred and usual lifestyle of the subject) or agrees to use one of the contraception methods listed in the protocol for an appropriate period of time (as determined by the product label or investigator) prior to the start of dosing to sufficiently minimize the risk of pregnancy at that point. Female subjects must agree to use contraception until 42 days after the last dose of study medication.\n* Body mass index (BMI) within the range of 19.0-35.0 kilograms per meter square (kg/ m\\^2) (inclusive).\n* QTc interval Fridericia correction (QTcF) \\<480 milliseconds (msec) in all subjects, including those with bundle branch block at screening electrocardiogram (ECG). Note that if the initial QTc value is prolonged, the ECG should be repeated two more times (with at least 5 minutes between ECG readings) and the average of the 3 QTc values used to determine eligibility.\n\nAdditional Criteria for Diabetic Subjects\n\n* A diagnosis of T2DM as determined by a responsible physician based on a medical evaluation including medical history, physical examination, and laboratory tests, with onset at least 6 months prior to screening and on stable treatment for 3 months prior to screening.\n* Subjects have no recent changes or anticipation of future changes in anti-hyperglycaemic therapies during the 3-month period before and during the study respectively.\n* Subjects will have good peripheral pulses and no peripheral sensory loss as determined by physical examination.\n* Glycosylated hemoglobin (HbA1c) levels \\<= 8.0% at screening. Additional Criteria for Healthy Subjects (if recruited in Part B)\n* Healthy as determined by a responsible and experienced physician, based on a medical evaluation including medical history, physical examination, vital signs, complete blood count and clinical chemistry. A subject with a clinical abnormality or laboratory parameters outside the reference range for the population being studied may be included only if the Investigator and the GSK Medical Monitor agree that the finding is unlikely to introduce additional risk factors and will not interfere with the study procedures.\n\nExclusion Criteria for all subjects:\n\n* A positive pre-study Hepatitis B surface antigen or positive Hepatitis C antibody result within 3 months of screening\n* Current or chronic history of liver disease or known hepatic or biliary abnormalities (with the exception of Gilbert's syndrome or asymptomatic gallstones). Abnormal liver function tests at screening. For healthy subjects: aspartate aminotransferase (AST), alanine aminotransferase (ALT), alkaline phosphatase and bilirubin \\>=1.5xupper limit of normal (ULN) (isolated bilirubin \\>1.5xULN is acceptable if bilirubin is fractionated and direct bilirubin \\<35%) at screening.\n* A positive pre-study drug/alcohol screen.\n* A positive test for HIV antibody.\n* History of regular alcohol consumption within 6 months of the study defined as: For United Kingdom (UK) sites: an average weekly intake of \\>21 units for males or \\>14 units for females. One unit is equivalent to 8 grams (g) of alcohol: a half-pint (approximately 240 mL) of beer, 1 glass (125 mL) of wine or 1 (25 mL) measure of spirits.\n* The subject has participated in a clinical trial and has received an investigational product within the following time period prior to the first dosing day in the current study: 90 days, 5 half-lives or twice the duration of the biological effect of the investigational product (whichever is longer).\n* Exposure to more than four new chemical entities within 12 months prior to the first dosing day.\n* Unable to refrain from the use of prescription drugs taken on an intermittent (as needed) basis or non-prescription drugs; these include vitamins, herbal and dietary supplements (including St John's Wort) within 7 days (or 14 days if the drug is a potential enzyme inducer) or 5 half-lives (whichever is longer) prior to Day 1 of session 1 and continuing until the final follow up visit (with the exception of paracetamol).\n* History of sensitivity to any of the study medications, or components thereof or a history of drug or other allergy that, in the opinion of the Investigator or GSK Medical Monitor, contraindicates their participation.\n* History of anaphylaxis, and /or anaphylactoid (resembling anaphylaxis) reactions, or severe allergic responses.\n* Where participation in the study would result in donation of blood or blood products in excess of 500 mL within a 56 day period.\n* Currently in a study of an investigational device.\n* Pregnant females (as determined by positive serum beta human chorionic gonadotropin test at screening and on Day1 of Session 1, and pre-dose on day 1 of session 2) or lactating females.\n* Unwillingness or inability to follow the procedures outlined in the protocol.\n* Subject is mentally or legally incapacitated.\n* Unable to refrain from consumption grapefruit juice from 7 days prior to the first dose of study medication and until collection of the final sample in each session.\n* Subjects with both parents of Japanese, Chinese, or Korean ancestry.\n* Current smoker or former regular smoker within 6 months before the screening visit.\n* Previous exposure to darapladib (SB-480848).\n* Presence on either forearm of tattoos, naevi, scars, keloids, hyper- or hypo- pigmentation. Subjects with very fair skin, very dark skin, excessive hair or any skin abnormalities that may, in the opinion of the Investigator, interfere with study assessments.\n* Subjects with a history of keloids, skin allergy, hypersensitivity or contact dermatitis, including previous reactions to dressings to be used in the study, or any chronic skin disorder excepting isolated lesions (e.g. warts) remote from intended site of application of cantharidin.\n* Other issues which in the opinion of the investigator would preclude participation in the study.\n\nAdditional Criteria for Diabetic Subjects:\n\n* Abnormal liver function tests at screening. For T2DM subjects: ALT or AST \\>=2.5 x ULN or alkaline phosphatase or total bilirubin \\>=1.5 x ULN at screening. Current regular use of or anticipated requirement for anti-inflammatory medications (e.g. Non-steroidal anti-inflammatory drugs \\[NSAIDs\\] including low dose aspirin, glucocorticoids) and immune-modulatory therapies during the study.\n* Unable to refrain from the use of non-prescription drugs; these include vitamins, herbal and dietary supplements (including St John's Wort) within 7 days (or 14 days if the drug is a potential enzyme inducer) or 5 half-lives (whichever is longer) prior to Day 1 of session 1 and continuing until the final follow up visit. Anticipated addition of new therapies, or a change in the use of chronically administered prescription drugs, with the following exceptions: dose-adjustments for anti-diabetic medications, antihypertensive medications, or other changes that in the opinion of the Investigator and GSK Medical Monitor will not interfere with the study procedures, outcome or compromise subject safety.\n* Poorly controlled hypertension despite lifestyle modifications and pharmacotherapy, or on high dose statin therapy (e.g. equivalent to atorvastatin \\>40 mg/daily), and/or have a change in the type or dose of anti-hypertensive or statin medications during the 3-month period before and anticipated during the study. Poorly controlled hypertension refers to either systolic blood pressure \\>160 millimeters of mercury (mmHg) or diastolic blood pressure \\>110mmHg (mean of 3 measurements according to protocol-specified conditions). Patients may enter the study if the adjustment to blood pressure medications results in the improved control of hypertension at the Baseline visit).\n* Current or planned administration of strong oral or injectable cytochrome P-450 isoenzyme 3A4 (CYP3A4) inhibitors.\n* Severe renal impairment (e.g., patients with an estimated glomerular filtration rate \\<30 mL/minute/1.73 meter square or receiving chronic dialysis) or history of nephrectomy or kidney transplant (regardless of renal function).\n* Current severe heart failure (New York Heart Association class III or IV).\n* Subjects currently suffering from asthma (on the basis of excluding use of corticosteroids, even inhaled).\n* Co-morbid with chronic inflammatory conditions that could influence measurements of inflammation (including, but not limited to rheumatological disorders, e.g. systemic lupus erythematosus, and inflammatory bowel disease).\n* History of peripheral arterial disease and/or current use of warfarin or other anti-coagulants/anti-platelet agents (low dose aspirin / NSAIDs are not permitted) which, in the opinion of the Investigator and/or the GSK Medical Monitor, will interfere with the study procedures, outcome or compromise subject safety.\n* Subjects with a history of lymphangitis and/or lymphoedema or any subject who is considered to be at risk of these conditions e.g. has undergone surgery resulting in loss of tissue associated with normal lymphoid drainage (e.g. axillary lymph node dissection / excision related to breast surgery).",
+     "healthyVolunteers": false,
+     "sex": "ALL",
+     "minimumAge": "18 Years",
+     "maximumAge": "60 Years",
+     "stdAges": [
+      "ADULT"
+     ]
+    },
+    "contactsLocationsModule": {
+     "overallOfficials": [
+      {
+       "name": "GSK Clinical Trials",
+       "affiliation": "GlaxoSmithKline",
+       "role": "STUDY_DIRECTOR"
+      }
+     ],
+     "locations": [
+      {
+       "facility": "GSK Investigational Site",
+       "city": "Cambridge",
+       "zip": "CB2 0GG",
+       "country": "United Kingdom",
+       "geoPoint": {
+        "lat": 52.2,
+        "lon": 0.11667
+       }
+      }
+     ]
+    },
+    "referencesModule": {
+     "seeAlsoLinks": [
+      {
+       "label": "Results for study 200934 can be found on the GSK Clinical Study Register.",
+       "url": "https://gsk-clinicalstudyregister.com/study/200934?search=study&search_terms=200934#rs"
+      }
+     ]
+    }
+   },
+   "derivedSection": {
+    "miscInfoModule": {
+     "versionHolder": "2026-08-27"
+    },
+    "conditionBrowseModule": {
+     "meshes": [
+      {
+       "id": "D050197",
+       "term": "Atherosclerosis"
+      },
+      {
+       "id": "D003924",
+       "term": "Diabetes Mellitus, Type 2"
+      }
+     ],
+     "ancestors": [
+      {
+       "id": "D001161",
+       "term": "Arteriosclerosis"
+      },
+      {
+       "id": "D001157",
+       "term": "Arterial Occlusive Diseases"
+      },
+      {
+       "id": "D014652",
+       "term": "Vascular Diseases"
+      },
+      {
+       "id": "D002318",
+       "term": "Cardiovascular Diseases"
+      },
+      {
+       "id": "D003920",
+       "term": "Diabetes Mellitus"
+      },
+      {
+       "id": "D044882",
+       "term": "Glucose Metabolism Disorders"
+      },
+      {
+       "id": "D008659",
+       "term": "Metabolic Diseases"
+      },
+      {
+       "id": "D009750",
+       "term": "Nutritional and Metabolic Diseases"
+      },
+      {
+       "id": "D004700",
+       "term": "Endocrine System Diseases"
+      }
+     ]
+    },
+    "interventionBrowseModule": {
+     "meshes": [
+      {
+       "id": "C529040",
+       "term": "darapladib"
+      }
+     ]
+    }
+   },
+   "hasResults": false
+  }
+ ]
+}
