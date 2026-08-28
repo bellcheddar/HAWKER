@@ -282,7 +282,10 @@ public struct PostMortemView: View {
                         .font(.callout)
                         .foregroundStyle(Palette.ghost.opacity(0.7))
                 } else {
-                    ForEach(asset.structures.prefix(8)) { ref in
+                    ForEach(asset.structures.prefix(8)) { raw in
+                        // Titles and resolutions are fetched when this view appears,
+                        // not during the ingest.
+                        let ref = store.resolved(raw)
                         Button {
                             router.go(.pocket(pdbId: ref.pdbId, ccd: asset.ccdCode))
                         } label: {
@@ -290,9 +293,9 @@ public struct PostMortemView: View {
                                 Text(ref.pdbId)
                                     .hawkerNumber(Typography.numberSmall)
                                     .foregroundStyle(Palette.neon)
-                                Text(ref.title.isEmpty ? "Not yet resolved" : ref.title)
+                                Text(ref.title.isEmpty ? "Loading entry details" : ref.title)
                                     .font(.caption)
-                                    .foregroundStyle(Palette.ghost.opacity(0.85))
+                                    .foregroundStyle(Palette.ghost.opacity(ref.title.isEmpty ? 0.45 : 0.85))
                                     .lineLimit(1)
                                 Spacer(minLength: 6)
                                 Text(ref.resolutionText)
@@ -302,6 +305,7 @@ public struct PostMortemView: View {
                         }
                         .buttonStyle(.plain)
                     }
+                    .onAppear { store.resolveEntries(asset.structures) }
                 }
             }
         }

@@ -39,6 +39,7 @@ considered      \(summary.considered)
 kept            \(summary.kept)  (\(pct(summary.kept, summary.considered)))
 with a target   \(summary.withTarget)  (\(pct(summary.withTarget, summary.kept)))
 with co-crystal \(summary.withCoCrystal)  (\(pct(summary.withCoCrystal, summary.kept)))
+with a statement \(summary.withStatement)  (\(pct(summary.withStatement, summary.kept)))
 elapsed         \(summary.elapsed)
 
 === Cause of death ===
@@ -48,6 +49,12 @@ for (cause, count) in summary.byCause.sorted(by: { $0.value > $1.value }) {
 }
 print(String(format: "\n  died of business rather than biology: %.1f%% of classified",
              summary.businessFraction * 100))
+// Two different quantities that are easy to conflate: assets nobody gave a reason
+// for, and text the classifier could not read.
+print(String(format: "  no reason filed at all:              %.1f%% of kept",
+             summary.silentFraction * 100))
+print(String(format: "  unknown among assets that DO state:  %.1f%% (the classifier's own score)",
+             summary.unknownAmongStated * 100))
 
 print("\n=== Top 15 by Ghost Rank ===")
 for asset in assets.prefix(15) {

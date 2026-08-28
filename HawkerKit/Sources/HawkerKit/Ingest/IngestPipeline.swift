@@ -41,7 +41,26 @@ public actor IngestPipeline {
         public let byCause: [CauseOfDeath: Int]
         public let withCoCrystal: Int
         public let withTarget: Int
+        /// Assets where some halted trial actually filed a reason. This is the only
+        /// population the classifier can say anything about, and reporting unknown
+        /// against all kept assets instead conflates "the classifier could not tell"
+        /// with "nobody ever said". An asset kept for going quiet has no stated
+        /// reason by construction: no trial was formally terminated, it just stopped.
+        public let withStatement: Int
         public let elapsed: Duration
+
+        /// Unknown as a fraction of assets that actually state a reason. This is the
+        /// number the classifier is answerable for.
+        public var unknownAmongStated: Double {
+            guard withStatement > 0 else { return 0 }
+            let unknownWithText = max(0, (byCause[.unknown] ?? 0) - (kept - withStatement))
+            return Double(unknownWithText) / Double(withStatement)
+        }
+
+        /// Assets with no filed reason at all, as a fraction of everything kept.
+        public var silentFraction: Double {
+            kept > 0 ? Double(kept - withStatement) / Double(kept) : 0
+        }
 
         /// The headline the app exists to report.
         public var businessFraction: Double {
@@ -227,6 +246,9 @@ public actor IngestPipeline {
             byCause: byCause,
             withCoCrystal: assets.filter(\.hasCoCrystal).count,
             withTarget: assets.filter { $0.target != nil }.count,
+            withStatement: assets.filter { a in
+                a.haltedTrials.contains { $0.whyStopped?.isEmpty == false }
+            }.count,
             elapsed: elapsed
         ))
     }
@@ -303,13 +325,13 @@ public actor IngestPipeline {
         if let ccd = xrefs.ccdCode,
            let ids = try? await rcsb.entries(containingCCD: ccd, limit: 12), !ids.isEmpty {
             hasExactCoCrystal = true
-            structures = await entries(ids, ligandCCD: ccd, resolve: 3)
+            structures = entries(ids, ligandCCD: ccd)
         }
         var hasAnyTargetStructure = hasExactCoCrystal
         if structures.isEmpty, let accession = target?.uniprotAccession,
            let ids = try? await rcsb.entries(forUniProt: accession, limit: 6), !ids.isEmpty {
             hasAnyTargetStructure = true
-            structures = await entries(ids, ligandCCD: nil, resolve: 2)
+            structures = entries(ids, ligandCCD: nil)
         }
 
         let whitespaceResult = whitespace.bestWhitespace(
@@ -352,28 +374,18 @@ public actor IngestPipeline {
         )
     }
 
-    /// Resolve the first `resolve` entries fully; keep the rest as bare identifiers.
+    /// Record the PDB identifiers the search returned, without fetching any of them.
     ///
-    /// A full entry fetch is one request each, and an asset with twelve co-crystals
-    /// would spend twelve of them during ingest to populate a list the user may never
-    /// open. Pocket Reuse resolves the remainder on demand.
-    private func entries(_ ids: [String], ligandCCD: String?, resolve: Int) async -> [StructureRef] {
-        var resolved: [StructureRef] = []
-        for id in ids.prefix(resolve) {
-            guard let entry = try? await rcsb.entry(id) else { continue }
-            resolved.append(StructureRef(
-                pdbId: entry.pdbId, title: entry.title, resolution: entry.resolution,
-                experimentalMethod: entry.experimentalMethod, releaseDate: entry.releaseDate,
-                ligandCCD: ligandCCD, uniprotAccessions: entry.uniprotAccessions
-            ))
-        }
-        // Best resolution first: that is the one worth rendering.
-        resolved.sort { ($0.resolution ?? 99) < ($1.resolution ?? 99) }
-        let unresolved = ids.dropFirst(resolve).map {
+    /// A full entry fetch is one request each, and resolving three per asset was the
+    /// single largest cost in the ingest: roughly 500 requests on a 176-asset run, to
+    /// populate titles and resolutions for a list most users never open. The Stall
+    /// only needs "is there a co-crystal", which the search already answered. Post
+    /// Mortem resolves what it shows, when it shows it.
+    private func entries(_ ids: [String], ligandCCD: String?) -> [StructureRef] {
+        ids.map {
             StructureRef(pdbId: $0, title: "", resolution: nil, experimentalMethod: nil,
                          releaseDate: nil, ligandCCD: ligandCCD, uniprotAccessions: [])
         }
-        return resolved + unresolved
     }
 
     private func targetRecord(chemblTargetId: String?) async -> TargetRecord? {

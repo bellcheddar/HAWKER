@@ -29,11 +29,56 @@ public final class HawkerStore {
 
     private let pipeline = IngestPipeline()
     private let cache = AssetCache()
+    private let rcsb = RCSBClient()
     private var loadTask: Task<Void, Never>?
+    /// Entry metadata resolved on demand, keyed by PDB id. The ingest deliberately
+    /// does not fetch these: it was the largest single cost there, for a list most
+    /// users never open.
+    private var resolvedEntries: [String: StructureRef] = [:]
+    private var resolving: Set<String> = []
 
     public init() {}
 
     public var isLoading: Bool { if case .loading = state { true } else { false } }
+
+    /// A structure reference with its title and resolution, if they have been fetched.
+    public func resolved(_ ref: StructureRef) -> StructureRef {
+        resolvedEntries[ref.pdbId] ?? ref
+    }
+
+    /// Fetch entry metadata for the handful of structures a view is about to show.
+    public func resolveEntries(_ refs: [StructureRef], limit: Int = 8) {
+        let wanted = refs.prefix(limit)
+            .map(\.pdbId)
+            .filter { resolvedEntries[$0] == nil && !resolving.contains($0) }
+        guard !wanted.isEmpty else { return }
+        resolving.formUnion(wanted)
+
+        Task { [weak self] in
+            guard let self else { return }
+            for pdbId in wanted {
+                guard let entry = try? await self.rcsb.entry(pdbId) else {
+                    self.resolving.remove(pdbId)
+                    continue
+                }
+                // Keep the ligand id the search matched on: the entry endpoint does
+                // not report which component we searched for.
+                let existing = self.assets
+                    .flatMap(\.structures)
+                    .first { $0.pdbId == pdbId }
+                self.resolvedEntries[pdbId] = StructureRef(
+                    pdbId: entry.pdbId,
+                    title: entry.title,
+                    resolution: entry.resolution,
+                    experimentalMethod: entry.experimentalMethod,
+                    releaseDate: entry.releaseDate,
+                    ligandCCD: existing?.ligandCCD,
+                    uniprotAccessions: entry.uniprotAccessions
+                )
+                self.resolving.remove(pdbId)
+            }
+        }
+    }
 
     public func asset(id: String) -> Asset? {
         assets.first { $0.chemblId.caseInsensitiveCompare(id) == .orderedSame }
