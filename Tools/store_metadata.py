@@ -401,26 +401,54 @@ def order_screenshots(auth: str, set_id: str) -> None:
 
 
 EULA_TEXT = """\
-PfamIE is free and open-source software, licensed under the MIT Licence.
+HAWKER: Drug Repurposing
 
-Copyright (c) 2026 Marc C. Deller
+HAWKER is free and open-source software, licensed under the MIT Licence.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+Permission is hereby granted, free of charge, to any person obtaining a copy of this \
+software and associated documentation files (the "Software"), to deal in the Software \
+without restriction, including without limitation the rights to use, copy, modify, \
+merge, publish, distribute, sublicense, and/or sell copies of the Software, and to \
+permit persons to whom the Software is furnished to do so, subject to the following \
+conditions:
 
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+The above copyright notice and this permission notice shall be included in all copies \
+or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, \
+INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A \
+PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT \
+HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF \
+CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE \
+OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-Source code: https://github.com/bellcheddar/PfamIE
+Copyright (c) 2026 Marc C. Deller.
+Source code: https://github.com/bellcheddar/HAWKER
 
-BUNDLED THIRD-PARTY COMPONENTS
+DATA SOURCES
 
-This app includes the ESM-2 protein language model (MIT, Meta Platforms), the all-MiniLM-L6-v2 sentence embedding model (Apache Licence 2.0, modified for Core ML), the Mol* structure viewer (MIT), and data derived from Pfam 38.2 (CC0 1.0 public domain dedication) and InterPro at EMBL-EBI. Full attribution is at https://github.com/bellcheddar/PfamIE/blob/main/THIRD-PARTY-NOTICES.md
+HAWKER reads live from public scientific databases and stores no personal data. Those \
+sources are ChEMBL and UniChem (EMBL-EBI), ClinicalTrials.gov (US National Library of \
+Medicine), the Open Targets Platform, the RCSB Protein Data Bank, PubChem (US National \
+Institutes of Health) and openFDA. Each remains subject to its own terms of use. \
+Classification of free text runs entirely on your device.
 
-SCIENTIFIC USE
+NOT MEDICAL OR LEGAL ADVICE
 
-PfamIE produces predictions, not assignments. Measured on 2,500 real UniProt proteins, its top answer is correct about 49% of the time, and every result states the measured accuracy of its confidence band. It is not a medical device and is not intended for diagnostic use.
+HAWKER is a research tool for browsing public drug-discovery data. It makes no \
+diagnostic or treatment claim, gives no medical advice, and is not a medical device.
+
+The "freedom to operate" figure is an estimate computed from public approval and trial \
+registration dates plus a fixed twenty-year term. Real composition-of-matter expiry \
+depends on patent listings, term extensions and exclusivity periods that this app does \
+not use. It is labelled as an estimate everywhere it appears, it is not a \
+freedom-to-operate opinion, and it must not be relied on as legal guidance.
+
+Classifications of why a trial stopped are derived automatically from sponsors' own \
+filed statements. Every one carries the exact text it was derived from so it can be \
+checked, and the app reports how often it declines to answer.
 """
+
 
 
 def set_eula(auth: str, app: str) -> None:

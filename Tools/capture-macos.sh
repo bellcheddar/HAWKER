@@ -8,8 +8,8 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 
 OUT="${1:-assets/screenshots/macos}"
-APP=$(find ~/Library/Developer/Xcode/DerivedData/PfamIE-*/Build/Products/Debug \
-      -maxdepth 1 -name "PfamIE.app" | head -1)
+APP=$(find "${DD:-$HOME/Library/Developer/Xcode/DerivedData}"/HAWKER*/Build/Products/Debug \
+      -maxdepth 1 -name "HAWKER.app" | head -1)
 mkdir -p "$OUT"
 
 SRC="MGSNKSKPKDASQRRRSLEPAENVHGAGGGAFPASQTPSKPASADGHRGPSAAFAPAAAEPKLFGGFNSSDTVTSPQRAGPLAGGVTTFVALYDYESRTETDLSFKKGERLQIVNNTEGDWWLAHSLSTGQTGYIPSNYVAPSDSIQAEEWYFGKITRRESERLLLNAENPRGTFLVRESETTKGAYCLSVSDFDNAKGLNVKHYKIRKLDSGGFYITSRTQFNSLQQLVAYYSKHADGLCHRLTTVCPTSKPQTQGLAKDAWEIPRESLRLEVKLGQGCFGEVWMGTWNGTTRVAIKTLKPGTMSPEAFLQEAQVMKKLRHEKLVQLYAVVSEEPIYIVTEYMSKGSLLDFLKGETGKYLRLPQLVDMAAQIASGMAYVERMNYVHRDLRAANILVGENLVCKVADFGLARLIEDNEYTARQGAKFPIKWTAPEAALYGRFTIKSDVWSFGILLTELTTKGRVPYPGMVNREVLDQVERGYRMPCPPECPESLHDLMCQCWRKEPEERPTFEYLQAFLEDYFTSTEPQYQPGENL"
@@ -18,15 +18,15 @@ settle() { local n=0; until [ $n -ge "${1:-30}" ]; do n=$((n+1)); sleep 1; done;
 
 shot() {
     local name="$1"; shift
-    pkill -x PfamIE 2>/dev/null || true
+    pkill -x HAWKER 2>/dev/null || true
     sleep 2
     # macOS remembers the window frame, so a resized window from a previous
     # shot carries over and the captures come out at different sizes. Clearing
     # the saved frame makes every launch start at the declared default.
-    defaults delete com.mdeller.pfamie 2>/dev/null || true
+    defaults delete com.mdeller.hawker 2>/dev/null || true
     open -a "$APP" --args "$@"
     settle 32
-    # Take the largest PfamIE window: the app can have an ornament or a sheet
+    # Take the largest HAWKER window: the app can have a sheet or an inspector
     # open, and the main window is always the biggest.
     local id
     id=$(/tmp/winid | cut -d' ' -f1) || true
@@ -43,9 +43,9 @@ shot() {
         | awk '/pixel/{printf "%s ", $2}')"
 }
 
-shot "1-galaxy"
-shot "2-oracle"     -PfamIESequence "$SRC"
-shot "3-fieldguide" -PfamIEQuery "breaks down plastic"
-shot "4-grammarian" -PfamIEFamily PF00017
-shot "5-prospector" -PfamIETab prospector
+shot "1-stall"
+shot "2-postmortem" -AppAsset CHEMBL276711
+shot "3-graveyard"  -AppTab graveyard
+shot "4-pockets"    -AppTab pockets
+shot "5-method"     -AppMethod YES
 pkill -x PfamIE 2>/dev/null || true

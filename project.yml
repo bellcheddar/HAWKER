@@ -37,6 +37,11 @@ targets:
     dependencies:
       - package: HawkerKit
         product: HawkerKit
+      # A companion watch app (one declaring WKCompanionAppBundleIdentifier) must ship
+      # inside the iOS app's Watch/ directory. Built as an independent target it
+      # archives cleanly and is simply absent from the submission.
+      - target: HAWKER-watchOS
+        embed: true
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.mdeller.hawker

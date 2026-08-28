@@ -1,111 +1,111 @@
 #!/usr/bin/env bash
-# Check that a built PfamIE app actually contains what it needs to work.
+# Check that a built HAWKER app actually contains what it needs to work.
 #
-# BUILD SUCCEEDED says nothing about the contents. An app that ships without
-# its Core ML models or its centroid matrix builds cleanly, signs cleanly, and
-# cannot do the one thing it exists to do. Negative-test this script by
-# deleting a file from a bundle: it must fail.
+# ARCHIVE SUCCEEDED says nothing about the contents. This checker is
+# negative-tested: run it against a bundle with a resource deleted and it must
+# fail. A check that has only ever passed is not a check.
+#
+#   ./Tools/verify-bundle.sh /path/to/HAWKER.app
 set -uo pipefail
 
-APP="${1:?usage: verify-bundle.sh /path/to/PfamIE.app}"
-if [ -d "$APP/Contents/Resources" ]; then
-    RES="$APP/Contents/Resources"          # macOS
+APP="${1:?usage: verify-bundle.sh /path/to/HAWKER.app}"
+FAIL=0
+
+# macOS nests everything under Contents/; iOS, watchOS and visionOS do not.
+if [ -d "$APP/Contents/MacOS" ]; then
+    RES="$APP/Contents/Resources"
+    ROOT="$APP/Contents/Resources"
 else
-    RES="$APP"                              # iOS, visionOS, watchOS
+    RES="$APP"
+    ROOT="$APP"
 fi
 
-fail=0
-note() { printf '  %-42s %s\n' "$1" "$2"; }
+ok()   { printf '  OK    %s\n' "$1"; }
+bad()  { printf '  FAIL  %s\n' "$1"; FAIL=1; }
 
 check_file() {
     local path="$1" min="$2"
     if [ ! -e "$path" ]; then
-        note "$(basename "$path")" "MISSING"; fail=1; return
+        bad "missing: ${path#"$APP"/}"
+        return
     fi
     local size
-    size=$(du -sk "$path" | cut -f1)
-    if [ "$size" -lt "$min" ]; then
-        note "$(basename "$path")" "TOO SMALL (${size} kB < ${min} kB)"; fail=1; return
+    size=$(find "$path" -type f -exec cat {} + 2>/dev/null | wc -c | tr -d ' ')
+    if [ -z "$size" ] || [ "$size" -lt "$min" ]; then
+        bad "too small (${size:-0} < $min): ${path#"$APP"/}"
+    else
+        ok "${path#"$APP"/}  ($size bytes)"
     fi
-    note "$(basename "$path")" "$(du -sh "$path" | cut -f1)"
 }
 
-echo "Verifying $(basename "$APP")"
-echo "Models:"
-check_file "$RES/PfamIEProteinEmbedder.mlmodelc" 8000
-check_file "$RES/PfamIETextEmbedder.mlmodelc"    8000
+echo "Verifying $APP"
 
-echo "Data:"
-# Sizes come from the manifest the forge wrote, not from constants here.
-# Hard-coded floors were calibrated for float16 and rejected a correct int8
-# bundle the moment the format changed: a check that has to be edited every
-# time the data changes will eventually be edited to pass.
-if [ -e "$RES/bundle/manifest.json" ]; then DATA="$RES/bundle"; else DATA="$RES"; fi
-check_file "$DATA/manifest.json" 1
-check_file "$DATA/pfam.sqlite" 40000
-
-SIZES=$("$(dirname "$0")/manifest_sizes.py" "$DATA/manifest.json" 2>&1)
-if [ $? -ne 0 ] || [ -z "$SIZES" ]; then
-    # An unreadable manifest must fail loudly. An earlier version let this
-    # path print nothing and still report OK, which passed a bundle with a
-    # deliberately truncated matrix.
-    note "manifest" "UNREADABLE: $SIZES"; fail=1
+# The exemplar bank is the classifier's fallback. It lives in HawkerKit's own
+# resource bundle, whose name differs between SwiftPM and Xcode integrations, so
+# it is located rather than assumed.
+BANK=$(find "$APP" -name "exemplar_bank.json" 2>/dev/null | head -1)
+if [ -n "$BANK" ]; then
+    check_file "$BANK" 100000
 else
-    while IFS='|' read -r name expected; do
-        [ -z "$name" ] && continue
-        if [ ! -f "$DATA/$name" ]; then
-            note "$name" "MISSING"; fail=1; continue
-        fi
-        actual=$(stat -f%z "$DATA/$name")
-        if [ "$actual" != "$expected" ]; then
-            note "$name" "SIZE $actual, manifest says $expected"; fail=1
-        else
-            note "$name" "$(du -sh "$DATA/$name" | cut -f1) (matches manifest)"
-        fi
-    done <<< "$SIZES"
+    bad "exemplar_bank.json not found anywhere in the bundle"
 fi
 
-echo "Structure viewer:"
-if [ -e "$RES/bundle/molstar" ]; then MOL="$RES/bundle/molstar"; else MOL="$RES/molstar"; fi
-check_file "$MOL/molstar.js" 3000
+# The compiled icon at the bundle ROOT, not the .appiconset: an empty appiconset
+# still builds and ships an app with no icon.
+if [ -d "$APP/Contents/MacOS" ]; then
+    check_file "$RES/AppIcon.icns" 20000
+else
+    case "$APP" in
+        *watchsimulator*|*watchos*|*Watch*)
+            # watchOS and visionOS keep their icons inside Assets.car only.
+            check_file "$ROOT/Assets.car" 50000 ;;
+        *xrsimulator*|*xros*)
+            check_file "$ROOT/Assets.car" 50000 ;;
+        *)
+            check_file "$ROOT/AppIcon60x60@2x.png" 2000
+            check_file "$ROOT/AppIcon76x76@2x~ipad.png" 2000 ;;
+    esac
+fi
 
-echo "Icon:"
-# Where the compiled icon lives differs by platform, and an empty icon set
-# builds cleanly on all of them. visionOS is the awkward one: it takes a
-# layered AppIcon.solidimagestack, not a flat PNG, and compiles the layers into
-# Assets.car rather than writing files at the bundle root.
-if [ -f "$RES/AppIcon.icns" ]; then
-    note "AppIcon.icns" "$(du -sh "$RES/AppIcon.icns" | cut -f1)"          # macOS
-elif ls "$RES"/AppIcon60x60@2x.png >/dev/null 2>&1; then                   # iOS
-    for icon in "$RES"/AppIcon60x60@2x.png "$RES"/AppIcon76x76@2x~ipad.png; do
-        if [ -f "$icon" ]; then
-            note "$(basename "$icon")" "$(du -sh "$icon" | cut -f1)"
-        else
-            note "$(basename "$icon")" "MISSING"; fail=1
-        fi
-    done
-elif [ -f "$RES/Assets.car" ]; then                                        # visionOS
-    LAYERS=$(xcrun assetutil --info "$RES/Assets.car" 2>/dev/null \
-             | grep -oE 'AppIcon[\\/]+(Front|Middle|Back)' | sort -u | wc -l | tr -d ' ')
-    if [ "${LAYERS:-0}" -ge 3 ]; then
-        note "AppIcon.solidimagestack" "3 layers in Assets.car"
-    elif grep -q AppIcon "$RES/Info.plist" 2>/dev/null; then
-        note "app icon" "declared but only $LAYERS layers compiled"; fail=1
+# A companion watch app must actually be inside the iOS app, not merely built.
+if [ -f "$APP/Info.plist" ] && plutil -extract WKWatchKitApp raw "$APP/Info.plist" >/dev/null 2>&1; then
+    :  # this IS the watch app
+elif [ -d "$APP/Watch" ]; then
+    W=$(find "$APP/Watch" -maxdepth 1 -name "*.app" | head -1)
+    if [ -n "$W" ]; then
+        ok "embedded watch app: ${W#"$APP"/}"
+        WID=$(plutil -extract CFBundleIdentifier raw "$W/Info.plist" 2>/dev/null)
+        [ "$WID" = "com.mdeller.hawker.watchkitapp" ] \
+            && ok "watch bundle id $WID" || bad "watch bundle id is '$WID'"
     else
-        note "app icon" "MISSING"; fail=1
+        bad "Watch/ exists but holds no .app"
     fi
-else
-    note "app icon" "MISSING"; fail=1
 fi
 
-echo "Signing:"
-authority=$(codesign -dvv "$APP" 2>&1 | grep "^Authority=" | head -1)
-if [ -n "$authority" ]; then note "authority" "${authority#Authority=}"; else note "authority" "unsigned (fine for a debug build)"; fi
+# Signing authority. A simulator build is ad-hoc signed and reports no Authority
+# line at all, which is correct there and must not read as a failure.
+SIGINFO=$(codesign -dv --verbose=2 "$APP" 2>&1)
+AUTH=$(printf '%s' "$SIGINFO" | grep "^Authority=" | head -1 | cut -d= -f2-)
+if [ -n "$AUTH" ]; then
+    ok "codesign authority: $AUTH"
+    case "$AUTH" in
+        *"Apple Development"*)
+            bad "signed with Apple Development: a Release archive must use Apple Distribution" ;;
+    esac
+elif printf '%s' "$SIGINFO" | grep -q "linker-signed\|Signature=adhoc"; then
+    printf '  note  ad-hoc signed (expected for a simulator build)\n'
+else
+    bad "not signed"
+fi
+
+PROFILE=$(find "$APP" -maxdepth 2 -name "embedded.mobileprovision" -o -maxdepth 3 -name "embedded.provisionprofile" 2>/dev/null | head -1)
+if [ -n "$PROFILE" ]; then
+    NAME=$(security cms -D -i "$PROFILE" 2>/dev/null | plutil -extract Name raw - 2>/dev/null)
+    [ -n "$NAME" ] && ok "profile: $NAME" || ok "profile present"
+else
+    printf '  note  no embedded profile (expected for a simulator build)\n'
+fi
 
 echo
-if [ "$fail" -eq 0 ]; then
-    echo "OK: $(du -sh "$APP" | cut -f1) bundle, everything present."
-else
-    echo "FAILED: the bundle is missing something it needs to run." >&2
-fi
-exit "$fail"
+if [ "$FAIL" -eq 0 ]; then echo "PASS"; else echo "FAIL"; fi
+exit "$FAIL"

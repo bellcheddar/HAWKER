@@ -123,13 +123,13 @@ def ensure_bundle_ids() -> dict[str, str]:
 
 
 PROFILES = [
-    ("PfamIE App Store", "com.mdeller.pfamie", "IOS_APP_STORE"),
-    ("PfamIE watchOS App Store", "com.mdeller.pfamie.watchkitapp", "IOS_APP_STORE"),
-    ("PfamIE watchOS Widget App Store",
-     "com.mdeller.pfamie.watchkitapp.widget", "IOS_APP_STORE"),
-    ("PfamIE visionOS App Store", "com.mdeller.pfamie", "IOS_APP_STORE"),
+    ("HAWKER App Store", "com.mdeller.hawker", "IOS_APP_STORE"),
+    # The watch app is a companion and ships inside the iOS app's Watch/ directory,
+    # so the iOS archive needs its profile too.
+    ("HAWKER watchOS App Store", "com.mdeller.hawker.watchkitapp", "IOS_APP_STORE"),
+    ("HAWKER visionOS App Store", "com.mdeller.hawker", "IOS_APP_STORE"),
     # macOS shares the bundle id but needs its own profile type.
-    ("PfamIE macOS App Store", "com.mdeller.pfamie", "MAC_APP_STORE"),
+    ("HAWKER macOS App Store", "com.mdeller.hawker", "MAC_APP_STORE"),
 ]
 
 
@@ -174,13 +174,11 @@ def ensure_profiles() -> None:
         print(f"  created  {name}")
 
 
-# Bundle ids that need the App Group so the watch app and its widget can share
-# the last classification. Without it the widget has its own container and the
-# complication shows a placeholder forever.
-APP_GROUP_BUNDLE_IDS = [
-    "com.mdeller.pfamie.watchkitapp",
-    "com.mdeller.pfamie.watchkitapp.widget",
-]
+# HAWKER ships no watch widget yet, so nothing needs an App Group: the watch app
+# receives its digest over WatchConnectivity rather than through a shared container.
+# Populate this if a complication is added, and note that assigning the group to each
+# identifier is a manual step in the portal that no API can do.
+APP_GROUP_BUNDLE_IDS: list[str] = []
 
 
 def ensure_capabilities() -> None:
@@ -252,7 +250,7 @@ def install_profiles() -> None:
         print(f"  installed  {attributes['name']}  -> {path.name}")
 
 
-def app_group_ready(group: str = "group.com.mdeller.pfamie") -> bool:
+def app_group_ready(group: str = "group.com.mdeller.hawker") -> bool:
     """
     True once the App Group is actually assigned to the bundle ids that need it.
 
@@ -337,7 +335,7 @@ def create_installer_certificate() -> None:
                        check=True, capture_output=True)
         subprocess.run([
             "openssl", "req", "-new", "-key", str(key), "-out", str(csr),
-            "-subj", "/CN=PfamIE Mac Installer/O=Marc Deller/C=GB",
+            "-subj", "/CN=HAWKER Mac Installer/O=Marc Deller/C=GB",
         ], check=True, capture_output=True)
 
         created = call("POST", "/certificates", {
@@ -411,15 +409,15 @@ if __name__ == "__main__":
 
     elif command == "status":
         apps = app_records()
-        target = [a for a in apps if a["bundleId"] == "com.mdeller.pfamie"]
+        target = [a for a in apps if a["bundleId"] == "com.mdeller.hawker"]
         print(f"team {TEAM_ID}, {len(apps)} app records visible")
         if target:
-            print(f"  PfamIE app record EXISTS: {target[0]}")
+            print(f"  HAWKER app record EXISTS: {target[0]}")
         else:
-            print("  PfamIE app record: NOT FOUND")
+            print("  HAWKER app record: NOT FOUND")
             print("  Create it once at https://appstoreconnect.apple.com "
                   "-> Apps -> + -> New App")
-            print("  Bundle ID: com.mdeller.pfamie")
+            print("  Bundle ID: com.mdeller.hawker")
             print("  The App Store name is globally unique, so it must be chosen "
                   "there and may be taken.")
         print("\n  Existing records:")

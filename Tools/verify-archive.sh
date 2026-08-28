@@ -9,7 +9,7 @@
 set -uo pipefail
 cd "$(dirname "$0")/.."
 
-ARCHIVE="${1:-build/archives/PfamIE-ios.xcarchive}"
+ARCHIVE="${1:-build/archives/HAWKER-ios.xcarchive}"
 if [ ! -d "$ARCHIVE" ]; then
     echo "No archive at $ARCHIVE. Run ./Tools/archive.sh first." >&2
     exit 1

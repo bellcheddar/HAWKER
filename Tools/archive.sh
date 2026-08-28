@@ -16,13 +16,13 @@ OUT="build/archives"
 mkdir -p "$OUT"
 
 case "$PLATFORM" in
-  ios)      SCHEME="PfamIE";           DEST="generic/platform=iOS" ;;
-  macos)    SCHEME="PfamIE-macOS";     DEST="generic/platform=macOS" ;;
-  visionos) SCHEME="PfamIE-visionOS";  DEST="generic/platform=visionOS" ;;
+  ios)      SCHEME="HAWKER-iOS";       DEST="generic/platform=iOS" ;;
+  macos)    SCHEME="HAWKER-macOS";     DEST="generic/platform=macOS" ;;
+  visionos) SCHEME="HAWKER-visionOS";  DEST="generic/platform=visionOS" ;;
   *) echo "usage: archive.sh [ios|macos|visionos]" >&2; exit 2 ;;
 esac
 
-ARCHIVE="$OUT/PfamIE-$PLATFORM.xcarchive"
+ARCHIVE="$OUT/HAWKER-$PLATFORM.xcarchive"
 rm -rf "$ARCHIVE"
 
 # Regenerate first: the .xcodeproj is derived, and archiving a stale one is a
@@ -31,7 +31,7 @@ rm -rf "$ARCHIVE"
 
 echo "Archiving $SCHEME for $PLATFORM..."
 xcodebuild archive \
-    -project PfamIE.xcodeproj \
+    -project HAWKER.xcodeproj \
     -scheme "$SCHEME" \
     -configuration Release \
     -destination "$DEST" \

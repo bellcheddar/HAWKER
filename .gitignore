@@ -16,3 +16,8 @@ Tools/**/__pycache__/
 *.pyc
 # session transcripts
 20*-*.txt
+
+# capture artefacts and exported working sets
+screenshots/
+build/
+assets.json

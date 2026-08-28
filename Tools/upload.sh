@@ -9,7 +9,7 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-ARCHIVE="${1:-build/archives/PfamIE-ios.xcarchive}"
+ARCHIVE="${1:-build/archives/HAWKER-ios.xcarchive}"
 EXPORT_DIR="build/export"
 
 if [ -z "${APPLE_TEAM_ID:-}" ] || [ -z "${ASC_KEY_ID:-}" ]; then
@@ -24,13 +24,14 @@ rm -rf "$EXPORT_DIR"
 mkdir -p "$EXPORT_DIR"
 # Manual signing means the export has to be told which profile belongs to which
 # bundle id. Without the mapping xcodebuild fails with the unhelpful
-# 'exportArchive "PfamIE.app" requires a provisioning profile.'
+# 'exportArchive "HAWKER.app" requires a provisioning profile.'
 case "$ARCHIVE" in
-  *macos*)    PROFILES='<key>com.mdeller.pfamie</key><string>PfamIE macOS App Store</string>' ;;
-  *visionos*) PROFILES='<key>com.mdeller.pfamie</key><string>PfamIE visionOS App Store</string>' ;;
-  *)          PROFILES='<key>com.mdeller.pfamie</key><string>PfamIE App Store</string>
-        <key>com.mdeller.pfamie.watchkitapp</key><string>PfamIE watchOS App Store</string>
-        <key>com.mdeller.pfamie.watchkitapp.widget</key><string>PfamIE watchOS Widget App Store</string>' ;;
+  *macos*)    PROFILES='<key>com.mdeller.hawker</key><string>HAWKER macOS App Store</string>' ;;
+  *visionos*) PROFILES='<key>com.mdeller.hawker</key><string>HAWKER visionOS App Store</string>' ;;
+  # Every bundle id in the archive must appear, extensions and the embedded watch
+  # app included, or the export fails with a message that blames the app itself.
+  *)          PROFILES='<key>com.mdeller.hawker</key><string>HAWKER App Store</string>
+        <key>com.mdeller.hawker.watchkitapp</key><string>HAWKER watchOS App Store</string>' ;;
 esac
 
 cat > "$EXPORT_DIR/ExportOptions.plist" <<PLIST
@@ -90,7 +91,7 @@ if [ "$STATUS" -ne 0 ]; then
         cat >&2 <<'HINT'
 
 That error blames the bundle ID and means something else: there is no App
-Store Connect app record for com.mdeller.pfamie yet.
+Store Connect app record for com.mdeller.hawker yet.
 
 Create it once at https://appstoreconnect.apple.com (Apps -> + -> New App).
 The bundle ID is already registered. The App Store name is globally unique
