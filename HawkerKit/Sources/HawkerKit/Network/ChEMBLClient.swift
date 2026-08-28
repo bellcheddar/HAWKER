@@ -54,6 +54,56 @@ public struct ChEMBLClient: Sendable {
         return try await client.getJSON(IndicationPage.self, from: url).drugIndications
     }
 
+    /// Mechanisms for many molecules in one request.
+    ///
+    /// ChEMBL supports `__in` filters, which is the difference between two round trips
+    /// per molecule and two per batch. At the 200 ms per-host spacing this client
+    /// keeps, that is the difference between a twenty-minute ingest and a two-minute
+    /// one, so the batch form is the default and the single-molecule call above is
+    /// only for detail views.
+    public func mechanisms(moleculeIds: [String]) async throws -> [String: [Mechanism]] {
+        var out: [String: [Mechanism]] = [:]
+        for batch in moleculeIds.chunked(into: 40) {
+            let url = base.appending(path: "mechanism.json").appending(queryItems: [
+                .init(name: "molecule_chembl_id__in", value: batch.joined(separator: ",")),
+                .init(name: "limit", value: "1000")
+            ])
+            guard let page = try? await client.getJSON(MechanismPage.self, from: url) else { continue }
+            for mechanism in page.mechanisms {
+                guard let id = mechanism.moleculeChemblId else { continue }
+                out[id, default: []].append(mechanism)
+            }
+        }
+        return out
+    }
+
+    /// Indications for many molecules in one request.
+    ///
+    /// Indications are far more numerous than mechanisms (aspirin alone has 47), so
+    /// this paginates where a batch overflows rather than silently truncating.
+    public func indications(moleculeIds: [String]) async throws -> [String: [DrugIndication]] {
+        var out: [String: [DrugIndication]] = [:]
+        for batch in moleculeIds.chunked(into: 25) {
+            var offset = 0
+            while true {
+                let url = base.appending(path: "drug_indication.json").appending(queryItems: [
+                    .init(name: "molecule_chembl_id__in", value: batch.joined(separator: ",")),
+                    .init(name: "limit", value: "1000"),
+                    .init(name: "offset", value: String(offset))
+                ])
+                guard let page = try? await client.getJSON(IndicationPage.self, from: url),
+                      !page.drugIndications.isEmpty else { break }
+                for indication in page.drugIndications {
+                    guard let id = indication.moleculeChemblId else { continue }
+                    out[id, default: []].append(indication)
+                }
+                offset += page.drugIndications.count
+                if page.drugIndications.count < 1000 { break }
+            }
+        }
+        return out
+    }
+
     public func target(id: String) async throws -> Target {
         let url = base.appending(path: "target/\(id).json")
         return try await client.getJSON(Target.self, from: url)
@@ -177,12 +227,15 @@ public struct ChEMBLClient: Sendable {
     }
 
     public struct DrugIndication: Decodable, Sendable {
+        /// Needed to demultiplex a batched `__in` response back to its molecule.
+        public let moleculeChemblId: String?
         public let efoId: String?
         public let efoTerm: String?
         public let maxPhaseForInd: Double?
         public let indicationRefs: [IndicationRef]?
 
         enum CodingKeys: String, CodingKey {
+            case moleculeChemblId = "molecule_chembl_id"
             case efoId = "efo_id"
             case efoTerm = "efo_term"
             case maxPhaseForInd = "max_phase_for_ind"
@@ -191,6 +244,7 @@ public struct ChEMBLClient: Sendable {
 
         public init(from decoder: any Decoder) throws {
             let c = try decoder.container(keyedBy: CodingKeys.self)
+            moleculeChemblId = try c.decodeIfPresent(String.self, forKey: .moleculeChemblId)
             efoId = try c.decodeIfPresent(String.self, forKey: .efoId)
             efoTerm = try c.decodeIfPresent(String.self, forKey: .efoTerm)
             maxPhaseForInd = try c.decodeLenientDouble(forKey: .maxPhaseForInd)

@@ -6,12 +6,18 @@ let package = Package(
     defaultLocalization: "en",
     platforms: [.iOS(.v18), .macOS(.v15), .visionOS(.v2), .watchOS(.v11)],
     products: [
-        .library(name: "HawkerKit", targets: ["HawkerKit"])
+        .library(name: "HawkerKit", targets: ["HawkerKit"]),
+        .executable(name: "hawker-ingest", targets: ["hawker-ingest"])
     ],
     targets: [
         .target(
             name: "HawkerKit",
             resources: [.process("Resources")],
+            swiftSettings: [.swiftLanguageMode(.v6)]
+        ),
+        .executableTarget(
+            name: "hawker-ingest",
+            dependencies: ["HawkerKit"],
             swiftSettings: [.swiftLanguageMode(.v6)]
         ),
         .testTarget(
