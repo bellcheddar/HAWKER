@@ -91,11 +91,17 @@ Marimastat/MMP9/`1R55`.
 
 ## Known soft spot
 
-**Ingest throughput.** A 400-molecule seed takes 14 to 20 minutes wall clock. The limit
+**Ingest throughput.** A 400-molecule seed takes 14 to 22 minutes wall clock. The limit
 is the plan's own politeness settings (five concurrent per host, 200 ms minimum spacing)
 against services that are free and publicly funded, so it is a deliberate trade rather
-than a defect. Timing runs also vary by 30% or more depending on what else is hitting the
-same services, so treat any single measurement with suspicion.
+than a defect.
+
+Four runs of identical work took 1183 s, 824 s, 1210 s and 1322 s. I assumed the spread
+came from a simulator hitting the same APIs concurrently, then ran one with nothing else
+running and got the **slowest** result of the four. So the variance is upstream latency,
+not local contention, and no single timing here should be trusted to better than about
+40%. The per-host concurrency change is still right on its merits, but the 824 s run does
+not demonstrate it.
 
 If a faster cold start matters more than politeness, the levers in order are: drop the
 per-host spacing to 100 ms, skip the Open Targets join on the first pass and fill it in

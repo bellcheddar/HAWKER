@@ -18,7 +18,7 @@ import random
 import sys
 from pathlib import Path
 
-from PIL import Image, ImageDraw, ImageFilter
+from PIL import Image, ImageChops, ImageDraw, ImageFilter
 
 # The app's palette, verbatim from Palette.swift.
 VOID = (0x05, 0x07, 0x0F)
@@ -46,66 +46,87 @@ def load_points(path):
     assets = data.get("assets", data) if isinstance(data, dict) else data
     pts = []
     for a in assets:
-        cause = (a.get("verdict") or {}).get("cause") or a.get("cause") or "unknown"
-        score = a.get("score") or {}
-        rank = score.get("benignDeath", 0.5) * 0.35 + score.get("structuralTractability", 0) * 0.25 \
-             + score.get("biologicalWhitespace", 0) * 0.25 + score.get("freedomToOperate", 0) * 0.15
-        year = None
-        for t in a.get("trials", []):
-            d = t.get("completionDate") or t.get("startDate")
-            if d:
-                year = d
-        pts.append((cause, rank, year))
+        cause = (a.get("verdict") or {}).get("cause") or "unknown"
+        s = a.get("score") or {}
+        rank = (s.get("benignDeath", 0.5) * 0.35
+                + s.get("structuralTractability", 0.0) * 0.25
+                + s.get("biologicalWhitespace", 0.0) * 0.25
+                + s.get("freedomToOperate", 0.0) * 0.15)
+        year = a.get("estimatedFTOYear")
+        if year is None:
+            continue
+        pts.append((cause, float(year), rank))
     return pts
+
+
+def axes(points):
+    """Percentile range, read off the data rather than assumed.
+
+    Plain min/max let a couple of outliers (an estimated horizon of 1954, another of
+    2042) stretch the axis and squash every other point into the middle third. The
+    5th to 95th percentile fills the frame; the outliers still plot, just clamped.
+    """
+    ys = sorted(p[1] for p in points)
+    rs = sorted(p[2] for p in points)
+
+    def pct(v, q):
+        return v[min(len(v) - 1, max(0, int(q * (len(v) - 1))))]
+
+    return (pct(ys, 0.05), pct(ys, 0.95), pct(rs, 0.03), pct(rs, 0.97))
 
 
 def draw(points, out):
     img = Image.new("RGB", (S, S), VOID)
-    d = ImageDraw.Draw(img)
 
-    # Ground: a soft radial lift so the cloud sits in space rather than on a flat field.
+    # Ground: a soft lift from the lower left, so the cloud sits in space.
     glow = Image.new("RGB", (S, S), VOID)
     gd = ImageDraw.Draw(glow)
-    gd.ellipse([S * 0.08, S * 0.20, S * 0.92, S * 1.04], fill=SLAB)
-    img = Image.blend(img, glow.filter(ImageFilter.GaussianBlur(S // 8)), 0.85)
+    gd.ellipse([-S * 0.25, S * 0.30, S * 0.85, S * 1.35], fill=(0x14, 0x1E, 0x3C))
+    img = Image.blend(img, glow.filter(ImageFilter.GaussianBlur(S // 6)), 0.9)
     d = ImageDraw.Draw(img)
 
     rng = random.Random(1729)
 
-    # Horizon line: the graveyard's ground plane, in neon at low alpha.
-    for i in range(6):
-        y = S * (0.62 + i * 0.055)
-        w = int(2 - i * 0.25)
-        if w < 1:
-            w = 1
-        d.line([(S * (0.10 - i * 0.012), y), (S * (0.90 + i * 0.012), y)],
-               fill=tuple(int(c * (0.30 - i * 0.04)) for c in NEON), width=w)
+    # The graveyard's ground plane: a few neon rules in perspective.
+    for i in range(5):
+        y = S * (0.815 + i * 0.042)
+        fade = 0.42 - i * 0.075
+        d.line([(S * 0.06, y), (S * 0.94, y)],
+               fill=tuple(int(VOID[j] + (NEON[j] - VOID[j]) * fade) for j in range(3)),
+               width=max(1, 3 - i))
 
-    if points:
-        n = min(len(points), 900)
-        chosen = rng.sample(points, n) if len(points) > n else points
-    else:
-        chosen = []
-
-    # Plot: x spreads the cloud, y is rank (higher rank sits higher), size by rank.
-    for i, (cause, rank, _year) in enumerate(chosen):
+    # The Overlook's own axes: estimated horizon year across, Ghost Rank up.
+    #
+    # The other score components were tried first and do not scatter: benignDeath has
+    # four distinct values across 176 assets and structuralTractability has seven, so
+    # plotting them draws four clumps rather than a cloud. Year has 56 distinct values
+    # over 1954 to 2042 and is the only axis with real spread.
+    ylo, yhi, rlo, rhi = axes(points)
+    yspan = max(1.0, yhi - ylo)
+    rspan = max(0.01, rhi - rlo)
+    for cause, year, rank in points:
         colour = CAUSE.get(cause, CAUSE["unknown"])
-        # Deterministic scatter in x, so the icon is reproducible.
-        t = (i + 0.5) / max(1, len(chosen))
-        x = S * (0.13 + 0.74 * t) + rng.gauss(0, S * 0.018)
-        y = S * (0.78 - 0.50 * min(1.0, max(0.0, rank))) + rng.gauss(0, S * 0.022)
-        r = S * (0.006 + 0.016 * min(1.0, max(0.0, rank)))
+        fx = min(1.0, max(0.0, (year - ylo) / yspan))
+        fr = min(1.0, max(0.0, (rank - rlo) / rspan))
+        x = S * (0.11 + 0.78 * fx) + rng.gauss(0, S * 0.014)
+        y = S * (0.80 - 0.66 * fr) + rng.gauss(0, S * 0.018)
+        r = S * (0.0060 + 0.0105 * fr)
 
-        # Emissive falloff: three stacked discs rather than a wide polyline, which
-        # would fan spikes out of every joint.
-        for k, (mult, alpha) in enumerate([(3.2, 0.10), (1.9, 0.26), (1.0, 1.0)]):
+        # Additive falloff: a dim halo, then a bright core. Kept small on purpose.
+        # A first attempt used radii four times this with screen blending, and 176
+        # overlapping halos saturated the whole frame to white: the colour scale, which
+        # is the only thing the icon is actually saying, disappeared entirely.
+        for mult, alpha in ((3.0, 0.10), (1.8, 0.30), (1.0, 0.95)):
             rr = r * mult
-            col = tuple(int(VOID[j] + (colour[j] - VOID[j]) * alpha) for j in range(3))
-            d.ellipse([x - rr, y - rr, x + rr, y + rr], fill=col)
+            layer = Image.new("RGB", img.size)
+            ImageDraw.Draw(layer).ellipse(
+                [x - rr, y - rr, x + rr, y + rr],
+                fill=tuple(int(c * alpha) for c in colour),
+            )
+            # Screen blend, so overlapping glows brighten rather than muddying.
+            img = ImageChops.screen(img, layer)
 
-    img = img.filter(ImageFilter.GaussianBlur(0.6))
-
-    # The App Store rejects an icon with an alpha channel, and PIL gives RGBA freely.
+    img = img.filter(ImageFilter.GaussianBlur(0.5))
     img = img.convert("RGB")
     assert img.mode == "RGB", f"icon must be RGB, got {img.mode}"
     out = Path(out)
