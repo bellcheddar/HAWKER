@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HAWKER: Privacy Policy | Marc C. Deller</title>
+<meta name="description" content="Privacy policy for HAWKER. The app collects nothing.">
+<meta name="author" content="Marc C. Deller, D.Phil.">
+<style>
+  :root{
+    --void:#05070F; --slab:#0E1428; --navy:#1C244B; --accent:#467FF7;
+    --neon:#4EF0FF; --ghost:#B6C6E8; --amber:#FFAE43;
+  }
+  *,*::before,*::after{box-sizing:border-box}
+  body{margin:0;background:var(--void);color:var(--ghost);
+       font-family:-apple-system,BlinkMacSystemFont,'Inter',sans-serif;
+       font-size:16px;line-height:1.65;overflow-x:hidden}
+  header{background:linear-gradient(135deg,var(--navy) 0%,var(--accent) 100%);
+         padding:14px 24px;position:sticky;top:0;z-index:10;
+         box-shadow:0 2px 18px rgba(0,0,0,.5)}
+  .inner{max-width:820px;margin:0 auto;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  .dot{width:10px;height:10px;background:#fcb900;border-radius:50%;flex-shrink:0}
+  .brand{display:flex;align-items:center;gap:8px;color:rgba(255,255,255,.92);
+         text-decoration:none;font-weight:600;font-size:13px;white-space:nowrap}
+  .brand:hover{color:#fff}
+  h1.site{flex:1;font-size:16px;color:#fff;margin:0;font-weight:700}
+  .links{display:flex;gap:10px;flex-wrap:wrap}
+  .links a{color:rgba(255,255,255,.88);text-decoration:none;font-size:12px;
+           padding:4px 12px;border:1px solid rgba(255,255,255,.32);border-radius:20px;white-space:nowrap}
+  .links a:hover{background:rgba(255,255,255,.16);color:#fff}
+  main{max-width:820px;margin:0 auto;padding:34px 24px 60px}
+  h2{color:#fff;font-size:26px;margin:0 0 6px}
+  h3{color:var(--neon);font-size:17px;margin:30px 0 8px}
+  .updated{color:#64748B;font-size:13px;margin-bottom:26px}
+  .panel{background:var(--slab);border:1px solid rgba(78,240,255,.28);
+         border-radius:14px;padding:20px 22px;margin:18px 0}
+  .big{color:var(--neon);font-size:19px;font-weight:600;margin:0}
+  ul{padding-left:22px} li{margin:7px 0}
+  a{color:var(--accent)} a:hover{color:var(--neon)}
+  code{font-family:ui-monospace,'SF Mono',monospace;font-size:13px;
+       background:rgba(70,127,247,.14);padding:2px 6px;border-radius:4px;color:var(--neon)}
+  footer{border-top:1px solid var(--navy);margin-top:44px;padding-top:20px;
+         text-align:center;font-size:13px;color:#64748B}
+  @media(max-width:600px){
+    .inner{padding:0;gap:8px} h1.site{font-size:14px}
+    .brand span:last-child{display:none} main{padding:24px 16px 44px}
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="inner">
+    <a class="brand" href="https://marcdeller.com" target="_blank" rel="noopener noreferrer">
+      <span class="dot"></span><span>Marc C. Deller, D.Phil.</span>
+    </a>
+    <h1 class="site">HAWKER: Privacy Policy</h1>
+    <div class="links">
+      <a href="https://marcdeller.com" target="_blank" rel="noopener noreferrer">🌐 marcdeller.com</a>
+      <a href="mailto:marc@marcdeller.com">✉️ marc@marcdeller.com</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <h2>Privacy Policy</h2>
+  <p class="updated">HAWKER for iPhone, iPad, Mac, Apple Vision Pro and Apple Watch. Last updated 28 August 2026.</p>
+
+  <div class="panel">
+    <p class="big">HAWKER collects nothing.</p>
+    <p style="margin:10px 0 0">No account, no sign-in, no analytics, no tracking, no advertising identifier,
+    no crash reporting, no telemetry of any kind. Nothing you do in the app is sent to
+    the developer, and there is no server belonging to HAWKER for it to be sent to.</p>
+  </div>
+
+  <h3>What the app stores</h3>
+  <ul>
+    <li>A cache of the public scientific records it has downloaded, held in the app's own
+        caches directory on your device.</li>
+    <li>Nothing else. There is no user profile, no document store and no cloud sync.</li>
+  </ul>
+  <p>Deleting the app removes the cache with it.</p>
+
+  <h3>Where the app connects</h3>
+  <p>HAWKER builds its working set from public, freely available scientific databases.
+  It makes outbound HTTPS requests only to these services:</p>
+  <ul>
+    <li><a href="https://www.ebi.ac.uk" target="_blank" rel="noopener noreferrer">EMBL-EBI</a>: ChEMBL and UniChem</li>
+    <li><a href="https://clinicaltrials.gov" target="_blank" rel="noopener noreferrer">ClinicalTrials.gov</a> (US National Library of Medicine)</li>
+    <li><a href="https://platform.opentargets.org" target="_blank" rel="noopener noreferrer">Open Targets Platform</a></li>
+    <li><a href="https://www.rcsb.org" target="_blank" rel="noopener noreferrer">RCSB Protein Data Bank</a></li>
+    <li><a href="https://pubchem.ncbi.nlm.nih.gov" target="_blank" rel="noopener noreferrer">PubChem</a> (US National Institutes of Health)</li>
+    <li><a href="https://open.fda.gov" target="_blank" rel="noopener noreferrer">openFDA</a> (US Food and Drug Administration)</li>
+  </ul>
+  <p>These requests carry no personal information. They contain only the scientific
+  identifier being looked up (for example a ChEMBL compound id or a PDB entry code) and
+  a descriptive <code>User-Agent</code> naming the app so those services can identify
+  the traffic. As with any internet request, the operators of those services will see
+  the connecting IP address under their own privacy policies, which are linked above.</p>
+
+  <h3>On-device processing</h3>
+  <p>HAWKER classifies the free-text reason a clinical trial gave for stopping. That runs
+  entirely on your device, on the Apple Neural Engine, using a model built into the
+  operating system. No text is uploaded for processing and there is no external
+  inference service.</p>
+
+  <h3>Children</h3>
+  <p>HAWKER is a research reference tool for scientists. It is not directed at children
+  and collects no data from anyone, of any age.</p>
+
+  <h3>Not medical advice</h3>
+  <p>HAWKER makes no diagnostic or treatment claim and gives no medical advice. It is a
+  browser over public research databases. The freedom-to-operate figure it shows is a
+  crude estimate computed from public dates, is labelled as an estimate throughout the
+  app, and is not legal guidance.</p>
+
+  <h3>Changes</h3>
+  <p>Any change to this policy will be published on this page with a new date.</p>
+
+  <h3>Contact</h3>
+  <p>Marc C. Deller, D.Phil. &middot;
+     <a href="mailto:marc@marcdeller.com">marc@marcdeller.com</a> &middot;
+     <a href="https://github.com/bellcheddar/HAWKER" target="_blank" rel="noopener noreferrer">github.com/bellcheddar/HAWKER</a></p>
+
+  <footer>
+    Built by <a href="https://marcdeller.com" target="_blank" rel="noopener noreferrer">Marc C. Deller, D.Phil.</a>
+    &middot; <a href="mailto:marc@marcdeller.com">marc@marcdeller.com</a>
+  </footer>
+</main>
+</body>
+</html>
