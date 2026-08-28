@@ -46,10 +46,26 @@ public struct MethodView: View {
                     row("Dead assets kept", "\(summary.kept)")
                     row("With a resolved target", "\(summary.withTarget)")
                     row("With a co-crystal of the exact ligand", "\(summary.withCoCrystal)")
+                    row("With a filed reason for stopping", "\(summary.withStatement)")
                     Divider().overlay(Palette.navy)
                     row("Died of business, not biology",
                         String(format: "%.1f%%", summary.businessFraction * 100),
                         tint: Palette.magenta)
+                    row("No reason filed at all",
+                        String(format: "%.1f%% of kept", summary.silentFraction * 100),
+                        tint: Palette.slate)
+                    row("Unknown among those that do state one",
+                        String(format: "%.1f%%", summary.unknownAmongStated * 100),
+                        tint: Palette.amberDeath)
+                    Text("""
+                    Those last two measure different things and are easy to conflate. \
+                    An asset kept because its trials went quiet has no stated reason by \
+                    construction: no trial was formally terminated, it simply stopped. \
+                    Only the second number is the classifier's own score.
+                    """)
+                    .font(.caption2)
+                    .foregroundStyle(Palette.ghost.opacity(0.7))
+                    .fixedSize(horizontal: false, vertical: true)
                 } else {
                     row("Dead assets loaded", "\(store.assets.count)")
                 }
