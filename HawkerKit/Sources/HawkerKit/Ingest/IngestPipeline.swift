@@ -156,8 +156,16 @@ public actor IngestPipeline {
             let withdrawn = molecule.withdrawnFlag == true
             let anyHalted = records.contains { $0.isHalted }
             let clinical = (molecule.maxPhase ?? 0) >= 2
-            let stale = clinical && molecule.firstApproval == nil && !hasRecentActivity(records)
-            guard withdrawn || anyHalted || stale else { continue }
+            // "Went quiet" requires trials that then went quiet. Without the
+            // `!records.isEmpty` clause this kept every molecule ChEMBL has no trial
+            // cross-references for, which on a 1,591-molecule run was 95% of them:
+            // absence of evidence read as evidence of death. A compound we know
+            // nothing about is not a dead asset, it is an unknown one.
+            let wentQuiet = clinical
+                && molecule.firstApproval == nil
+                && !records.isEmpty
+                && !hasRecentActivity(records)
+            guard withdrawn || anyHalted || wentQuiet else { continue }
 
             let indications = (indicationsById[id] ?? []).compactMap { raw -> Indication? in
                 guard let efoId = raw.efoId, let term = raw.efoTerm else { return nil }
