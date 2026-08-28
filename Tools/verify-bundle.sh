@@ -52,20 +52,28 @@ fi
 
 # The compiled icon at the bundle ROOT, not the .appiconset: an empty appiconset
 # still builds and ships an app with no icon.
-if [ -d "$APP/Contents/MacOS" ]; then
-    check_file "$RES/AppIcon.icns" 20000
-else
-    case "$APP" in
-        *watchsimulator*|*watchos*|*Watch*)
-            # watchOS and visionOS keep their icons inside Assets.car only.
-            check_file "$ROOT/Assets.car" 50000 ;;
-        *xrsimulator*|*xros*)
-            check_file "$ROOT/Assets.car" 50000 ;;
-        *)
-            check_file "$ROOT/AppIcon60x60@2x.png" 2000
-            check_file "$ROOT/AppIcon76x76@2x~ipad.png" 2000 ;;
-    esac
-fi
+#
+# Which artefact to expect depends on the PLATFORM, read from the Info.plist. An
+# earlier version guessed it from the path, which works for a build inside
+# Debug-xrsimulator and then reports a perfectly good visionOS archive as missing
+# its iPhone icons.
+PLIST="$APP/Info.plist"
+[ -f "$APP/Contents/Info.plist" ] && PLIST="$APP/Contents/Info.plist"
+PLATFORM=$(plutil -extract DTPlatformName raw "$PLIST" 2>/dev/null || echo "")
+
+case "$PLATFORM" in
+    macosx)
+        check_file "$RES/AppIcon.icns" 20000 ;;
+    watchos|watchsimulator|xros|xrsimulator)
+        # watchOS and visionOS keep their icons inside Assets.car only, and
+        # visionOS's is a layered stack rather than a flat image.
+        check_file "$ROOT/Assets.car" 50000 ;;
+    iphoneos|iphonesimulator)
+        check_file "$ROOT/AppIcon60x60@2x.png" 2000
+        check_file "$ROOT/AppIcon76x76@2x~ipad.png" 2000 ;;
+    *)
+        bad "could not read DTPlatformName from $PLIST" ;;
+esac
 
 # A companion watch app must actually be inside the iOS app, not merely built.
 if [ -f "$APP/Info.plist" ] && plutil -extract WKWatchKitApp raw "$APP/Info.plist" >/dev/null 2>&1; then
@@ -98,7 +106,12 @@ else
     bad "not signed"
 fi
 
-PROFILE=$(find "$APP" -maxdepth 2 -name "embedded.mobileprovision" -o -maxdepth 3 -name "embedded.provisionprofile" 2>/dev/null | head -1)
+# The app's OWN profile, not the embedded watch app's: an unqualified find walks
+# into Watch/ first and reports the wrong one.
+PROFILE=""
+for candidate in "$APP/embedded.mobileprovision" "$APP/Contents/embedded.provisionprofile"; do
+    [ -f "$candidate" ] && { PROFILE="$candidate"; break; }
+done
 if [ -n "$PROFILE" ]; then
     NAME=$(security cms -D -i "$PROFILE" 2>/dev/null | plutil -extract Name raw - 2>/dev/null)
     [ -n "$NAME" ] && ok "profile: $NAME" || ok "profile present"

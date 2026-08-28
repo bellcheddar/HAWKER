@@ -74,7 +74,7 @@ shot() {
 
 shot "1-stall"
 shot "2-postmortem" -AppAsset CHEMBL276711
-shot "3-graveyard"  -AppTab graveyard
-shot "4-pockets"    -AppTab pockets
+shot "3-structure"  -AppPocket "5I9I:5HV"
+shot "4-graveyard"  -AppTab graveyard
 shot "5-method"     -AppMethod YES
 pkill -x PfamIE 2>/dev/null || true

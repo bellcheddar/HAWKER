@@ -55,6 +55,9 @@ shot() {
 echo "Capturing from $UDID into $OUT"
 shot "1-stall"                                   # the graveyard, browsable
 shot "2-postmortem" -AppAsset CHEMBL276711       # Semaxanib: evidence highlighted
-shot "3-graveyard"  -AppTab graveyard            # the business-vs-biology headline
-shot "4-shelf"      -AppTab shelf                # lapsed horizons, with the caveat
-shot "5-method"     -AppMethod YES               # the app showing its own working
+# 5I9I is Lp-PLA2 with darapladib bound at 2.7 A: the exact co-crystal the ingest
+# finds for CHEMBL204021, so this shot is the whole join in one picture.
+SETTLE=26 shot "3-structure" -AppPocket "5I9I:5HV"
+shot "4-graveyard"  -AppTab graveyard            # the business-vs-biology headline
+shot "5-shelf"      -AppTab shelf                # lapsed horizons, with the caveat
+shot "6-method"     -AppMethod YES               # the app showing its own working

@@ -18,6 +18,6 @@ Tools/**/__pycache__/
 20*-*.txt
 
 # capture artefacts and exported working sets
-screenshots/
+assets/screenshots/
 build/
 assets.json
