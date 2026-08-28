@@ -116,7 +116,7 @@ struct DecoderTests {
         let page = try HawkerJSON.decoder.decode(
             ClinicalTrialsClient.StudyPage.self, from: try Fixture.data("ctgov_studies.json")
         )
-        #expect(page.totalCount == 3) // the live query matched 3; the fixture keeps 2
+        #expect(page.totalCount == 3) // captured before field selection; the fixture keeps 2 studies
         let records = page.studies.compactMap(\.trialRecord)
         #expect(records.count == 2)
         let phase2 = try #require(records.first { $0.nctId == "NCT00269048" })

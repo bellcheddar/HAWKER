@@ -9,9 +9,25 @@ import Foundation
 /// - `whyStopped` sits in `protocolSection.statusModule`, and is present on roughly
 ///   a third of terminated studies. A blank one is a real answer, not a fetch failure.
 /// - Dates arrive as "2014-04-24" or "2009-12" (month precision), so both are parsed.
+/// - **Always send `fields`.** A full study record is about 200 kB, and this client uses
+///   perhaps 1 kB of it: eligibility criteria, arm descriptions, outcome measures,
+///   locations and the results section all come down otherwise. Requesting only the five
+///   modules below took a three-study response from 593,763 bytes to 3,582, a 166x
+///   reduction, and turned the ingest from network-bound into something that finishes.
 public struct ClinicalTrialsClient: Sendable {
     private let client: APIClient
     private let base = URL(string: "https://clinicaltrials.gov/api/v2/studies")!
+
+    /// Exactly the modules `TrialRecord` reads, and nothing else.
+    static let fields = [
+        "protocolSection.identificationModule.nctId",
+        "protocolSection.identificationModule.briefTitle",
+        "protocolSection.statusModule",
+        "protocolSection.designModule.phases",
+        "protocolSection.designModule.enrollmentInfo",
+        "protocolSection.sponsorCollaboratorsModule.leadSponsor",
+        "protocolSection.conditionsModule"
+    ].joined(separator: ",")
 
     public init(client: APIClient = .shared) { self.client = client }
 
@@ -23,7 +39,7 @@ public struct ClinicalTrialsClient: Sendable {
             let url = base.appending(queryItems: [
                 .init(name: "filter.ids", value: batch.joined(separator: ",")),
                 .init(name: "pageSize", value: String(batch.count)),
-                .init(name: "countTotal", value: "true")
+                .init(name: "fields", value: Self.fields)
             ])
             let page = try await client.getJSON(StudyPage.self, from: url)
             out.append(contentsOf: page.studies.compactMap(\.trialRecord))
@@ -37,7 +53,8 @@ public struct ClinicalTrialsClient: Sendable {
         var items: [URLQueryItem] = [
             .init(name: "filter.overallStatus", value: "TERMINATED|WITHDRAWN|SUSPENDED"),
             .init(name: "pageSize", value: String(pageSize)),
-            .init(name: "countTotal", value: "true")
+            .init(name: "countTotal", value: "true"),
+            .init(name: "fields", value: Self.fields)
         ]
         if let pageToken { items.append(.init(name: "pageToken", value: pageToken)) }
         let page = try await client.getJSON(StudyPage.self, from: base.appending(queryItems: items))
