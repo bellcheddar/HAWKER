@@ -2,7 +2,7 @@
 
 > **Halted Assets, Withdrawn Kinetics, Expired Rights: mining the graveyard of failed clinical assets for reclaimable drugs, reusable pockets and under-exploited targets.**
 
-![swift](https://img.shields.io/badge/swift-6.0-F05138?logo=swift&logoColor=white) ![platforms](https://img.shields.io/badge/platforms-iOS%20%C2%B7%20iPadOS%20%C2%B7%20macOS%20%C2%B7%20visionOS%20%C2%B7%20watchOS-000000?logo=apple&logoColor=white) ![swiftui](https://img.shields.io/badge/SwiftUI-Observable-0071e3?logo=swift&logoColor=white) ![realitykit](https://img.shields.io/badge/RealityKit-3D%20molecular-1C244B) ![charts](https://img.shields.io/badge/Swift%20Charts-analytics-467FF7) ![ane](https://img.shields.io/badge/Neural%20Engine-on--device-B57BFF) ![dependencies](https://img.shields.io/badge/dependencies-zero-00d084) ![tests](https://img.shields.io/badge/tests-25%20passing-00d084) ![data](https://img.shields.io/badge/data-ChEMBL%20%C2%B7%20ClinicalTrials.gov%20%C2%B7%20Open%20Targets%20%C2%B7%20UniChem%20%C2%B7%20RCSB%20%C2%B7%20PubChem%20%C2%B7%20openFDA-467FF7) ![phase](https://img.shields.io/badge/phase-4%20of%204%20built-FFAE43) ![licence](https://img.shields.io/badge/licence-MIT-9b51e0) ![author](https://img.shields.io/badge/author-Marc%20C.%20Deller%2C%20D.Phil.-1C244B)
+![swift](https://img.shields.io/badge/swift-6.0-F05138?logo=swift&logoColor=white) ![platforms](https://img.shields.io/badge/platforms-iOS%20%C2%B7%20iPadOS%20%C2%B7%20macOS%20%C2%B7%20visionOS%20%C2%B7%20watchOS-000000?logo=apple&logoColor=white) ![swiftui](https://img.shields.io/badge/SwiftUI-Observable-0071e3?logo=swift&logoColor=white) ![realitykit](https://img.shields.io/badge/RealityKit-3D%20molecular-1C244B) ![charts](https://img.shields.io/badge/Swift%20Charts-analytics-467FF7) ![ane](https://img.shields.io/badge/Neural%20Engine-on--device-B57BFF) ![dependencies](https://img.shields.io/badge/dependencies-zero-00d084) ![tests](https://img.shields.io/badge/tests-41%20passing-00d084) ![data](https://img.shields.io/badge/data-ChEMBL%20%C2%B7%20ClinicalTrials.gov%20%C2%B7%20Open%20Targets%20%C2%B7%20UniChem%20%C2%B7%20RCSB%20%C2%B7%20PubChem%20%C2%B7%20openFDA-467FF7) ![phase](https://img.shields.io/badge/phase-4%20of%204%20built-FFAE43) ![licence](https://img.shields.io/badge/licence-MIT-9b51e0) ![author](https://img.shields.io/badge/author-Marc%20C.%20Deller%2C%20D.Phil.-1C244B)
 
 <table>
 <tr>
@@ -147,7 +147,7 @@ HAWKER/
 
 ## 🧪 Tests
 
-25 tests, all against **real captured API responses and a real PDB entry**, never hand-written samples.
+41 tests, all against **real captured API responses and a real PDB entry**, never hand-written samples.
 
 ```bash
 swift test --package-path HawkerKit

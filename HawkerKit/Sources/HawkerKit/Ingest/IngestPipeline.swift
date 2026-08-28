@@ -153,19 +153,12 @@ public actor IngestPipeline {
         for molecule in molecules {
             let id = molecule.moleculeChemblId
             let records = (nctsByMolecule[id] ?? []).compactMap { trialsById[$0] }
-            let withdrawn = molecule.withdrawnFlag == true
-            let anyHalted = records.contains { $0.isHalted }
-            let clinical = (molecule.maxPhase ?? 0) >= 2
-            // "Went quiet" requires trials that then went quiet. Without the
-            // `!records.isEmpty` clause this kept every molecule ChEMBL has no trial
-            // cross-references for, which on a 1,591-molecule run was 95% of them:
-            // absence of evidence read as evidence of death. A compound we know
-            // nothing about is not a dead asset, it is an unknown one.
-            let wentQuiet = clinical
-                && molecule.firstApproval == nil
-                && !records.isEmpty
-                && !hasRecentActivity(records)
-            guard withdrawn || anyHalted || wentQuiet else { continue }
+            guard KeepRule.keeps(
+                withdrawn: molecule.withdrawnFlag == true,
+                maxPhase: molecule.maxPhase,
+                firstApproval: molecule.firstApproval,
+                trials: records
+            ) else { continue }
 
             let indications = (indicationsById[id] ?? []).compactMap { raw -> Indication? in
                 guard let efoId = raw.efoId, let term = raw.efoTerm else { return nil }
@@ -371,12 +364,6 @@ public actor IngestPipeline {
         return resolved + unresolved
     }
 
-    private func hasRecentActivity(_ trials: [TrialRecord], years: Int = 5) -> Bool {
-        guard let cutoff = Calendar(identifier: .gregorian).date(byAdding: .year, value: -years, to: Date())
-        else { return false }
-        return trials.contains { ($0.completionDate ?? $0.startDate ?? .distantPast) > cutoff }
-    }
-
     private func targetRecord(chemblTargetId: String?) async -> TargetRecord? {
         guard let chemblTargetId else { return nil }
         if let cached = targetCache[chemblTargetId] { return cached }
@@ -419,5 +406,43 @@ public actor IngestPipeline {
         )
         targetCache[chemblTargetId] = record
         return record
+    }
+}
+
+/// Whether a molecule counts as a dead clinical asset.
+///
+/// Pulled out of the pipeline and made pure so it can be tested, because the one
+/// serious logic bug in this file lived here and shipped silently: the "went quiet"
+/// clause fired for any clinical molecule with no trial cross-references at all,
+/// since a molecule with no trials trivially has no recent activity. On a
+/// 1,591-molecule run that kept 1,515 of them. Absence of evidence is not evidence
+/// of death.
+public enum KeepRule {
+    /// Trials older than this with nothing since count as having gone quiet.
+    public static let quietYears = 5
+
+    public static func keeps(
+        withdrawn: Bool,
+        maxPhase: Double?,
+        firstApproval: Int?,
+        trials: [TrialRecord],
+        now: Date = Date()
+    ) -> Bool {
+        // 1. Pulled from the market: unambiguous.
+        if withdrawn { return true }
+        // 2. A trial was actually stopped: also unambiguous.
+        if trials.contains(where: { $0.isHalted }) { return true }
+        // 3. Reached the clinic, never approved, and its known trials went quiet.
+        //    The `!trials.isEmpty` clause is the whole point: without it this arm
+        //    keeps every molecule we have no trial data for.
+        let clinical = (maxPhase ?? 0) >= 2
+        return clinical && firstApproval == nil && !trials.isEmpty
+            && !hasRecentActivity(trials, now: now)
+    }
+
+    public static func hasRecentActivity(_ trials: [TrialRecord], years: Int = quietYears, now: Date = Date()) -> Bool {
+        guard let cutoff = Calendar(identifier: .gregorian).date(byAdding: .year, value: -years, to: now)
+        else { return false }
+        return trials.contains { ($0.completionDate ?? $0.startDate ?? .distantPast) > cutoff }
     }
 }
