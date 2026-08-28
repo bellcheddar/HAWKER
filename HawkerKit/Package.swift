@@ -11,6 +11,7 @@ let package = Package(
     targets: [
         .target(
             name: "HawkerKit",
+            resources: [.process("Resources")],
             swiftSettings: [.swiftLanguageMode(.v6)]
         ),
         .testTarget(
