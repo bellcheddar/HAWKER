@@ -72,7 +72,7 @@ public struct HawkerRootView: View {
                             }
                         }
                 }
-                .tabItem { Label(tab.title, systemImage: tab.symbol) }
+                .tabItem { Label(tab.shortTitle, systemImage: tab.symbol) }
                 .tag(tab)
             }
         }

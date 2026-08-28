@@ -66,6 +66,20 @@ public enum HawkerTab: String, CaseIterable, Hashable, Sendable {
         }
     }
 
+    /// Six tabs do not fit on an iPhone at full length: "The Stall" and "Post Mortem"
+    /// overlapped on an iPhone 17 Pro. The tab bar uses these; every other place the
+    /// tab is named uses the full title.
+    public var shortTitle: String {
+        switch self {
+        case .stall: "Stall"
+        case .postMortem: "Mortem"
+        case .graveyard: "Graveyard"
+        case .shelf: "Shelf"
+        case .pockets: "Pockets"
+        case .overlook: "Overlook"
+        }
+    }
+
     public var symbol: String {
         switch self {
         case .stall: "square.grid.2x2"
