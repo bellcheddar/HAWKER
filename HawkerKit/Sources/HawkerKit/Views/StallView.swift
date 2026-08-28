@@ -160,6 +160,11 @@ public struct AssetCard: View {
                     }
                     if asset.withdrawnFlag {
                         Chip(text: "Withdrawn", colour: Palette.hazard, symbol: "xmark.octagon")
+                    } else if let approved = asset.firstApproval {
+                        // An approved drug with a terminated trial is kept by the keep
+                        // rule and is a legitimate repurposing lead, but it is not a
+                        // shelved compound and must not read like one.
+                        Chip(text: "Approved \(approved)", colour: Palette.tealDeath, symbol: "checkmark.seal")
                     }
                 }
             }
@@ -253,6 +258,7 @@ struct StallFilterSheet: View {
                 Section {
                     Toggle("Has a co-crystal of the exact ligand", isOn: $filter.requiresStructure)
                     Toggle("Estimated patent horizon has passed", isOn: $filter.requiresLapsedFTO)
+                    Toggle("Never approved", isOn: $filter.excludesApproved)
                 } footer: {
                     Text("The patent horizon is an estimate from public dates, not a freedom-to-operate opinion.")
                 }

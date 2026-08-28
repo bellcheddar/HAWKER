@@ -67,7 +67,11 @@ public struct PostMortemView: View {
                 HStack(spacing: 6) {
                     CauseBadge(asset.cause, confidence: asset.verdict.confidence)
                     if let phase = asset.phaseReached { Chip(text: phase.label, colour: Palette.accent) }
-                    if asset.withdrawnFlag { Chip(text: "Withdrawn", colour: Palette.hazard, symbol: "xmark.octagon") }
+                    if asset.withdrawnFlag {
+                        Chip(text: "Withdrawn", colour: Palette.hazard, symbol: "xmark.octagon")
+                    } else if let approved = asset.firstApproval {
+                        Chip(text: "Approved \(approved)", colour: Palette.tealDeath, symbol: "checkmark.seal")
+                    }
                     if let year = asset.yearOfDeath { Chip(text: "Died \(year)", colour: Palette.slate, symbol: "calendar") }
                 }
             }

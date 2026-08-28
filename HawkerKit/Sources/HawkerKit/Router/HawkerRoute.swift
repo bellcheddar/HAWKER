@@ -44,6 +44,7 @@ public enum HawkerRoute: Hashable, Codable, Sendable {
                 case "family": filter.families = Set((item.value ?? "").split(separator: ",").compactMap { TargetFamily(rawValue: String($0)) })
                 case "structure": filter.requiresStructure = (item.value == "1" || item.value == "true")
                 case "fto": filter.requiresLapsedFTO = (item.value == "1" || item.value == "true")
+                case "unapproved": filter.excludesApproved = (item.value == "1" || item.value == "true")
                 case "q": filter.query = item.value ?? ""
                 default: break
                 }
@@ -75,6 +76,9 @@ public struct StallFilter: Hashable, Codable, Sendable {
     public var families: Set<TargetFamily> = []
     public var requiresStructure = false
     public var requiresLapsedFTO = false
+    /// "Never approved" is the obvious question once approved drugs with a terminated
+    /// trial start appearing in the list, and they legitimately do.
+    public var excludesApproved = false
     public var query: String = ""
     public var sort: StallSort = .ghostRank
 
@@ -86,7 +90,7 @@ public struct StallFilter: Hashable, Codable, Sendable {
 
     public var isActive: Bool {
         !causes.isEmpty || !phases.isEmpty || !families.isEmpty
-            || requiresStructure || requiresLapsedFTO || !query.isEmpty
+            || requiresStructure || requiresLapsedFTO || excludesApproved || !query.isEmpty
     }
 
     public func matches(_ asset: Asset) -> Bool {
@@ -99,6 +103,7 @@ public struct StallFilter: Hashable, Codable, Sendable {
         }
         if requiresStructure, !asset.hasCoCrystal { return false }
         if requiresLapsedFTO, !asset.ftoLapsedEstimate { return false }
+        if excludesApproved, asset.firstApproval != nil { return false }
         return true
     }
 
@@ -112,6 +117,7 @@ public struct StallFilter: Hashable, Codable, Sendable {
         if !families.isEmpty { items.append(.init(name: "family", value: families.map(\.rawValue).sorted().joined(separator: ","))) }
         if requiresStructure { items.append(.init(name: "structure", value: "1")) }
         if requiresLapsedFTO { items.append(.init(name: "fto", value: "1")) }
+        if excludesApproved { items.append(.init(name: "unapproved", value: "1")) }
         if !query.isEmpty { items.append(.init(name: "q", value: query)) }
         components.queryItems = items.isEmpty ? nil : items
         return components.url
@@ -126,6 +132,7 @@ public struct StallFilter: Hashable, Codable, Sendable {
         if !families.isEmpty { parts.append(families.map(\.label).sorted().joined(separator: ", ")) }
         if requiresStructure { parts.append("with a co-crystal") }
         if requiresLapsedFTO { parts.append("estimated horizon passed") }
+        if excludesApproved { parts.append("never approved") }
         return parts.isEmpty ? "All dead assets" : parts.joined(separator: " · ")
     }
 }

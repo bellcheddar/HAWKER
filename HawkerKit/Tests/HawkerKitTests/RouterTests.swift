@@ -37,6 +37,7 @@ struct RouterTests {
         filter.families = [.kinase]
         filter.requiresStructure = true
         filter.requiresLapsedFTO = true
+        filter.excludesApproved = true
         filter.query = "kinase"
 
         let url = try #require(HawkerRoute.stallFiltered(filter).url)
@@ -50,6 +51,7 @@ struct RouterTests {
         #expect(restored.families == filter.families)
         #expect(restored.requiresStructure)
         #expect(restored.requiresLapsedFTO)
+        #expect(restored.excludesApproved)
         #expect(restored.query == "kinase")
     }
 
